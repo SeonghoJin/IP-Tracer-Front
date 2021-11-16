@@ -1,17 +1,18 @@
 import React from 'react';
+import styled from "styled-components";
+import {Main} from "./pages/main";
+
+const MainPageLayout = styled.div`
+  width: 100vw;
+  height: 100vh;
+`
 
 function App() {
   return (
     <div className="App">
-      <nav>
-        Nav
-      </nav>
-      <form>
-        <input type={"search"}/>
-      </form>
-      <footer>
-        Footer
-      </footer>
+        <MainPageLayout>
+            <Main/>
+        </MainPageLayout>
     </div>
   );
 }
