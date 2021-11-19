@@ -1,0 +1,5 @@
+.SearchWrapper.active {
+    width: 350px;
+    transform: translate(50px,-127px);
+    transition: 1s;
+}

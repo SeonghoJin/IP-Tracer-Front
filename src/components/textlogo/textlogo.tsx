@@ -1,5 +1,6 @@
 import {FC} from "react";
 import styled from "styled-components";
+import "./textlogo.css";
 
 const TextLogoWrapper = styled.div`
   width: 180px;
@@ -10,17 +11,16 @@ const TextLogoWrapper = styled.div`
   font-style: italic;
 `
 
-const IPWrapper = styled.span`
-  position: relative;
-  bottom: 30px;
-  left: 16px;
-`
+type TextLogoProps = {
+    searchingFlag: boolean;
+}
 
-export const TextLogo : FC = () => {
-    return (<TextLogoWrapper>
-        <IPWrapper>
+
+export const TextLogo : FC<TextLogoProps> = ({searchingFlag}) => {
+    return (<TextLogoWrapper className={`TextLogo ${searchingFlag && 'active'}`}>
+        <span className={`ip-wrapper ${searchingFlag && 'active'}`}>
             IP
-        </IPWrapper>
+        </span>
         <span>
             Tracer
         </span>

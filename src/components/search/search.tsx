@@ -1,6 +1,7 @@
 import {ChangeEventHandler, FC, KeyboardEventHandler, useCallback, useEffect, useRef, useState} from "react";
 import styled from "styled-components";
-import {config} from "../config";
+import {config} from "../../config";
+import "./search.css";
 
 const SearchWrapper = styled.div`
   width: 560px;
@@ -18,9 +19,12 @@ const Input = styled.input`
   padding-left: 20px;
   padding-right: 20px;
 `
+type SearchProps = {
+    setSearchingFlag: (flag : boolean) => void;
+    searchFlag: boolean;
+}
 
-
-export const Search: FC = () => {
+export const Search: FC<SearchProps> = ({setSearchingFlag, searchFlag}) => {
 
     const [search, setSearch] = useState<string>("");
     const socketRef = useRef<null | WebSocket>(null);
@@ -50,11 +54,13 @@ export const Search: FC = () => {
     }, []);
 
     const onKeyPress : KeyboardEventHandler = useCallback((event) => {
+        if(search.trim() === "")return;
         if(event.key !== 'Enter'){
             return;
         }
         onConnectSocket(search);
         setSearch("");
+        setSearchingFlag(true);
     }, [onConnectSocket, search]);
 
 
@@ -63,16 +69,17 @@ export const Search: FC = () => {
         setSearch((event.target as HTMLInputElement).value);
     }, [])
 
-    return <SearchView onKeyPress={onKeyPress} value={search} onChangeSearch={onChangeSearch}/>
+    return <SearchView onKeyPress={onKeyPress} value={search} onChangeSearch={onChangeSearch} searchFlag={searchFlag}/>
 }
 
 type SearchViewProps = {
     onKeyPress: KeyboardEventHandler;
     value: string;
-    onChangeSearch: ChangeEventHandler
+    onChangeSearch: ChangeEventHandler;
+    searchFlag: boolean;
 }
 
-export const SearchView: FC<SearchViewProps> = ({onKeyPress, value, onChangeSearch}) => {
+export const SearchView: FC<SearchViewProps> = ({onKeyPress, value, onChangeSearch, searchFlag}) => {
 
     const ref = useRef<null | HTMLInputElement>(null);
 
@@ -80,7 +87,7 @@ export const SearchView: FC<SearchViewProps> = ({onKeyPress, value, onChangeSear
         ref.current?.focus();
     }, []);
 
-    return (<SearchWrapper>
+    return (<SearchWrapper className={`SearchWrapper ${searchFlag && 'active'}`}>
         <Input type="text"
                placeholder={"궁금한 도메인을 입력하세요. ex. naver.com"}
                onChange={onChangeSearch}

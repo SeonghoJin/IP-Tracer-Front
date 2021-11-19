@@ -3,9 +3,9 @@ import styled from "styled-components";
 import {MainBackgroundColor} from "../components/css";
 import {Footer} from "../components/footer";
 import {Navigation} from "../components/nav";
-import {Search} from "../components/search";
-import {TextLogo} from "../components/textlogo";
-import {Content} from "../components/content";
+import {Search} from "../components/search/search";
+import {TextLogo} from "../components/textlogo/textlogo";
+import {Content} from "../components/content/content";
 
 const MainWrapper = styled.div`
   width: 100%;
