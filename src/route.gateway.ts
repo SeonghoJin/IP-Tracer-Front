@@ -1,12 +1,17 @@
 import {
   ConnectedSocket,
   MessageBody,
+  OnGatewayConnection,
+  OnGatewayDisconnect,
   SubscribeMessage,
   WebSocketGateway,
 } from '@nestjs/websockets';
 import { iptrace } from 'ip-trace';
 import { WebSocket } from 'ws';
+import { Logger, UseInterceptors } from '@nestjs/common';
+import { LogInterceptor } from './log.interceptor';
 
+@UseInterceptors(LogInterceptor)
 @WebSocketGateway()
 export class RouteGateway {
   @SubscribeMessage('requestFindDomain')
