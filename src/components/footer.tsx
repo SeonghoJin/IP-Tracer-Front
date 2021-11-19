@@ -12,6 +12,11 @@ const FooterWrapper = styled.div`
 `
 
 export const Footer: FC = () => {
+
+    return <FooterView></FooterView>
+}
+
+export const FooterView: FC = () => {
     return (<FooterWrapper>
         <SpanGroup>
             <Span>

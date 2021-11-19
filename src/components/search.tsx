@@ -31,7 +31,12 @@ export const Search: FC = () => {
 
         if(socketRef.current != null){
             socketRef.current.onopen = () => {
-                socketRef.current?.send(value);
+                socketRef.current?.send(JSON.stringify({
+                    event: "requestFindDomain",
+                    data: {
+                        domain: value
+                    },
+                }));
                 console.log("open");
             }
             socketRef.current.onclose = () => {
@@ -42,7 +47,7 @@ export const Search: FC = () => {
             }
         }
 
-    }, [])
+    }, []);
 
     const onKeyPress : KeyboardEventHandler = useCallback((event) => {
         if(event.key !== 'Enter'){
@@ -61,13 +66,13 @@ export const Search: FC = () => {
     return <SearchView onKeyPress={onKeyPress} value={search} onChangeSearch={onChangeSearch}/>
 }
 
-type SearchProps = {
+type SearchViewProps = {
     onKeyPress: KeyboardEventHandler;
     value: string;
     onChangeSearch: ChangeEventHandler
 }
 
-export const SearchView: FC<SearchProps> = ({onKeyPress, value, onChangeSearch}) => {
+export const SearchView: FC<SearchViewProps> = ({onKeyPress, value, onChangeSearch}) => {
 
     const ref = useRef<null | HTMLInputElement>(null);
 
