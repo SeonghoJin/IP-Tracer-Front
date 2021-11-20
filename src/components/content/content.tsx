@@ -4,6 +4,7 @@ import {TextLogo} from "../textlogo/textlogo";
 import styled from "styled-components";
 import {Description} from "../description/description";
 import "./content.css";
+import { RouteData } from "../routedata/routeData";
 
 const ContentWrapper = styled.div`
   height: 100%;
@@ -29,18 +30,14 @@ export const Content: FC = () => {
 
     const [searchingFlag, setSearchingFlag] = useState<boolean>(false);
 
-    return <ContentWrapper className={`ContentWrapper ${searchingFlag && "active"}`}>
-        <ContentGroupWrapper>
+    return <ContentWrapper>
+        <ContentGroupWrapper className={`ContentWrapper ${searchingFlag && 'active'}`}>
             <TextLogo searchingFlag={searchingFlag}/>
             <Description searchingFlag={searchingFlag}/>
             <SearchLayout>
                 <Search setSearchingFlag={setSearchingFlag} searchFlag={searchingFlag}/>
             </SearchLayout>
-            <div style={{
-                width: '500px',
-                height: '400px',
-            }}>
-            </div>
         </ContentGroupWrapper>
+        <RouteData searchingFlag={searchingFlag}/>
     </ContentWrapper>
 }

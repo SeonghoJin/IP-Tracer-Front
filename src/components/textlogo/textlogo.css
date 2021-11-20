@@ -1,5 +1,5 @@
 .TextLogo.active {
-    transform: translateX(-200px) scale(0.7, 0.7);
+    transform: translateX(-180px) scale(0.7, 0.7);
     transition: transform 1s;
 }
 

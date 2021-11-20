@@ -1,7 +1,6 @@
-import {FC, useEffect, useState} from "react";
+import {FC} from "react";
 import styled from "styled-components";
 import "./description.css"
-import {sleep} from "../../util/util";
 
 const DescriptionWrapper = styled.div`
     font-size: 14px;
