@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/IP-Tracer-Front/static/css/main.2129f57c.chunk.css",
+    "main.js": "/IP-Tracer-Front/static/js/main.62be9185.chunk.js",
+    "main.js.map": "/IP-Tracer-Front/static/js/main.62be9185.chunk.js.map",
+    "runtime-main.js": "/IP-Tracer-Front/static/js/runtime-main.1f995daf.js",
+    "runtime-main.js.map": "/IP-Tracer-Front/static/js/runtime-main.1f995daf.js.map",
+    "static/js/2.bea542d9.chunk.js": "/IP-Tracer-Front/static/js/2.bea542d9.chunk.js",
+    "static/js/2.bea542d9.chunk.js.map": "/IP-Tracer-Front/static/js/2.bea542d9.chunk.js.map",
+    "static/js/3.ba3ed7d7.chunk.js": "/IP-Tracer-Front/static/js/3.ba3ed7d7.chunk.js",
+    "static/js/3.ba3ed7d7.chunk.js.map": "/IP-Tracer-Front/static/js/3.ba3ed7d7.chunk.js.map",
+    "index.html": "/IP-Tracer-Front/index.html",
+    "static/css/main.2129f57c.chunk.css.map": "/IP-Tracer-Front/static/css/main.2129f57c.chunk.css.map",
+    "static/js/2.bea542d9.chunk.js.LICENSE.txt": "/IP-Tracer-Front/static/js/2.bea542d9.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.1f995daf.js",
+    "static/js/2.bea542d9.chunk.js",
+    "static/css/main.2129f57c.chunk.css",
+    "static/js/main.62be9185.chunk.js"
+  ]
+}
