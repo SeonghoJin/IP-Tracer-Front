@@ -1,0 +1,13 @@
+#RawDataViewWrapper {
+    width: 100%;
+    height : 100%;
+    overflow-y: auto;
+    padding: 20px;
+    box-sizing: border-box;
+    background-color: #4A4F5A;
+    -ms-overflow-style: none;
+}
+
+#RawDataViewWrapper::-webkit-scrollbar{
+    display: none;
+}
