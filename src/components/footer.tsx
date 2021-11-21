@@ -1,8 +1,9 @@
-import {FC} from "react";
+import {EventHandler, FC, MouseEventHandler, useCallback, useEffect, useRef, useState} from "react";
 import styled from "styled-components";
 import {MainBackgroundColor} from "./css";
-import {SpanGroup, Span} from "./styled";
+import {Group} from "./styled";
 import GithubIcon from '../static/images/GitHub-Mark-Light-32px.png'
+import {Modal} from "../util/modal";
 
 const FooterWrapper = styled.div`
   width: 100%;
@@ -13,21 +14,62 @@ const FooterWrapper = styled.div`
 `
 
 export const Footer: FC = () => {
+    const [opinionModalFlag, setOpinionModalFlag] = useState<boolean>(false);
 
-    return <FooterView></FooterView>
+    const onToggleOpinionModal : MouseEventHandler = useCallback((e) => {
+        setOpinionModalFlag((prev) => !prev);
+    }, [])
+
+    const onSuccess = useCallback((value) => {
+        setOpinionModalFlag((prev) => !prev);
+    }, [])
+
+    return <FooterView onToggleOpinionModal={onToggleOpinionModal} opinionModalFlag={opinionModalFlag} onSuccess={onSuccess}/>
 }
 
-export const FooterView: FC = () => {
+type FooterViewProps = {
+    onToggleOpinionModal : EventHandler<any>
+    opinionModalFlag : boolean;
+    onSuccess: (value: string) => void;
+}
+
+const Button = styled.button`
+  color: white;
+  font-size: 14px;
+`
+
+const OpinionTextArea = styled.textarea`
+    width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  padding: 20px;
+  font-size: 14px;
+  border: 0;
+  font-weight: bold;
+`
+
+export const FooterView: FC<FooterViewProps> = ({onToggleOpinionModal, opinionModalFlag, onSuccess}) => {
+    const ref = useRef<HTMLTextAreaElement | null>(null);
+
+    useEffect(() => {
+        ref.current?.focus();
+    }, [])
+
     return (<FooterWrapper>
-        <SpanGroup>
-            <Span>
+        <Group>
+            <Button onClick={onToggleOpinionModal}>
                 의견 보내기
-            </Span>
-        </SpanGroup>
-        <SpanGroup>
+            </Button>
+        </Group>
+        <Modal active={opinionModalFlag} header={"의견 보내기"} onSuccess={() => {
+            onSuccess(ref.current?.value || "");
+        }} onClose={onToggleOpinionModal}>
+            <OpinionTextArea ref={ref}/>
+        </Modal>
+        <Group>
             <a href={"https://github.com/SeonghoJin"} target={"_blank"}>
                 <img src={GithubIcon}/>
             </a>
-        </SpanGroup>
+        </Group>
     </FooterWrapper>)
 }
