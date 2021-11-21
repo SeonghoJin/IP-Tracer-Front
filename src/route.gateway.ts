@@ -13,7 +13,13 @@ import { LogInterceptor } from './log.interceptor';
 
 @UseInterceptors(LogInterceptor)
 @WebSocketGateway()
-export class RouteGateway {
+export class RouteGateway implements OnGatewayConnection, OnGatewayDisconnect {
+  handleDisconnect(client: any) {
+    console.debug('someone disconnect');
+  }
+  handleConnection(client: any, ...args: any[]) {
+    console.debug('someone connect');
+  }
   @SubscribeMessage('requestFindDomain')
   handleFindDomain(
     @ConnectedSocket() client: WebSocket,
@@ -25,9 +31,7 @@ export class RouteGateway {
         client.send(
           JSON.stringify({
             event: 'hop',
-            data: {
-              hop,
-            },
+            data: hop,
           }),
         );
       })
@@ -35,29 +39,18 @@ export class RouteGateway {
         client.send(
           JSON.stringify({
             event: 'findDestination',
-            data: {
-              destination,
-            },
+            data: destination,
           }),
         );
       })
       .onClose((msg) => {
-        client.send(
-          JSON.stringify({
-            event: 'close',
-            data: {
-              msg,
-            },
-          }),
-        );
+        client.close();
       })
       .onError((error) => {
         client.send(
           JSON.stringify({
             event: 'error',
-            data: {
-              error,
-            },
+            data: error,
           }),
         );
       })
@@ -65,9 +58,7 @@ export class RouteGateway {
         client.send(
           JSON.stringify({
             event: 'destination',
-            data: {
-              destination,
-            },
+            data: destination,
           }),
         );
       })
@@ -75,9 +66,7 @@ export class RouteGateway {
         client.send(
           JSON.stringify({
             event: 'rawMessage',
-            data: {
-              rawMessage,
-            },
+            data: rawMessage,
           }),
         );
       })
