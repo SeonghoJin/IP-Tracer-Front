@@ -1,4 +1,7 @@
+.ContentWrapper {
+    transition: 1s;
+}
+
 .ContentWrapper.active {
     transform: translateY(-200px);
-    transition: 1s;
 }

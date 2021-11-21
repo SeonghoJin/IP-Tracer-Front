@@ -38,6 +38,6 @@ export const Content: FC = () => {
                 <Search setSearchingFlag={setSearchingFlag} searchFlag={searchingFlag}/>
             </SearchLayout>
         </ContentGroupWrapper>
-        <RouteData searchingFlag={searchingFlag}/>
+        <RouteData searchingFlag={searchingFlag} setSearchingFlag={setSearchingFlag}/>
     </ContentWrapper>
 }

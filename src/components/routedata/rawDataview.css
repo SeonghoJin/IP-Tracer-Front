@@ -6,6 +6,8 @@
     box-sizing: border-box;
     background-color: #4A4F5A;
     -ms-overflow-style: none;
+    display: flex;
+    flex-direction: column;
 }
 
 #RawDataViewWrapper::-webkit-scrollbar{

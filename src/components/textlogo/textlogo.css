@@ -1,6 +1,9 @@
+.TextLogo{
+    transition: transform 1s;
+}
+
 .TextLogo.active {
     transform: translateX(-180px) scale(0.7, 0.7);
-    transition: transform 1s;
 }
 
 .TextLogo .ip-wrapper {

@@ -1,4 +1,7 @@
+.Description{
+    transition: opacity 0.5s;
+}
+
 .Description.active {
     opacity: 0;
-    transition: opacity 0.5s;
 }
