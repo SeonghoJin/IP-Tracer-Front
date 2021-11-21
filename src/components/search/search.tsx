@@ -6,6 +6,9 @@ import {useHop} from "../../domain/sockethooks/hop.hook";
 import {RouteSocketReceiveEvent, RouteSocketSendEvent} from "../../domain/socketEvents";
 import {isMessage, Message} from "../../core/socket/interfaces";
 import {useRawMessage} from "../../domain/sockethooks/rawMessage.hook";
+import {SocketStatus} from "../../core/socket/status";
+import {useSocketStatus} from "../../hooks/routeSocketStatus.hook";
+import {useSocket} from "../../hooks/socket.hook";
 
 const SearchWrapper = styled.div`
   width: 560px;
@@ -31,46 +34,7 @@ type SearchProps = {
 export const Search: FC<SearchProps> = ({setSearchingFlag, searchFlag}) => {
 
     const [search, setSearch] = useState<string>("");
-    const { setHop } = useHop();
-    const { setRawMessage } = useRawMessage();
-    const socketRef = useRef<null | WebSocket>(null);
-
-    const onConnectSocket = useCallback((value: string) => {
-        socketRef.current?.close();
-        socketRef.current = new WebSocket(`${config.SOCKET_URL}`);
-
-        if(socketRef.current != null){
-            socketRef.current.onopen = () => {
-                socketRef.current?.send(JSON.stringify({
-                    event: RouteSocketSendEvent.requestFindDomain,
-                    data: {
-                        domain: value
-                    },
-                }));
-                console.log("open");
-            }
-            socketRef.current.onclose = () => {
-                console.log("close");
-            }
-            socketRef.current.onmessage = (msg : MessageEvent) => {
-                const parseData = JSON.parse(msg.data);
-                if(!isMessage(parseData)){
-                    throw new Error("is not Message Type");
-                }
-
-                const message : Message<any> = parseData;
-                const {event, data} = message;
-                if(event === RouteSocketReceiveEvent.hop){
-                    setHop(data);
-                }
-                if(event === RouteSocketReceiveEvent.rawMessage){
-                    setRawMessage(data);
-                }
-
-            }
-        }
-
-    }, [setHop, setRawMessage]);
+    const {onConnectSocket} = useSocket();
 
     const onKeyPress : KeyboardEventHandler = useCallback((event) => {
         if(search.trim() === "")return;

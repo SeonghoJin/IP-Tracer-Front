@@ -24,16 +24,16 @@
     justify-content: space-between;
 }
 
-.RouteDataViewWrapper header .button-group {
+.RouteDataViewWrapper header .group {
     height: 100%;
     display: flex;
 }
 
-.RouteDataViewWrapper header .button-group button:hover {
+.RouteDataViewWrapper header .group button:hover {
     background-color: #d3d3d3;
 }
 
-.RouteDataViewWrapper header .button-group button.active {
+.RouteDataViewWrapper header .group button.active {
     background-color: #d3d3d3;
 }
 

@@ -1,7 +1,7 @@
 import {atom, useRecoilState} from "recoil";
 import {isRawMessage, RawMessageDto} from "../dto/rawMessage.dto";
 import {useCallback} from "react";
-import {useRawMessages} from "../../hooks/rawMessages.hooks";
+import {useRawMessages} from "../../hooks/rawMessages.hook";
 
 type RawMessageStateType = RawMessageDto | null;
 
