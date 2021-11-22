@@ -43,7 +43,6 @@ export const RawDataView = () => {
             return;
         }
         if(key !== 'Enter')return;
-
         const parsedCommand = command.split(' ');
         if(command === 'IPTracer clear' || command === 'clear'){
             setRawMessages([]);
