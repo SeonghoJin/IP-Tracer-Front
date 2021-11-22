@@ -9,7 +9,7 @@ import {
 import { iptrace } from 'ip-trace';
 import { WebSocket } from 'ws';
 import { Logger, UseInterceptors } from '@nestjs/common';
-import { LogInterceptor } from './log.interceptor';
+import { LogInterceptor } from '../interceptor/log.interceptor';
 
 @UseInterceptors(LogInterceptor)
 @WebSocketGateway()

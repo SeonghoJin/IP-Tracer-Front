@@ -1,5 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { RouteGateway } from '../src/route.gateway';
+import { RouteGateway } from '../src/gateway/route.gateway';
 
 describe('RouteGateway', () => {
   let gateway: RouteGateway;
