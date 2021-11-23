@@ -1,10 +1,10 @@
 export type Config = {
-    API_URL : string;
+    API_PREFIX : string;
     SOCKET_URL : string;
     NODE_ENV: string;
 }
 
-if (process.env.REACT_APP_API_URL === undefined || process.env.NODE_ENV === undefined || process.env.REACT_APP_SOCKET_URL === undefined) {
+if (process.env.REACT_APP_API_PREFIX === undefined || process.env.NODE_ENV === undefined || process.env.REACT_APP_SOCKET_URL === undefined) {
     throw new Error(
         "⚠️  Couldn't find .env  ⚠️\n" +
         'If you run the npm run build script, you must write the .env file.\n' +
@@ -16,5 +16,5 @@ if (process.env.REACT_APP_API_URL === undefined || process.env.NODE_ENV === unde
 export const config : Config = {
     NODE_ENV: process.env.NODE_ENV,
     SOCKET_URL: process.env.REACT_APP_SOCKET_URL,
-    API_URL: process.env.REACT_APP_API_URL
+    API_PREFIX: process.env.REACT_APP_API_PREFIX
 }

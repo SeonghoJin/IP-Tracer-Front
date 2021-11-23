@@ -4,6 +4,7 @@ import {MainBackgroundColor} from "./css";
 import {Group} from "./styled";
 import GithubIcon from '../static/images/GitHub-Mark-Light-32px.png'
 import {Modal} from "../util/modal";
+import {apiService} from "../api";
 
 const FooterWrapper = styled.div`
   width: 100%;
@@ -20,8 +21,11 @@ export const Footer: FC = () => {
         setOpinionModalFlag((prev) => !prev);
     }, [])
 
-    const onSuccess = useCallback((value) => {
+    const onSuccess = useCallback(async (value) => {
         setOpinionModalFlag((prev) => !prev);
+        if(value !== ""){
+            await apiService.sendFeedback(value);
+        }
     }, [])
 
     return <FooterView onToggleOpinionModal={onToggleOpinionModal} opinionModalFlag={opinionModalFlag} onSuccess={onSuccess}/>
