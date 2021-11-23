@@ -12,8 +12,10 @@
    4. WebSocket이 끊어지면 client 소켓 삭제
 
 # To Do
-- [ ] WebSocket 요청처리
+- [x] WebSocket 요청처리
   - ip-trace로 hop마다 데이터 전송
   - close시 데이터 전송, socket close
   - error가 생길경우 socket close
-  
+- [ ] 사용자가 피드백 전송시 내 이메일로 전송
+   - [ ] 이메일모듈을 이 프로젝트에서 추출하고 nest모듈로 만들어 npm으로 배포
+   - [ ] 이메일 모듈 확장
