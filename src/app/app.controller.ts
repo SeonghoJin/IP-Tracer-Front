@@ -6,12 +6,8 @@ export class AppController {
   constructor(private readonly appService: AppService) {}
 
   @Post('/user-feedback')
-  postUserFeedback(@Body('feedback') feedback): void {
-    this.appService.processUserFeedback();
-  }
-
-  @Get()
-  test(): void {
-    this.appService.test();
+  async postUserFeedback(@Body('feedback') feedback) {
+    const response = await this.appService.processUserFeedback(feedback);
+    return response;
   }
 }

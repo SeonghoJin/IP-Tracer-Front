@@ -1,5 +1,3 @@
-import { ModuleMetadata } from '@nestjs/common';
-
 export type EmailOptions = {
   host: string;
   port: number;
@@ -7,6 +5,7 @@ export type EmailOptions = {
     user: string;
     pass: string;
   };
+  service: string;
 };
 
 export interface EmailAsyncOptions {

@@ -1,11 +1,5 @@
-import { Global, Injectable } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
+import { registerAs } from '@nestjs/config';
 
-@Injectable()
-export class AppConfig {
-  constructor(private readonly configService: ConfigService) {}
-
-  get port(): string {
-    return this.configService.get<string>('PORT');
-  }
-}
+export const appConfig = registerAs('app', () => ({
+  port: process.env.PORT,
+}));

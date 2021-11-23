@@ -1,23 +1,27 @@
-import { Global, Module } from '@nestjs/common';
+import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { RouteGateway } from '../gateway/route.gateway';
-import { ConfigModule, ConfigService } from '@nestjs/config';
+import { ConfigModule, ConfigService, ConfigType } from '@nestjs/config';
 import * as Joi from 'joi';
-import { AppConfig } from '../config/app.config';
 import { EmailModule } from '../modules/email/email.module';
+import { appConfig } from '../config/app.config';
+import { emailConfig } from '../config/email.config';
 
 @Module({
   imports: [
     EmailModule.forRootAsync({
-      useFactory: (appConfig: AppConfig) => {
+      useFactory: (configService: ConfigService) => {
+        const config =
+          configService.get<ConfigType<typeof emailConfig>>('email');
         return {
-          port: 3,
-          host: 'asd',
+          port: config.port,
+          host: config.host,
           auth: {
-            pass: 'asd',
-            user: 'asd',
+            pass: config.password,
+            user: config.user,
           },
+          service: config.service,
         };
       },
       inject: [ConfigService],
@@ -27,12 +31,13 @@ import { EmailModule } from '../modules/email/email.module';
         NODE_ENV: Joi.string()
           .valid('development', 'production')
           .default('development'),
-        PORT: Joi.number().default(8080),
+        PORT: Joi.number().default(5000),
       }),
       isGlobal: true,
+      load: [appConfig, emailConfig],
     }),
   ],
   controllers: [AppController],
-  providers: [AppService, RouteGateway, AppConfig],
+  providers: [AppService, RouteGateway],
 })
 export class AppModule {}

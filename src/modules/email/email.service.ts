@@ -1,6 +1,7 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { Transporter } from 'nodemailer';
 import { constants } from './constants';
+import e from 'express';
 
 @Injectable()
 export class EmailService {
@@ -8,7 +9,14 @@ export class EmailService {
     @Inject(constants.Transporter) private transporter: Transporter,
   ) {}
 
-  start() {
-    console.log('Hello');
+  async send(from: string, to: string, subject: string, text: string) {
+    const response = await this.transporter.sendMail({
+      subject,
+      text,
+      to,
+      from,
+    });
+
+    return response;
   }
 }

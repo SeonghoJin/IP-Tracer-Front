@@ -5,9 +5,14 @@ import { EmailService } from '../modules/email/email.service';
 export class AppService {
   constructor(private readonly emailService: EmailService) {}
 
-  processUserFeedback(): void {}
+  async processUserFeedback(feedback: string) {
+    const response = await this.emailService.send(
+      'seongho4996@naver.com',
+      'seongho4996@naver.com',
+      'IP-Tracer-User-Feedback',
+      feedback,
+    );
 
-  test(): void {
-    this.emailService.start();
+    return response;
   }
 }
