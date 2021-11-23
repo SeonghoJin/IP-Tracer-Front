@@ -8,21 +8,14 @@ const handlerFactory = <T extends object>(prefix : string) => {
     } as ProxyHandler<T>
 }
 
-
-const API_URI_1 = (APP_SERVER_PREFIX: string) => {
-    const apis = {
-        postFeedback: '/user-feedback',
-    }
-    return new Proxy(apis, handlerFactory<typeof apis>(APP_SERVER_PREFIX));
-}
-
-const API_URI_2 = (APP_SERVER_PREFIX: string) => {
-    return {
-        temp: (str: string) => str
-    }
+const apiFactory = <T extends object>(prefix: string) => (apis: T) => {
+    return new Proxy(apis, handlerFactory<typeof apis>(prefix));
 }
 
 export const api = {
-    ...API_URI_1(config.API_PREFIX),
-    ...API_URI_2(config.API_PREFIX),
+    ...apiFactory<{
+        postFeedback: string
+    }>(config.API_PREFIX)({
+        postFeedback: '/user-feedback',
+    }),
 }

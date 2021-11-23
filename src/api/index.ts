@@ -11,12 +11,11 @@ class ApiService {
             return response.data;
         },
         (error) => {
-            console.log(error);
+            console.error(error);
         });
     }
 
     async sendFeedback(feedback: string) {
-        console.log(feedback);
         return await this.axiosInstance.post(api.postFeedback, {
             feedback,
         });
