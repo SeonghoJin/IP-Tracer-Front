@@ -7,6 +7,8 @@ import * as Joi from 'joi';
 import { EmailModule } from '../modules/email/email.module';
 import { appConfig } from '../config/app.config';
 import { emailConfig } from '../config/email.config';
+import { BullModule } from '@nestjs/bull';
+import { redisConfig } from '../config/redis.config';
 
 @Module({
   imports: [
@@ -34,7 +36,20 @@ import { emailConfig } from '../config/email.config';
         PORT: Joi.number().default(5000),
       }),
       isGlobal: true,
-      load: [appConfig, emailConfig],
+      load: [appConfig, emailConfig, redisConfig],
+    }),
+    BullModule.forRootAsync({
+      useFactory: (configService: ConfigService) => {
+        const config =
+          configService.get<ConfigType<typeof redisConfig>>('redis');
+        return {
+          redis: {
+            port: config.port,
+            host: config.host,
+          },
+        };
+      },
+      inject: [ConfigService],
     }),
   ],
   controllers: [AppController],
