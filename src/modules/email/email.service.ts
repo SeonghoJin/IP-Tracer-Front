@@ -1,7 +1,6 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { Transporter } from 'nodemailer';
 import { constants } from './constants';
-import e from 'express';
 
 @Injectable()
 export class EmailService {
