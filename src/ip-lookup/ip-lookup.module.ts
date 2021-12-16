@@ -7,7 +7,7 @@ import { IpLookupProducers } from './ip-lookup-producers';
 @Module({
   imports: [
     BullModule.registerQueue({
-      name: constants.ipLookup,
+      name: constants.IP_LOOK_UP,
     }),
   ],
   providers: [IpLookupHandler, IpLookupProducers],

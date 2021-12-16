@@ -1,3 +1,3 @@
 export const constants = {
-  ipLookup: 'ipLookup',
-};
+  IP_LOOK_UP: 'ipLookup',
+} as const;
