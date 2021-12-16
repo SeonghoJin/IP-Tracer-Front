@@ -11,7 +11,7 @@ EMAIL_PASSWORD=
 # IP_STACK_API(https://ipstack.com/)
 IP_STACK_API_KEY=
 
-# IP_API(https://ip-api.com/)
+# IP_API(https://ipapi.com/)
 IP_API_KEY=
 
 # WHOIS_API(https://xn--c79as89aj0e29b77z.xn--3e0b707e/kor/whois/whois.jsp)
@@ -20,5 +20,12 @@ WHOIS_API_KEY=
 # Redis
 REDIS_PORT=
 REDIS_HOST=
+
+# Mysql
+MYSQL_PORT=
+MYSQL_HOST=
+MYSQL_USERNAME=
+MYSQL_PASSWORD=
+MYSQL_DATABASE=
 
 

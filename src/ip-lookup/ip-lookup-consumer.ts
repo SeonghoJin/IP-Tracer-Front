@@ -8,7 +8,6 @@ export class IpLookupHandler {
   @Process()
   async lookup(job: Job<Address4>) {
     const address = job.data;
-    console.log(address);
     return job;
   }
 }
