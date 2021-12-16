@@ -1,3 +1,5 @@
+import { ModuleMetadata } from '@nestjs/common/interfaces';
+
 export type EmailOptions = {
   host: string;
   port: number;
@@ -8,7 +10,7 @@ export type EmailOptions = {
   service: string;
 };
 
-export interface EmailAsyncOptions {
+export interface EmailAsyncOptions extends Pick<ModuleMetadata, 'imports'> {
   useFactory: (...args: any[]) => EmailOptions;
   inject: any[];
 }

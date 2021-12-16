@@ -13,8 +13,6 @@ import { constants } from './constants';
 
 @Module({})
 export class EmailModule {
-  private readonly logger = new Logger('EmailModule');
-
   public static forRoot(options: EmailOptions): DynamicModule {
     const TransporterProvider: ValueProvider<Transporter> = {
       provide: constants.Transporter,
@@ -47,6 +45,7 @@ export class EmailModule {
       module: EmailModule,
       providers: [OptionProvider, TransporterProvider, EmailService],
       exports: [EmailService],
+      imports: options.imports,
     };
   }
 }

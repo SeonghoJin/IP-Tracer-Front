@@ -27,6 +27,7 @@ import { redisConfig } from '../config/redis.config';
         };
       },
       inject: [ConfigService],
+      imports: [ConfigModule],
     }),
     ConfigModule.forRoot({
       validationSchema: Joi.object({
@@ -35,7 +36,6 @@ import { redisConfig } from '../config/redis.config';
           .default('development'),
         PORT: Joi.number().default(5000),
       }),
-      isGlobal: true,
       load: [appConfig, emailConfig, redisConfig],
     }),
     BullModule.forRootAsync({
@@ -50,6 +50,7 @@ import { redisConfig } from '../config/redis.config';
         };
       },
       inject: [ConfigService],
+      imports: [ConfigModule],
     }),
   ],
   controllers: [AppController],
