@@ -4,7 +4,7 @@ import { Job } from 'bull';
 import { Address4 } from 'ip-address';
 
 @Processor(constants.IP_LOOK_UP)
-export class IpLookupHandler {
+export class IpLookupConsumer {
   @Process()
   async lookup(job: Job<Address4>) {
     const address = job.data;

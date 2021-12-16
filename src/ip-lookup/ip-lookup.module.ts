@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
 import { BullModule } from '@nestjs/bull';
 import { constants } from './constants';
-import { IpLookupHandler } from './ip-lookup-handler';
-import { IpLookupProducers } from './ip-lookup-producers';
+import { IpLookupConsumer } from './ip-lookup-consumer';
+import { IpLookupProducer } from './ip-lookup-producer';
 
 @Module({
   imports: [
@@ -10,7 +10,7 @@ import { IpLookupProducers } from './ip-lookup-producers';
       name: constants.IP_LOOK_UP,
     }),
   ],
-  providers: [IpLookupHandler, IpLookupProducers],
-  exports: [IpLookupProducers],
+  providers: [IpLookupConsumer, IpLookupProducer],
+  exports: [IpLookupProducer],
 })
 export class IpLookupModule {}

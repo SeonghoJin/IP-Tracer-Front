@@ -3,7 +3,7 @@ import { constants } from './constants';
 import { Queue } from 'bull';
 import { Address4 } from 'ip-address';
 
-export class IpLookupProducers {
+export class IpLookupProducer {
   constructor(@InjectQueue(constants.IP_LOOK_UP) private lookUpQueue: Queue) {}
 
   async addFindLocationJob(address: Address4) {

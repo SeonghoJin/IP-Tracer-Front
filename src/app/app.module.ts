@@ -9,6 +9,9 @@ import { appConfig } from '../config/app.config';
 import { emailConfig } from '../config/email.config';
 import { BullModule } from '@nestjs/bull';
 import { redisConfig } from '../config/redis.config';
+import { mysqlConfig } from '../config/mysql.config';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { join } from 'path';
 
 @Module({
   imports: [
@@ -36,7 +39,7 @@ import { redisConfig } from '../config/redis.config';
           .default('development'),
         PORT: Joi.number().default(5000),
       }),
-      load: [appConfig, emailConfig, redisConfig],
+      load: [appConfig, emailConfig, redisConfig, mysqlConfig],
     }),
     BullModule.forRootAsync({
       useFactory: (configService: ConfigService) => {
@@ -51,6 +54,24 @@ import { redisConfig } from '../config/redis.config';
       },
       inject: [ConfigService],
       imports: [ConfigModule],
+    }),
+    TypeOrmModule.forRootAsync({
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: (configService: ConfigService) => {
+        const config =
+          configService.get<ConfigType<typeof mysqlConfig>>('mysql');
+        return {
+          type: 'mysql',
+          host: config.host,
+          port: config.port,
+          username: config.username,
+          database: config.database,
+          password: config.password,
+          entities: [join(__dirname, '/**/*.entity.js')],
+          synchronize: true,
+        };
+      },
     }),
   ],
   controllers: [AppController],
