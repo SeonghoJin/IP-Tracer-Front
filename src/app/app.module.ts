@@ -5,20 +5,23 @@ import { RouteGateway } from '../gateway/route.gateway';
 import { ConfigModule, ConfigService, ConfigType } from '@nestjs/config';
 import * as Joi from 'joi';
 import { EmailModule } from '../modules/email/email.module';
-import { appConfig } from '../config/app.config';
-import { emailConfig } from '../config/email.config';
+import { AppConfig } from '../config/appConfig';
+import { EmailConfig } from '../config/emailConfig';
 import { BullModule } from '@nestjs/bull';
-import { redisConfig } from '../config/redis.config';
-import { mysqlConfig } from '../config/mysql.config';
+import { RedisConfig } from '../config/redisConfig';
+import { MysqlConfig } from '../config/mysqlConfig';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { join } from 'path';
+import { IpLocationApiConfig } from '../config/ip-location-api.config';
+import { IpLookupModule } from '../ip-lookup/ip-lookup.module';
+import { FeedBackConfig } from '../config/feedback.config';
 
 @Module({
   imports: [
     EmailModule.forRootAsync({
       useFactory: (configService: ConfigService) => {
         const config =
-          configService.get<ConfigType<typeof emailConfig>>('email');
+          configService.get<ConfigType<typeof EmailConfig>>('email');
         return {
           port: config.port,
           host: config.host,
@@ -39,12 +42,19 @@ import { join } from 'path';
           .default('development'),
         PORT: Joi.number().default(5000),
       }),
-      load: [appConfig, emailConfig, redisConfig, mysqlConfig],
+      load: [
+        AppConfig,
+        EmailConfig,
+        RedisConfig,
+        MysqlConfig,
+        IpLocationApiConfig,
+        FeedBackConfig,
+      ],
     }),
     BullModule.forRootAsync({
       useFactory: (configService: ConfigService) => {
         const config =
-          configService.get<ConfigType<typeof redisConfig>>('redis');
+          configService.get<ConfigType<typeof RedisConfig>>('redis');
         return {
           redis: {
             port: config.port,
@@ -60,7 +70,7 @@ import { join } from 'path';
       inject: [ConfigService],
       useFactory: (configService: ConfigService) => {
         const config =
-          configService.get<ConfigType<typeof mysqlConfig>>('mysql');
+          configService.get<ConfigType<typeof MysqlConfig>>('mysql');
         return {
           type: 'mysql',
           host: config.host,
@@ -68,11 +78,12 @@ import { join } from 'path';
           username: config.username,
           database: config.database,
           password: config.password,
-          entities: [join(__dirname, '/**/*.entity.js')],
+          entities: [join(__dirname, '../**/*.entity.js')],
           synchronize: true,
         };
       },
     }),
+    IpLookupModule,
   ],
   controllers: [AppController],
   providers: [AppService, RouteGateway],

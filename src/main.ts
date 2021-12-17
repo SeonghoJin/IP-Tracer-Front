@@ -1,16 +1,21 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app/app.module';
 import { WsAdapter } from '@nestjs/platform-ws';
-import { ConfigService } from '@nestjs/config';
-import { AppConfig } from './config/app.config';
+import { ConfigService, ConfigType } from '@nestjs/config';
+import { AppConfig } from './config/appConfig';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
     cors: true,
   });
-  const appConfig = app.get(ConfigService).get('app') as AppConfig;
+
+  const config = app
+    .get(ConfigService)
+    .get<ConfigType<typeof AppConfig>>('app');
+
   app.useWebSocketAdapter(new WsAdapter(app));
-  await app.listen(appConfig.port);
+
+  await app.listen(config.port);
 }
 
 bootstrap();
