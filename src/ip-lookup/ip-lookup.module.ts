@@ -5,9 +5,10 @@ import { IpLookupConsumer } from './ip-lookup.consumer';
 import { IpLookupController } from './ip-lookup.controller';
 import { IpLookupService } from './ip-lookup.service';
 import { ConfigModule } from '@nestjs/config';
-import { IpLocationApiConfig } from '../config/ip-location-api.config';
+import { IpLocationApiConfig } from '../config/api/ip-location-api.config';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { IpLocationRepository } from './ipLocation.repository';
+import { IpLocationRepository } from './ip-location.repository';
+import { LookupExternalApiModule } from './lookup-external-api/lookup-external-api.module';
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { IpLocationRepository } from './ipLocation.repository';
     }),
     ConfigModule.forFeature(IpLocationApiConfig),
     TypeOrmModule.forFeature([IpLocationRepository]),
+    LookupExternalApiModule,
   ],
   controllers: [IpLookupController],
   providers: [IpLookupConsumer, IpLookupService],

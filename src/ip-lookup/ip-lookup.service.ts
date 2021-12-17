@@ -2,20 +2,17 @@ import {
   BadRequestException,
   Injectable,
   InternalServerErrorException,
-  NotFoundException,
 } from '@nestjs/common';
-import { IpLocationRepository } from './ipLocation.repository';
-import { IpLocation } from './entities/iplocation.entity';
 import { InjectQueue } from '@nestjs/bull';
 import { event, queue } from './constants';
 import { Queue } from 'bull';
+import { IpLocationResponseDto } from './dto/ip-location.response.dto';
 
 @Injectable()
 export class IpLookupService {
   constructor(
-    private readonly ipLocationRepository: IpLocationRepository,
     @InjectQueue(queue.IP_LOOK_UP)
-    private readonly lookupQueue: Queue<IpLocation | string>,
+    private readonly lookupQueue: Queue<IpLocationResponseDto | string>,
   ) {}
 
   async getLocationByJobId(jobId: string | number) {

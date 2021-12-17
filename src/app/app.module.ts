@@ -12,7 +12,7 @@ import { RedisConfig } from '../config/redisConfig';
 import { MysqlConfig } from '../config/mysqlConfig';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { join } from 'path';
-import { IpLocationApiConfig } from '../config/ip-location-api.config';
+import { IpLocationApiConfig } from '../config/api/ip-location-api.config';
 import { IpLookupModule } from '../ip-lookup/ip-lookup.module';
 import { FeedBackConfig } from '../config/feedback.config';
 

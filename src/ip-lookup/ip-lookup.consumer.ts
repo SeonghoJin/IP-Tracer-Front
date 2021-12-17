@@ -8,13 +8,34 @@ import {
 } from '@nestjs/bull';
 import { event, queue } from './constants';
 import { Job } from 'bull';
-import { IpLocation } from './entities/iplocation.entity';
+import { LookupExternalApiService } from './lookup-external-api/lookup-external-api.service';
+import { IpLocationRepository } from './ip-location.repository';
+import { IpLocationResponseDto } from './dto/ip-location.response.dto';
+import { Logger } from '@nestjs/common';
 
 @Processor(queue.IP_LOOK_UP)
 export class IpLookupConsumer {
+  private readonly logger: Logger = new Logger();
+
+  constructor(
+    private readonly externalApiService: LookupExternalApiService,
+    private readonly ipLocationRepository: IpLocationRepository,
+  ) {}
+
   @Process(event.FIND_LOCATION)
-  async findLocation(job: Job<IpLocation | string>) {
-    return job.id;
+  async findLocation(job: Job<IpLocationResponseDto | string>) {
+    const ip = job.data as string;
+    const ipLocationEntity = await this.ipLocationRepository.findOne({
+      ip,
+    });
+
+    if (ipLocationEntity) {
+      return IpLocationResponseDto.of(ipLocationEntity);
+    }
+
+    const ipLocation = await this.externalApiService.findLocation(ip);
+    this.ipLocationRepository.save(ipLocation.toEntity());
+    return ipLocation;
   }
 
   @OnQueueActive()
@@ -24,7 +45,7 @@ export class IpLookupConsumer {
 
   @OnQueueCompleted()
   async onCompleted(job: Job) {
-    console.log(`Complete ${job.id}`);
+    console.log(`Complete ${job.id} ${job.data}`);
   }
 
   @OnQueueError()

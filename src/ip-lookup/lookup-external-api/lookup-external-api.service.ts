@@ -1,10 +1,13 @@
-import { Inject, Injectable } from '@nestjs/common';
+import {
+  Inject,
+  Injectable,
+  InternalServerErrorException,
+} from '@nestjs/common';
 import { IpLocationApiConfig } from '../../config/api/ip-location-api.config';
 import { ConfigType } from '@nestjs/config';
 import { HttpService } from '@nestjs/axios';
 import { IpGeolocationRespondedDto } from './dto/ipgeolocation.responded.dto';
 import { firstValueFrom, map, Observable } from 'rxjs';
-import { IpApiRespondedDto } from './dto/ipapi.responded.dto';
 import { IpLocationResponseDto } from '../dto/ip-location.response.dto';
 import { IpStackRespondedDto } from './dto/ipstack.responded.dto';
 
@@ -31,9 +34,9 @@ export class LookupExternalApiService {
 
   private *findLocationGenerator() {
     while (true) {
-      yield this.findLocationByIpApi;
-      yield this.findLocationByIpGeolocationApi;
-      yield this.findLocationByIpStackApi;
+      yield this.findLocationByIpApi.bind(this);
+      yield this.findLocationByIpGeolocationApi.bind(this);
+      yield this.findLocationByIpStackApi.bind(this);
     }
 
     return null;
@@ -44,12 +47,15 @@ export class LookupExternalApiService {
     return await firstValueFrom<IpLocationResponseDto>(apiFunction(ip));
   }
 
-  private findLocationByIpApi(ip: string): Observable<IpLocationResponseDto> {
+  findLocationByIpApi(ip: string): Observable<IpLocationResponseDto> {
     return this.httpService
       .get<IpGeolocationRespondedDto>(this.ipApiBuilder(ip))
       .pipe(
         map((response) => {
           const { ip, longitude, latitude } = response.data;
+          if (response.status !== 200) {
+            throw new InternalServerErrorException();
+          }
           return IpLocationResponseDto.to(
             ip,
             parseFloat(latitude),
@@ -59,20 +65,21 @@ export class LookupExternalApiService {
       );
   }
 
-  private findLocationByIpStackApi(
-    ip: string,
-  ): Observable<IpLocationResponseDto> {
+  findLocationByIpStackApi(ip: string): Observable<IpLocationResponseDto> {
     return this.httpService
       .get<IpStackRespondedDto>(this.ipStackApiBuilder(ip))
       .pipe(
         map((response) => {
+          if (response.status !== 200) {
+            throw new InternalServerErrorException();
+          }
           const { ip, longitude, latitude } = response.data;
           return IpLocationResponseDto.to(ip, latitude, longitude);
         }),
       );
   }
 
-  private findLocationByIpGeolocationApi(
+  findLocationByIpGeolocationApi(
     ip: string,
   ): Observable<IpLocationResponseDto> {
     return this.httpService
@@ -80,6 +87,10 @@ export class LookupExternalApiService {
       .pipe(
         map((response) => {
           const { ip, longitude, latitude } = response.data;
+          if (response.status !== 200) {
+            throw new InternalServerErrorException();
+          }
+
           return IpLocationResponseDto.to(
             ip,
             parseFloat(latitude),
