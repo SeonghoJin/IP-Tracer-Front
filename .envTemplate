@@ -10,9 +10,11 @@ EMAIL_PASSWORD=
 
 # IP_STACK_API(https://ipstack.com/)
 IP_STACK_API_KEY=
+IP_STACK_API_BASE_URI=http://api.ipstack.com
 
 # IP_API(https://ipapi.com/)
 IP_API_KEY=
+IP_API_BASE_URI=http://api.ipapi.com/api
 
 # deprecated
 # WHOIS_API(https://xn--c79as89aj0e29b77z.xn--3e0b707e/kor/whois/whois.jsp)
@@ -20,6 +22,8 @@ WHOIS_API_KEY=
 
 # IP_GEOLOCATION_API(https://app.ipgeolocation.io/)
 IP_GEOLOCATION_API=
+IP_GEOLOCATION_API_BASE_URI=https://api.ipgeolocation.io/ipgeo
+
 
 # Redis
 REDIS_PORT=
