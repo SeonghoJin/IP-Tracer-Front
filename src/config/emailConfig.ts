@@ -1,6 +1,6 @@
 import { registerAs } from '@nestjs/config';
 
-export const emailConfig = registerAs('email', () => ({
+export const EmailConfig = registerAs('email', () => ({
   service: process.env.EMAIL_SERVICE,
   host: process.env.EMAIL_HOST,
   port: parseInt(process.env.EMAIL_PORT, 10),
