@@ -1,11 +1,4 @@
-import {
-  DynamicModule,
-  Inject,
-  Logger,
-  Module,
-  Provider,
-  ValueProvider,
-} from '@nestjs/common';
+import { DynamicModule, Module, Provider, ValueProvider } from '@nestjs/common';
 import { createTransport, Transporter } from 'nodemailer';
 import { EmailService } from './email.service';
 import { EmailAsyncOptions, EmailOptions } from './interfaces';

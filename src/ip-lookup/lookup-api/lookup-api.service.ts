@@ -1,8 +1,6 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { IpLocationApiConfig } from '../../config/api/ip-location-api.config';
 import { HttpService } from '@nestjs/axios';
-import { firstValueFrom, map, Observable } from 'rxjs';
-import { IpLocationResponseDto } from '../dto/ip-location.response.dto';
 import { LookupGeolocationApi } from './lookup-geolocation-api';
 import { LookupIpApi } from './lookup-ip-api';
 import { LookupStackApi } from './lookup-stack-api';
