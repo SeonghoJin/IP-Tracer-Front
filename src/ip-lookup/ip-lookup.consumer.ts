@@ -8,7 +8,7 @@ import {
 } from '@nestjs/bull';
 import { event, queue } from './constants';
 import { Job } from 'bull';
-import { LookupExternalApiService } from './lookup-external-api/lookup-external-api.service';
+import { LookupApiService } from './lookup-api/lookup-api.service';
 import { IpLocationRepository } from './ip-location.repository';
 import { IpLocationResponseDto } from './dto/ip-location.response.dto';
 import { Logger } from '@nestjs/common';
@@ -18,7 +18,7 @@ export class IpLookupConsumer {
   private readonly logger: Logger = new Logger();
 
   constructor(
-    private readonly externalApiService: LookupExternalApiService,
+    private readonly externalApiService: LookupApiService,
     private readonly ipLocationRepository: IpLocationRepository,
   ) {}
 
