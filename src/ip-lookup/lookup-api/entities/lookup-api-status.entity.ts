@@ -5,12 +5,14 @@ import {
   Entity,
   PrimaryColumn,
   PrimaryGeneratedColumn,
+  Unique,
   UpdateDateColumn,
 } from 'typeorm';
 import { LookupApiStatus } from '../lookup-api-status';
 import { LookupApiName } from '../lookup-api-name';
 
 @Entity()
+@Unique(['apiName'])
 export class LookupApiStatusEntity {
   @PrimaryGeneratedColumn()
   id: string;

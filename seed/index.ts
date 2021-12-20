@@ -11,21 +11,14 @@ createConnection({
   username: process.env.MYSQL_USERNAME,
   port: parseInt(process.env.MYSQL_PORT),
   entities: [LookupApiStatusEntity],
-})
-  .then(async (connection) => {
-    const seeds = [new LookupApiStatusSeed()];
+}).then(async (connection) => {
+  const seeds = [new LookupApiStatusSeed()];
 
-    await Promise.all(
-      seeds.map((seed) => {
-        return seed.load(connection);
-      }),
-    );
-
-    await connection.close();
-  })
-  .then(() => {
-    console.log('Seeding Success');
-  })
-  .catch((e) => {
-    console.log('Can not Connect: ', e);
+  Promise.all(
+    seeds.map((seed) => {
+      return seed.load(connection);
+    }),
+  ).finally(() => {
+    connection.close();
   });
+});
