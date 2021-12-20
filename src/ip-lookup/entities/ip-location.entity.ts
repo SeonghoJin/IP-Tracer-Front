@@ -5,10 +5,12 @@ import {
   Entity,
   PrimaryColumn,
   PrimaryGeneratedColumn,
+  Unique,
   UpdateDateColumn,
 } from 'typeorm';
 
 @Entity()
+@Unique(['ip'])
 export class IpLocation {
   @PrimaryGeneratedColumn()
   IpLocationId: number;
