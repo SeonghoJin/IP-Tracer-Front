@@ -54,7 +54,7 @@ describe('lookup-geolocation-api', () => {
   });
 
   describe('canLookup()', () => {
-    it('canLookup 함수를 성공한다면 LookupApiStatus.OK를 던진다.', async () => {
+    it('canLookup 함수를 성공한다면 true를 반환한다.', async () => {
       jest
         .spyOn(lookupApiStatusRepository, 'findOne')
         .mockImplementationOnce(async () => {
