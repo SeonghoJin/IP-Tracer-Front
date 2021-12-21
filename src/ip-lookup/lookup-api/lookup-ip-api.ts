@@ -15,6 +15,9 @@ import { LookupApiStatus } from './lookup-api-status';
 import { LookupApiStatusRepository } from './lookup-api-status.repository';
 import { IpApiError } from './error/ipapi-error';
 import { LookupApiName } from './lookup-api-name';
+import { InjectRepository } from '@nestjs/typeorm';
+import { LookupApiStatusEntity } from './entities/lookup-api-status.entity';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class LookupIpApi implements LookupApi {
@@ -23,7 +26,8 @@ export class LookupIpApi implements LookupApi {
     @Inject(IpLocationApiConfig.KEY)
     private readonly apiConfig: ConfigType<typeof IpLocationApiConfig>,
     private readonly httpService: HttpService,
-    private readonly lookupApiStatusRepository: LookupApiStatusRepository,
+    @InjectRepository(LookupApiStatusEntity)
+    private readonly lookupApiStatusRepository: Repository<LookupApiStatusEntity>,
   ) {
     this.apiUriBuilder = this.apiConfig.ip_api;
   }

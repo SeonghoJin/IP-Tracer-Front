@@ -7,13 +7,13 @@ import { LookupIpApi } from './lookup-ip-api';
 import { LookupGeolocationApi } from './lookup-geolocation-api';
 import { LookupStackApi } from './lookup-stack-api';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { LookupApiStatusRepository } from './lookup-api-status.repository';
+import { LookupApiStatusEntity } from './entities/lookup-api-status.entity';
 
 @Module({
   imports: [
     ConfigModule.forFeature(IpLocationApiConfig),
     HttpModule,
-    TypeOrmModule.forFeature([LookupApiStatusRepository]),
+    TypeOrmModule.forFeature([LookupApiStatusEntity]),
   ],
   providers: [
     LookupApiService,

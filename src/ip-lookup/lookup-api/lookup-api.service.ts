@@ -30,7 +30,7 @@ export class LookupApiService {
   }
 
   async findLocation(ip: string) {
-    const { value: lookupApi } = await this.findLocationIterator.next();
+    const { value: lookupApi } = this.findLocationIterator.next();
 
     if (!lookupApi.canLookup()) {
       throw new Error('Not Execute Api');

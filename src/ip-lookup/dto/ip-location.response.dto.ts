@@ -1,9 +1,9 @@
 import { IpLocation } from '../entities/ip-location.entity';
 
 export class IpLocationResponseDto {
-  private ip: string;
-  private latitude: number;
-  private longitude: number;
+  ip: string;
+  latitude: number;
+  longitude: number;
 
   public static of(ipLocation: IpLocation): IpLocationResponseDto {
     const dto = new IpLocationResponseDto();
@@ -30,11 +30,11 @@ export class IpLocationResponseDto {
     return dto;
   }
 
-  public toEntity(): IpLocation {
+  public static toEntity(dto: IpLocationResponseDto): IpLocation {
     const ipLocation = new IpLocation();
-    ipLocation.ip = this.ip;
-    ipLocation.latitude = this.latitude;
-    ipLocation.longitude = this.longitude;
+    ipLocation.ip = dto.ip;
+    ipLocation.latitude = dto.latitude;
+    ipLocation.longitude = dto.longitude;
     return ipLocation;
   }
 }

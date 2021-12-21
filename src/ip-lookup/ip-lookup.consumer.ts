@@ -34,7 +34,9 @@ export class IpLookupConsumer {
     }
 
     const ipLocation = await this.externalApiService.findLocation(ip);
-    this.ipLocationRepository.save(ipLocation.toEntity());
+    await this.ipLocationRepository.save(
+      IpLocationResponseDto.toEntity(ipLocation),
+    );
     return ipLocation;
   }
 
