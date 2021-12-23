@@ -5,6 +5,7 @@ import { LookupGeolocationApi } from './lookup-geolocation-api';
 import { LookupIpApi } from './lookup-ip-api';
 import { LookupStackApi } from './lookup-stack-api';
 import { LookupApi } from './lookup-api';
+import { CanNotExecuteAPIException } from './error/CanNotExecuteAPIException';
 
 @Injectable()
 export class LookupApiService {
@@ -33,7 +34,7 @@ export class LookupApiService {
     const { value: lookupApi } = this.findLocationIterator.next();
 
     if (!lookupApi.canLookup()) {
-      throw new Error('Not Execute Api');
+      throw new CanNotExecuteAPIException();
     }
 
     return await lookupApi.lookup(ip);
