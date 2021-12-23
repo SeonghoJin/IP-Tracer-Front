@@ -1,9 +1,9 @@
 import { IpLocationResponseDto } from '../dto/ip-location.response.dto';
 
 export interface LookupApi {
-  canLookup();
+  canLookup(): Promise<boolean>;
   lookup(ip: string): Promise<IpLocationResponseDto>;
-  setErrorStatus();
-  setUsageExceedStatus();
-  setOkStatus();
+  setErrorStatus(): void;
+  setUsageExceedStatus(): void;
+  setOkStatus(): void;
 }

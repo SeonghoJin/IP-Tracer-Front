@@ -9,10 +9,9 @@ import { ConfigType } from '@nestjs/config';
 import { HttpService } from '@nestjs/axios';
 import { LookupApi } from './lookup-api';
 import { IpLocationResponseDto } from '../dto/ip-location.response.dto';
-import { firstValueFrom, map, Observable } from 'rxjs';
+import { firstValueFrom, map } from 'rxjs';
 import { IpStackRespondedDto } from './dto/ipstack.responded.dto';
 import { LookupApiStatus } from './lookup-api-status';
-import { LookupApiStatusRepository } from './lookup-api-status.repository';
 import { LookupApiName } from './lookup-api-name';
 import { IpStackError } from './error/ipstack-error';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -33,9 +32,13 @@ export class LookupStackApi implements LookupApi {
   }
 
   async canLookup() {
-    return this.lookupApiStatusRepository.findOne({
-      apiName: LookupApiName.stackApi,
-    });
+    return (
+      (
+        await this.lookupApiStatusRepository.findOne({
+          apiName: LookupApiName.stackApi,
+        })
+      ).status === LookupApiStatus.OK
+    );
   }
 
   async lookup(ip: string): Promise<IpLocationResponseDto> {
@@ -44,17 +47,21 @@ export class LookupStackApi implements LookupApi {
         map((response) => {
           const { ip, longitude, latitude } = response.data;
 
-          if (response.status !== 200) {
-            const errorMsg = IpStackError[response.status];
+          if (response.status === 200) {
+            return IpLocationResponseDto.to(ip, latitude, longitude);
+          }
 
-            if (errorMsg === undefined) {
-              throw new InternalServerErrorException(response.status);
-            }
+          if (response.status === IpStackError.USAGE_LIMIT_REACHED_STATUS) {
+            this.setUsageExceedStatus.call(this);
+          }
 
+          const errorMsg = IpStackError[response.status];
+
+          if (errorMsg) {
             throw new BadRequestException(errorMsg);
           }
 
-          return IpLocationResponseDto.to(ip, latitude, longitude);
+          throw new InternalServerErrorException(response.status);
         }),
       ),
     );
