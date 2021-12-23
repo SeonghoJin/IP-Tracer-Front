@@ -12,7 +12,7 @@ export class AppService {
     private readonly feedbackConfig: ConfigType<typeof FeedBackConfig>,
   ) {}
 
-  async processUserFeedback(feedback: string) {
+  async processUserFeedback(feedback: string): Promise<any> {
     const { sender, receiver } = this.feedbackConfig;
     const response = await this.emailService.send(
       sender,

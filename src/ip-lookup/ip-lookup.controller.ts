@@ -1,12 +1,13 @@
 import { Body, Controller, Get, HttpStatus, Param, Post } from '@nestjs/common';
 import { IpLookupService } from './ip-lookup.service';
+import Bull from 'bull';
 
 @Controller('ip-lookup')
 export class IpLookupController {
   constructor(private readonly ipLookupService: IpLookupService) {}
 
   @Post('/location')
-  async findLocation(@Body('ip') ip) {
+  async findLocation(@Body('ip') ip): Promise<Bull.JobId> {
     return await this.ipLookupService.createFindLocationJob(ip);
   }
 
