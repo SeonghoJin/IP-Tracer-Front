@@ -18,7 +18,14 @@
     "recoil": "^0.5.2",
     "styled-components": "^5.3.3",
     "typescript": "^4.4.4",
-    "web-vitals": "^1.1.2"
+    "web-vitals": "^1.1.2",
+    "@typescript-eslint/eslint-plugin": "^5.15.0",
+    "@typescript-eslint/parser": "^5.15.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-import": "^2.25.4",
+    "eslint-plugin-prettier": "^4.0.0",
+    "prettier": "^2.6.0"
   },
   "homepage": "https://seonghojin.github.io/IP-Tracer-Front/",
   "scripts": {
@@ -28,7 +35,9 @@
     "eject": "react-scripts eject",
     "update-build-file": "git subtree push --prefix build/ origin gh-pages",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "deploy": "gh-pages -d build",
+    "eslint:fix": "eslint --fix",
+    "prettier": "prettier --write ./src"
   },
   "eslintConfig": {
     "extends": [

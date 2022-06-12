@@ -1,15 +1,11 @@
-import {HttpService} from "./HttpService";
+import { HttpService } from "./HttpService";
 
 export class EmailService {
+  constructor(private httpService: HttpService) {}
 
-    constructor(
-        private httpService: HttpService
-    ) {
-    }
-
-    sendEmail = async (feedback: string) => {
-        await this.httpService.post('/user-feedback', {
-            feedback
-        });
-    }
+  sendEmail = async (feedback: string) => {
+    await this.httpService.post("/user-feedback", {
+      feedback,
+    });
+  };
 }

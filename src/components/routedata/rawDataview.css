@@ -1,15 +1,15 @@
 #RawDataViewWrapper {
-    width: 100%;
-    height : 100%;
-    overflow-y: auto;
-    padding: 20px;
-    box-sizing: border-box;
-    background-color: #4A4F5A;
-    -ms-overflow-style: none;
-    display: flex;
-    flex-direction: column;
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+  padding: 20px;
+  box-sizing: border-box;
+  background-color: #4a4f5a;
+  -ms-overflow-style: none;
+  display: flex;
+  flex-direction: column;
 }
 
-#RawDataViewWrapper::-webkit-scrollbar{
-    display: none;
+#RawDataViewWrapper::-webkit-scrollbar {
+  display: none;
 }

@@ -1,12 +1,20 @@
-import {ChangeEventHandler, FC, KeyboardEventHandler, useCallback, useEffect, useRef, useState} from "react";
+import {
+  ChangeEventHandler,
+  FC,
+  KeyboardEventHandler,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import styled from "styled-components";
 import "./search.css";
-import {useRouteFinderSocket} from "../../hooks/useRouteFinderSocket";
+import { useRouteFinderSocket } from "../../hooks/useRouteFinderSocket";
 
 const SearchWrapper = styled.div`
   width: 560px;
   height: 45px;
-`
+`;
 
 const Input = styled.input`
   width: 100%;
@@ -18,58 +26,73 @@ const Input = styled.input`
   font-size: 14px;
   padding-left: 20px;
   padding-right: 20px;
-`
+`;
 type SearchProps = {
-    setSearchingFlag: (flag : boolean) => void;
-    searchFlag: boolean;
-}
+  setSearchingFlag: (flag: boolean) => void;
+  searchFlag: boolean;
+};
 
-export const Search: FC<SearchProps> = ({setSearchingFlag, searchFlag}) => {
+export const Search: FC<SearchProps> = ({ setSearchingFlag, searchFlag }) => {
+  const [search, setSearch] = useState<string>("");
+  const { onConnectSocket } = useRouteFinderSocket();
 
-    const [search, setSearch] = useState<string>("");
-    const {onConnectSocket} = useRouteFinderSocket();
+  const onKeyPress: KeyboardEventHandler = useCallback(
+    (event) => {
+      if (search.trim() === "") return;
+      if (event.key !== "Enter") {
+        return;
+      }
+      onConnectSocket(search);
+      setSearch("");
+      setSearchingFlag(true);
+    },
+    [onConnectSocket, search, setSearchingFlag]
+  );
 
-    const onKeyPress : KeyboardEventHandler = useCallback((event) => {
-        if(search.trim() === "")return;
-        if(event.key !== 'Enter'){
-            return;
-        }
-        onConnectSocket(search);
-        setSearch("");
-        setSearchingFlag(true);
-    }, [onConnectSocket, search, setSearchingFlag]);
+  const onChangeSearch: ChangeEventHandler = useCallback((event) => {
+    event.preventDefault();
+    setSearch((event.target as HTMLInputElement).value);
+  }, []);
 
-
-    const onChangeSearch: ChangeEventHandler = useCallback((event) => {
-        event.preventDefault();
-        setSearch((event.target as HTMLInputElement).value);
-    }, [])
-
-    return <SearchView onKeyPress={onKeyPress} value={search} onChangeSearch={onChangeSearch} searchFlag={searchFlag}/>
-}
+  return (
+    <SearchView
+      onKeyPress={onKeyPress}
+      value={search}
+      onChangeSearch={onChangeSearch}
+      searchFlag={searchFlag}
+    />
+  );
+};
 
 type SearchViewProps = {
-    onKeyPress: KeyboardEventHandler;
-    value: string;
-    onChangeSearch: ChangeEventHandler;
-    searchFlag: boolean;
-}
+  onKeyPress: KeyboardEventHandler;
+  value: string;
+  onChangeSearch: ChangeEventHandler;
+  searchFlag: boolean;
+};
 
-export const SearchView: FC<SearchViewProps> = ({onKeyPress, value, onChangeSearch, searchFlag}) => {
+export const SearchView: FC<SearchViewProps> = ({
+  onKeyPress,
+  value,
+  onChangeSearch,
+  searchFlag,
+}) => {
+  const ref = useRef<null | HTMLInputElement>(null);
 
-    const ref = useRef<null | HTMLInputElement>(null);
+  useEffect(() => {
+    ref.current?.focus();
+  }, []);
 
-    useEffect(() => {
-        ref.current?.focus();
-    }, []);
-
-    return (<SearchWrapper className={`SearchWrapper ${searchFlag && 'active'}`}>
-        <Input type="text"
-               placeholder={"궁금한 도메인을 입력하세요. ex. naver.com"}
-               onChange={onChangeSearch}
-               onKeyPress={onKeyPress}
-               value={value}
-               ref={ref}
-        />
-    </SearchWrapper>)
-}
+  return (
+    <SearchWrapper className={`SearchWrapper ${searchFlag && "active"}`}>
+      <Input
+        type="text"
+        placeholder={"궁금한 도메인을 입력하세요. ex. naver.com"}
+        onChange={onChangeSearch}
+        onKeyPress={onKeyPress}
+        value={value}
+        ref={ref}
+      />
+    </SearchWrapper>
+  );
+};

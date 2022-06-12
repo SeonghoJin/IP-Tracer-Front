@@ -1,10 +1,10 @@
 export enum RouteSocketSendEvent {
-    requestFindDomain = "requestFindDomain"
+  requestFindDomain = "requestFindDomain",
 }
 
 export enum RouteSocketReceiveEvent {
-    hop = 'hop',
-    findDestination = 'findDestination',
-    destination = 'destination',
-    rawMessage = 'rawMessage',
+  hop = "hop",
+  findDestination = "findDestination",
+  destination = "destination",
+  rawMessage = "rawMessage",
 }

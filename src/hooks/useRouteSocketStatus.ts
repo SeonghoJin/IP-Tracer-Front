@@ -1,12 +1,13 @@
-import { useRecoilState} from "recoil";
-import {routeSocketStatusState} from "../states/atoms/routeSocketStatusState";
+import { useRecoilState } from "recoil";
+import { routeSocketStatusState } from "../states/atoms/routeSocketStatusState";
 
 export const useSocketStatus = () => {
+  const [socketStatus, setSocketStatus] = useRecoilState(
+    routeSocketStatusState
+  );
 
-    const [socketStatus, setSocketStatus] = useRecoilState(routeSocketStatusState);
-
-    return {
-      socketStatus,
-      setSocketStatus,
-    };
-}
+  return {
+    socketStatus,
+    setSocketStatus,
+  };
+};

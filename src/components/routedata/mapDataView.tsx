@@ -1,5 +1,5 @@
-import {DotMapViewer} from "../dotMap";
+import { DotMapViewer } from "../dotMap";
 
 export const MapDataView = () => {
-    return <DotMapViewer/>
-}
+  return <DotMapViewer />;
+};

@@ -1,6 +1,6 @@
-import {atom} from "recoil";
+import { atom } from "recoil";
 
 export const routeFinderSocketState = atom<WebSocket | null>({
-    key : "socket",
-    default: null,
+  key: "socket",
+  default: null,
 });

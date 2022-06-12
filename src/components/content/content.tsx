@@ -1,8 +1,8 @@
-import {FC, useState} from "react";
-import {Search} from "../search/search";
-import {TextLogo} from "../textlogo/textlogo";
+import { FC, useState } from "react";
 import styled from "styled-components";
-import {Description} from "../description/description";
+import { Search } from "../search/search";
+import { TextLogo } from "../textlogo/textlogo";
+import { Description } from "../description/description";
 import "./content.css";
 import { RouteData } from "../routedata/routeData";
 
@@ -12,11 +12,11 @@ const ContentWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-`
+`;
 
 const SearchLayout = styled.div`
-    margin-top: 40px;
-`
+  margin-top: 40px;
+`;
 
 export const ContentGroupWrapper = styled.div`
   display: flex;
@@ -24,20 +24,29 @@ export const ContentGroupWrapper = styled.div`
   align-items: center;
   position: absolute;
   top: 30%;
-`
+`;
 
 export const Content: FC = () => {
+  const [searchingFlag, setSearchingFlag] = useState<boolean>(false);
 
-    const [searchingFlag, setSearchingFlag] = useState<boolean>(false);
-
-    return <ContentWrapper>
-        <ContentGroupWrapper className={`ContentWrapper ${searchingFlag && 'active'}`}>
-            <TextLogo searchingFlag={searchingFlag}/>
-            <Description searchingFlag={searchingFlag}/>
-            <SearchLayout>
-                <Search setSearchingFlag={setSearchingFlag} searchFlag={searchingFlag}/>
-            </SearchLayout>
-        </ContentGroupWrapper>
-        <RouteData searchingFlag={searchingFlag} setSearchingFlag={setSearchingFlag}/>
+  return (
+    <ContentWrapper>
+      <ContentGroupWrapper
+        className={`ContentWrapper ${searchingFlag && "active"}`}
+      >
+        <TextLogo searchingFlag={searchingFlag} />
+        <Description searchingFlag={searchingFlag} />
+        <SearchLayout>
+          <Search
+            setSearchingFlag={setSearchingFlag}
+            searchFlag={searchingFlag}
+          />
+        </SearchLayout>
+      </ContentGroupWrapper>
+      <RouteData
+        searchingFlag={searchingFlag}
+        setSearchingFlag={setSearchingFlag}
+      />
     </ContentWrapper>
-}
+  );
+};

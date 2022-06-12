@@ -1,9 +1,9 @@
-import {css} from "styled-components";
+import { css } from "styled-components";
 
 export const MainBackgroundColor = css`
-    background-color: #4A4F5A;
+  background-color: #4a4f5a;
 `;
 
 export const MainColor = css`
-    color: #4A4F5A;
-`
+  color: #4a4f5a;
+`;

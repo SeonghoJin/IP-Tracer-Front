@@ -1,3 +1,1 @@
-export interface DestinationDto {
-
-}
+export interface DestinationDto {}

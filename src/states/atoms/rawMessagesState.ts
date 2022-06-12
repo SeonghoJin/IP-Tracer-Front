@@ -1,6 +1,6 @@
-import {atom} from "recoil";
+import { atom } from "recoil";
 
 export const rawMessageStates = atom<Array<string>>({
-    key : "rawMessageStates",
-    default: [],
+  key: "rawMessageStates",
+  default: [],
 });
