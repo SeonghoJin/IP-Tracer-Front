@@ -1,13 +1,6 @@
 import {ChangeEventHandler, FC, KeyboardEventHandler, useCallback, useEffect, useRef, useState} from "react";
 import styled from "styled-components";
-import {config} from "../../config";
 import "./search.css";
-import {useHop} from "../../domain/sockethooks/hop.hook";
-import {RouteSocketReceiveEvent, RouteSocketSendEvent} from "../../domain/socketEvents";
-import {isMessage, Message} from "../../core/socket/interfaces";
-import {useRawMessage} from "../../domain/sockethooks/rawMessage.hook";
-import {SocketStatus} from "../../core/socket/status";
-import {useSocketStatus} from "../../hooks/routeSocketStatus.hook";
 import {useSocket} from "../../hooks/socket.hook";
 
 const SearchWrapper = styled.div`

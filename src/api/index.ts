@@ -3,8 +3,8 @@ import axios, {AxiosInstance} from "axios"
 
 class ApiService {
 
-    private interceptor: any;
-    private axiosInstance : AxiosInstance
+    private axiosInstance : AxiosInstance;
+
     constructor() {
         this.axiosInstance = axios.create();
         this.axiosInstance.interceptors.response.use((response) => {

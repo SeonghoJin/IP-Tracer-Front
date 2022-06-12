@@ -39,9 +39,9 @@ const Status = styled.div<{status: SocketStatus}>`
   width: 20px;
   height: 20px;
   background-color: ${props => {
-      if(props.status === SocketStatus.Start){
-          return 'blue';
-      } return '#90ee90';
+    if(props.status === SocketStatus.Start){
+      return 'blue';
+    } return '#90ee90';
   }};
   border-radius: 50%;
 `

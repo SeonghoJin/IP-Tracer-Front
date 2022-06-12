@@ -31,9 +31,6 @@ const ContentLayout = styled.div`
 
 export const Main : FC = () => {
     return (<MainWrapper>
-        <NavLayout>
-            <Navigation/>
-        </NavLayout>
         <ContentLayout>
             <Content/>
         </ContentLayout>
