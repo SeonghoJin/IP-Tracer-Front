@@ -1,13 +1,7 @@
-import {atom, useRecoilState} from "recoil";
-import {HopDto, isHopDto} from "../dto/hop.dto";
+import {useRecoilState} from "recoil";
 import {useCallback} from "react";
-
-type HopStateType = HopDto | null;
-
-const hopState = atom<HopStateType>({
-    key : "hopState",
-    default: null,
-});
+import {isHopDto} from "../dtos/hop.dto";
+import {hopState} from "../states/atoms/hopState";
 
 export const useHop = () => {
 

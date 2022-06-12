@@ -1,22 +1,17 @@
-import {atom, useRecoilState} from "recoil";
+import {useRecoilState} from "recoil";
 import {useCallback} from "react";
 import {config} from "../config";
-import {RouteSocketReceiveEvent, RouteSocketSendEvent} from "../domain/socketEvents";
-import {SocketStatus} from "../core/socket/status";
-import {useSocketStatus} from "./routeSocketStatus.hook";
-import {isMessage, Message} from "../core/socket/interfaces";
-import {useHop} from "../domain/sockethooks/hop.hook";
-import {useRawMessage} from "../domain/sockethooks/rawMessage.hook";
+import {RouteSocketReceiveEvent, RouteSocketSendEvent} from "../constants";
+import {SocketStatus} from "../constants/status";
+import {useSocketStatus} from "./useRouteSocketStatus";
+import {isMessage, Message} from "../constants/interfaces";
+import {useHop} from "./useHop";
+import {useRawMessage} from "./useRawMessage";
+import {routeFinderSocketState} from '../states/atoms/routeFinderSocketState';
 
+export const useRouteFinderSocket = () => {
 
-const routeSocketStatusState= atom<WebSocket | null>({
-    key : "socket",
-    default: null,
-});
-
-export const useSocket = () => {
-
-    const [socket, setSocket] = useRecoilState(routeSocketStatusState);
+    const [socket, setSocket] = useRecoilState(routeFinderSocketState);
     const { setSocketStatus } = useSocketStatus();
     const { setHop } = useHop();
     const { setRawMessage } = useRawMessage();

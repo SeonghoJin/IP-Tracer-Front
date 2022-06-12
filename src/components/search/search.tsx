@@ -1,7 +1,7 @@
 import {ChangeEventHandler, FC, KeyboardEventHandler, useCallback, useEffect, useRef, useState} from "react";
 import styled from "styled-components";
 import "./search.css";
-import {useSocket} from "../../hooks/socket.hook";
+import {useRouteFinderSocket} from "../../hooks/useRouteFinderSocket";
 
 const SearchWrapper = styled.div`
   width: 560px;
@@ -27,7 +27,7 @@ type SearchProps = {
 export const Search: FC<SearchProps> = ({setSearchingFlag, searchFlag}) => {
 
     const [search, setSearch] = useState<string>("");
-    const {onConnectSocket} = useSocket();
+    const {onConnectSocket} = useRouteFinderSocket();
 
     const onKeyPress : KeyboardEventHandler = useCallback((event) => {
         if(search.trim() === "")return;

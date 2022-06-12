@@ -3,8 +3,8 @@ import "./routeData.css";
 import styled from "styled-components";
 import {MapDataView} from "./mapDataView";
 import {RawDataView} from "./rawDataView";
-import {useSocketStatus} from "../../hooks/routeSocketStatus.hook";
-import {SocketStatus} from "../../core/socket/status";
+import {useSocketStatus} from "../../hooks/useRouteSocketStatus";
+import {SocketStatus} from "../../constants/status";
 
 const Splitter = styled.div`
   height: 100%;

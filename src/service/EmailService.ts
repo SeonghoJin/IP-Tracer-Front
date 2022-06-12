@@ -4,9 +4,10 @@ export class EmailService {
 
     constructor(
         private httpService: HttpService
-    ) {}
+    ) {
+    }
 
-    async sendEmail(feedback: string){
+    sendEmail = async (feedback: string) => {
         await this.httpService.post('/user-feedback', {
             feedback
         });

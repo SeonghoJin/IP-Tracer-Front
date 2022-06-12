@@ -1,8 +1,8 @@
-import {useRawMessages} from "../../hooks/rawMessages.hook";
+import {useRawMessages} from "../../hooks/useRawMessages";
 import "./rawDataview.css";
 import styled from "styled-components";
 import {KeyboardEventHandler, useCallback, useEffect, useRef, useState} from "react";
-import {useSocket} from "../../hooks/socket.hook";
+import {useRouteFinderSocket} from "../../hooks/useRouteFinderSocket";
 import {CommandIterator} from "./commandIterator";
 
 const RawMessage = styled.div`
@@ -22,7 +22,7 @@ export const RawDataView = () => {
     const {rawMessages, setRawMessages} = useRawMessages();
     const [command, setCommand] = useState<string>("");
     const scrollRef = useRef<null | HTMLInputElement>(null);
-    const {closeSocket, onConnectSocket} = useSocket();
+    const {closeSocket, onConnectSocket} = useRouteFinderSocket();
     const commandList = useRef<CommandIterator>(new CommandIterator());
 
     const onChangeCommand = useCallback((e) => {

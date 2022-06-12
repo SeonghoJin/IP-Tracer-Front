@@ -1,11 +1,11 @@
-import {DestinationDto} from "../dto/destination.dto";
+import {DestinationDto} from "../../dtos/destination.dto";
 import {atom} from "recoil";
 
 type DestinationStateType = {
     destination: DestinationDto;
 } | null
 
-const destinationState = atom<DestinationStateType>({
+export const destinationState = atom<DestinationStateType>({
     key : "destinationState",
     default: null,
 })

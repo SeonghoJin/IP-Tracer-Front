@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from "styled-components";
+import { ServiceInjector } from './injector/ServiceInjector';
 import {Main} from "./pages/main";
 
 const MainPageLayout = styled.div`
@@ -10,9 +11,11 @@ const MainPageLayout = styled.div`
 function App() {
   return (
     <div className="App">
-        <MainPageLayout>
-            <Main/>
-        </MainPageLayout>
+        <ServiceInjector>
+            <MainPageLayout>
+                <Main/>
+            </MainPageLayout>
+        </ServiceInjector>
     </div>
   );
 }

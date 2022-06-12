@@ -3,8 +3,8 @@ import styled from "styled-components";
 import {MainBackgroundColor} from "./css";
 import {Group} from "./styled";
 import GithubIcon from '../static/images/GitHub-Mark-Light-32px.png'
-import {Modal} from "../util/modal";
-import {apiService} from "../api";
+import {Modal} from "./modal";
+import {useEmailService} from "../hooks/useEmailService";
 
 const FooterWrapper = styled.div`
   width: 100%;
@@ -16,6 +16,7 @@ const FooterWrapper = styled.div`
 
 export const Footer: FC = () => {
     const [opinionModalFlag, setOpinionModalFlag] = useState<boolean>(false);
+    const {sendEmail} = useEmailService();
 
     const onToggleOpinionModal : MouseEventHandler = useCallback((e) => {
         setOpinionModalFlag((prev) => !prev);
@@ -24,7 +25,7 @@ export const Footer: FC = () => {
     const onSuccess = useCallback(async (value) => {
         setOpinionModalFlag((prev) => !prev);
         if(value !== ""){
-            await apiService.sendFeedback(value);
+            await sendEmail(value);
         }
     }, [])
 
