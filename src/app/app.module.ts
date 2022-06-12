@@ -3,7 +3,6 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { RouteGateway } from '../gateway/route.gateway';
 import { ConfigModule, ConfigService, ConfigType } from '@nestjs/config';
-import * as Joi from 'joi';
 import { EmailModule } from '../modules/email/email.module';
 import { AppConfig } from '../config/appConfig';
 import { EmailConfig } from '../config/emailConfig';
@@ -11,7 +10,6 @@ import { BullModule } from '@nestjs/bull';
 import { RedisConfig } from '../config/redisConfig';
 import { MysqlConfig } from '../config/mysqlConfig';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { join } from 'path';
 import { IpLocationApiConfig } from '../config/api/ip-location-api.config';
 import { IpLookupModule } from '../ip-lookup/ip-lookup.module';
 import { FeedBackConfig } from '../config/feedback.config';
@@ -36,12 +34,8 @@ import { FeedBackConfig } from '../config/feedback.config';
       imports: [ConfigModule],
     }),
     ConfigModule.forRoot({
-      validationSchema: Joi.object({
-        NODE_ENV: Joi.string()
-          .valid('development', 'production')
-          .default('development'),
-        PORT: Joi.number().default(5000),
-      }),
+      envFilePath:
+        process.env.NODE_ENV === 'development' ? '.env.dev' : '.env.test',
       load: [
         AppConfig,
         EmailConfig,
@@ -78,8 +72,9 @@ import { FeedBackConfig } from '../config/feedback.config';
           username: config.username,
           database: config.database,
           password: config.password,
-          entities: [join(__dirname, '../**/*.entity.js')],
-          synchronize: true,
+          entities: [__dirname + '/../../**/*.entity.{js,ts}'],
+          synchronize: false,
+          logging: true,
         };
       },
     }),

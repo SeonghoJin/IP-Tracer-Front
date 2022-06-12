@@ -32,7 +32,7 @@ export class LookupApiService {
     const { value: lookupApi } = this.findLocationIterator.next();
 
     if (!(await lookupApi.canLookup())) {
-      throw new CanNotExecuteAPIException();
+      throw new CanNotExecuteAPIException('error');
     }
 
     return await lookupApi.lookup(ip);

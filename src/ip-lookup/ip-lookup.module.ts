@@ -7,8 +7,8 @@ import { IpLookupService } from './ip-lookup.service';
 import { ConfigModule } from '@nestjs/config';
 import { IpLocationApiConfig } from '../config/api/ip-location-api.config';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { IpLocationRepository } from './ip-location.repository';
 import { LookupApiModule } from './lookup-api/lookup-api.module';
+import { IpLocation } from './entities/ip-location.entity';
 
 @Module({
   imports: [
@@ -16,7 +16,7 @@ import { LookupApiModule } from './lookup-api/lookup-api.module';
       name: queue.IP_LOOK_UP,
     }),
     ConfigModule.forFeature(IpLocationApiConfig),
-    TypeOrmModule.forFeature([IpLocationRepository]),
+    TypeOrmModule.forFeature([IpLocation]),
     LookupApiModule,
   ],
   controllers: [IpLookupController],

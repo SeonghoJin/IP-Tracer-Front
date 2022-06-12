@@ -1,17 +1,17 @@
 import { LookupApiService } from './lookup-api/lookup-api.service';
 import { IpLookupConsumer } from './ip-lookup.consumer';
 import { Test } from '@nestjs/testing';
-import { IpLocationRepository } from './ip-location.repository';
 import { IpLocation } from './entities/ip-location.entity';
 import { IpLocationResponseDto } from './dto/ip-location.response.dto';
 import { Job } from 'bull';
-import { async } from 'rxjs';
+import { Repository } from 'typeorm';
+import { getRepositoryToken } from '@nestjs/typeorm';
 
 type MockType<T = any> = Partial<Record<keyof T, jest.Mock>>;
 
 describe('ip-lookup-consumer', function () {
   let apiService: MockType<LookupApiService>;
-  let repo: MockType<IpLocationRepository>;
+  let repo: MockType<Repository<IpLocation>>;
   let consumer: IpLookupConsumer;
 
   beforeEach(async () => {
@@ -24,17 +24,17 @@ describe('ip-lookup-consumer', function () {
             findLocation: jest.fn(),
           } as MockType<LookupApiService>;
         }
-        if (token === IpLocationRepository) {
+        if (token === getRepositoryToken(IpLocation)) {
           return {
             save: jest.fn(),
             findOne: jest.fn(),
-          } as MockType<IpLocationRepository>;
+          } as MockType<Repository<IpLocation>>;
         }
       })
       .compile();
 
     apiService = moduleRef.get(LookupApiService);
-    repo = moduleRef.get(IpLocationRepository);
+    repo = moduleRef.get(getRepositoryToken(IpLocation));
     consumer = moduleRef.get(IpLookupConsumer);
   });
 

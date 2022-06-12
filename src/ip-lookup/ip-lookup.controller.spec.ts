@@ -1,7 +1,6 @@
 import { IpLookupService } from './ip-lookup.service';
 import { Test } from '@nestjs/testing';
 import { IpLookupController } from './ip-lookup.controller';
-import exp from 'constants';
 import { HttpStatus } from '@nestjs/common';
 
 type MockType<T = any> = Partial<Record<keyof T, jest.Mock>>;

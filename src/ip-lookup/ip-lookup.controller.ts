@@ -14,7 +14,6 @@ export class IpLookupController {
   @Get('/location/:jobId')
   async getLocation(@Param('jobId') jobId: string) {
     const job = await this.ipLookupService.getLocationByJobId(jobId);
-
     if (!job) {
       return {
         statusCode: HttpStatus.ACCEPTED,

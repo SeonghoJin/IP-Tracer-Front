@@ -9,9 +9,11 @@ import {
 import { event, queue } from './constants';
 import { Job } from 'bull';
 import { LookupApiService } from './lookup-api/lookup-api.service';
-import { IpLocationRepository } from './ip-location.repository';
 import { IpLocationResponseDto } from './dto/ip-location.response.dto';
 import { Logger } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { IpLocation } from './entities/ip-location.entity';
+import { Repository } from 'typeorm';
 
 @Processor(queue.IP_LOOK_UP)
 export class IpLookupConsumer {
@@ -19,7 +21,8 @@ export class IpLookupConsumer {
 
   constructor(
     private readonly externalApiService: LookupApiService,
-    private readonly ipLocationRepository: IpLocationRepository,
+    @InjectRepository(IpLocation)
+    private readonly ipLocationRepository: Repository<IpLocation>,
   ) {}
 
   @Process(event.FIND_LOCATION)
@@ -33,7 +36,15 @@ export class IpLookupConsumer {
       return IpLocationResponseDto.of(ipLocationEntity);
     }
 
+    const ipLocation = await this.findLocationByExternalApi.call(this, ip);
+    return ipLocation;
+  }
+
+  private async findLocationByExternalApi(
+    ip: string,
+  ): Promise<IpLocationResponseDto> {
     const ipLocation = await this.externalApiService.findLocation(ip);
+
     await this.ipLocationRepository.save(
       IpLocationResponseDto.toEntity(ipLocation),
     );
@@ -42,21 +53,21 @@ export class IpLookupConsumer {
 
   @OnQueueActive()
   async onActive(job: Job) {
-    console.log(`Active ${job.id}`);
+    Logger.log(`Active ${job.id}`);
   }
 
   @OnQueueCompleted()
   async onCompleted(job: Job) {
-    console.log(`Complete ${job.id} ${job.data}`);
+    Logger.log(`Complete ${job.id} ${job.data}`);
   }
 
   @OnQueueError()
   async onError(job: Job) {
-    console.log(`Error ${job.id}`);
+    Logger.error(`Error ${job.id}`);
   }
 
   @OnQueueFailed()
   async onFailed(job: Job) {
-    console.log(`Failed ${job.id} ${job.failedReason}`);
+    Logger.error(`Failed ${job.id} ${job.failedReason}`);
   }
 }

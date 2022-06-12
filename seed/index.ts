@@ -2,7 +2,9 @@ import { createConnection } from 'typeorm';
 import * as dotenv from 'dotenv';
 import { LookupApiStatusSeed } from './lookup-api-status.seed';
 import { LookupApiStatusEntity } from '../src/ip-lookup/lookup-api/entities/lookup-api-status.entity';
-dotenv.config();
+
+dotenv.config({ path: '.env.dev' });
+
 createConnection({
   type: 'mysql',
   host: process.env.MYSQL_HOST,
