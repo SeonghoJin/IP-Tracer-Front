@@ -1,3 +1,4 @@
+import {requestWhileFulfilled} from "../util/requestWhileFulfilled";
 import { HttpService } from "./HttpService";
 
 export class IpLocationService {
@@ -5,21 +6,27 @@ export class IpLocationService {
 
   findLocation = async (ip: string) => {
     const { data: jobId } = await this.httpService.post<{ip: string}, {data: number}>(
-      "/ip-lookup/location",
-      { ip }
+        "/ip-lookup/location",
+        { ip }
     );
     return jobId;
   };
 
   getLocationResource = async (jobId: number) => {
-    const { data } = await this.httpService.get<{
-      returnvalue: {
-        ip: string;
-        latitude: number;
-        longitude: number;
-      };
-    }>(`/ip-lookup/${jobId}`);
+    const response = await requestWhileFulfilled(async () => {
+      return await this.httpService.get<{
+        returnvalue: {
+          ip: string;
+          latitude: number;
+          longitude: number;
+        };
+      }>(`/ip-lookup/location/${jobId}`);
+    }, {
+      isFulfilled: (response) => {
+        console.log('is inner', response);
+        return response.status === 200;
+      }});
 
-    return data.returnvalue;
+    return response;
   };
 }

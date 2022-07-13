@@ -2,16 +2,16 @@ import cx from 'classnames';
 import style from "./TextLogo.module.scss";
 
 type Props = {
-  searchingFlag: boolean;
+  searching: boolean;
 };
 
-function TextLogo({ searchingFlag }: Props) {
+function TextLogo({ searching }: Props) {
   return (
     <div className={cx(style.TextLogo, {
-        [style['TextLogo--active']]: searchingFlag
+        [style['TextLogo--active']]: searching
     })}>
       <span className={cx(style.TextLogo__IpWrapper, {
-        [style['TextLogo__IpWrapper--active']]: searchingFlag
+        [style['TextLogo__IpWrapper--active']]: searching
       })}>IP</span>
       <span>Tracer</span>
     </div>

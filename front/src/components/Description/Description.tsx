@@ -2,13 +2,13 @@ import cx from 'classnames';
 import style from "./Description.module.scss";
 
 type Props = {
-  searchingFlag: boolean;
+  searching: boolean;
 };
 
-function Description({ searchingFlag }: Props) {
+function Description({ searching }: Props) {
   return (
     <div className={cx(style.Description, {
-      [style['Description--active']]: searchingFlag
+      [style['Description--active']]: searching
     })}>
       궁금한 도메인의 라우팅 경로를 알아보세요.
     </div>

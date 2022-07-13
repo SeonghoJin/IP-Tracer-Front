@@ -1,5 +1,5 @@
 import {useEffect, useState} from "react";
-import {Location} from "../types/interfaces";
+import {isLocation, Location} from "../types/interfaces";
 import {useLocationJobId} from "./useLocationJobId";
 import {useIpLocationService} from "./useIpLocationService";
 
@@ -12,9 +12,11 @@ export const useLocations = () => {
     useEffect(() => {
         if(jobId){
             getLocationResource(jobId).then((location) => {
-                setLocations((locations) => {
-                    return locations.concat(location)
-                })
+                if(isLocation(location)){
+                    setLocations((locations) => {
+                        return locations.concat(location)
+                    })
+                }
             })
         }
     }, [jobId]);

@@ -8,15 +8,12 @@ import {
 } from "react";
 import cx from 'classnames';
 import { useRouteFinderSocket } from "../../hooks/useRouteFinderSocket";
+import {useDomainSearch} from "../../hooks/useDomainSearch";
 import style from "./Search.module.scss";
 
-type Props = {
-  setSearchingFlag: (flag: boolean) => void;
-  searchFlag: boolean;
-};
-
-function Search({ setSearchingFlag, searchFlag }: Props){
+function Search(){
   const [search, setSearch] = useState<string>("");
+  const [searchState, setSearchState] = useDomainSearch();
   const ref = useRef<null | HTMLInputElement>(null);
   const { onConnectSocket } = useRouteFinderSocket();
 
@@ -28,9 +25,12 @@ function Search({ setSearchingFlag, searchFlag }: Props){
       }
       onConnectSocket(search);
       setSearch("");
-      setSearchingFlag(true);
+      setSearchState({
+          search,
+          searching: true
+      });
     },
-    [onConnectSocket, search, setSearchingFlag]
+    [onConnectSocket, search, setSearchState]
   );
 
   const onChangeSearch: ChangeEventHandler = useCallback((event) => {
@@ -44,7 +44,7 @@ function Search({ setSearchingFlag, searchFlag }: Props){
 
   return (
       <div className={cx(style.SearchWrapper, {
-        [style['SearchWrapper--active']]: searchFlag
+        [style['SearchWrapper--active']]: searchState.searching
       })}>
         <input
             className={style.Input}

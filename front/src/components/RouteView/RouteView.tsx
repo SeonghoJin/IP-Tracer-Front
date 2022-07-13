@@ -3,7 +3,9 @@ import styled from "styled-components";
 import { SocketStatus } from "../../constants/status";
 import { useSocketStatus } from "../../hooks/useRouteSocketStatus";
 import TerminalView from "../TerminalView";
-import MapView from "../MapView";
+import DotMapView from "../DotMapView";
+import {useLocations} from "../../hooks/useLocations";
+import {useDomainSearch} from "../../hooks/useDomainSearch";
 import './RouteView.css';
 
 const Splitter = styled.div`
@@ -48,68 +50,65 @@ const Status = styled.div<{ status: SocketStatus }>`
 `;
 
 const enum ViewTypes {
-  Raw = "Raw",
-  Map = "Map",
+    Raw = "Raw",
+    Map = "Map",
 }
 
-type Props = {
-  searchingFlag: boolean;
-  setSearchingFlag: (flag: boolean) => void;
-};
+function RouteView(){
+    const [viewType, setViewType] = useState<ViewTypes>(ViewTypes.Map);
+    const [searchState, setSearchState] = useDomainSearch();
+    const { socketStatus } = useSocketStatus();
+    const locations = useLocations();
 
-function RouteView({
-  searchingFlag,
-  setSearchingFlag,
-}: Props){
-  const [viewType, setViewType] = useState<ViewTypes>(ViewTypes.Map);
-  const { socketStatus } = useSocketStatus();
+    const changeViewType = useCallback((type: ViewTypes) => {
+        setViewType(type);
+    }, []);
 
-  const changeViewType = useCallback((type: ViewTypes) => {
-    setViewType(type);
-  }, []);
-
-  return (
-      <div className={`RouteDataViewWrapper ${searchingFlag && "active"}`}>
-        <header className="header">
-          <div className={"group"}>
-            <Button
-                className={`${ViewTypes.Map === viewType && "active"}`}
-                onClick={() => {
-                  changeViewType(ViewTypes.Map);
-                }}
-            >
-              {ViewTypes.Map}
-            </Button>
-            <Splitter />
-            <Button
-                className={`${ViewTypes.Raw === viewType && "active"}`}
-                onClick={() => {
-                  changeViewType(ViewTypes.Raw);
-                }}
-            >
-              {ViewTypes.Raw}
-            </Button>
-            <Splitter />
-          </div>
-          <div className={"group"}>
-            <ContentLayout>
-              <Status status={socketStatus}></Status>
-            </ContentLayout>
-            <ContentLayout>
-              <RemoveButton
-                  onClick={() => {
-                    setSearchingFlag(false);
-                  }}
-              ></RemoveButton>
-            </ContentLayout>
-          </div>
-        </header>
-        <div id={"main"}>
-          {ViewTypes.Map === viewType && <MapView />}
-          {ViewTypes.Raw === viewType && <TerminalView />}
+    return (
+        <div className={`RouteDataViewWrapper ${searchState.searching && "active"}`}>
+            <header className="header">
+                <div className={"group"}>
+                    <Button
+                        className={`${ViewTypes.Map === viewType && "active"}`}
+                        onClick={() => {
+                            changeViewType(ViewTypes.Map);
+                        }}
+                    >
+                        {ViewTypes.Map}
+                    </Button>
+                    <Splitter />
+                    <Button
+                        className={`${ViewTypes.Raw === viewType && "active"}`}
+                        onClick={() => {
+                            changeViewType(ViewTypes.Raw);
+                        }}
+                    >
+                        {ViewTypes.Raw}
+                    </Button>
+                    <Splitter />
+                </div>
+                <div className={"group"}>
+                    <ContentLayout>
+                        <Status status={socketStatus}></Status>
+                    </ContentLayout>
+                    <ContentLayout>
+                        <RemoveButton
+                            onClick={() => {
+                                setSearchState((searchState) => ({
+                                    ...searchState,
+                                    searching: false
+                                }));
+                            }}
+                        />
+                    </ContentLayout>
+                </div>
+            </header>
+            <div id={"main"}>
+                {ViewTypes.Map === viewType && <DotMapView locations={locations}/>}
+                {ViewTypes.Raw === viewType && <TerminalView />}
+            </div>
         </div>
-      </div>
-  );
+    );
 }
 
 export default RouteView;

@@ -15,6 +15,7 @@ module.exports = {
         'import/extensions': 0,
         'import/no-unresolved': 0,
         'no-shadow': 0,
-        "import/order": ["error", {"groups": ["index", "sibling", "parent", "internal", "external", "builtin", "object", "type"].reverse()}]
+        "import/order": ["error", {"groups": ["index", "sibling", "parent", "internal", "external", "builtin", "object", "type"].reverse()}],
+        '@typescript-eslint/no-empty-function': 0,
     },
 };
