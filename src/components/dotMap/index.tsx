@@ -1,5 +1,5 @@
 import * as React from "react";
-import { DotMap } from "dot-map-renderer";
+import { DotMap } from "@dot-map-renderer/app";
 import { useEffect, useRef } from "react";
 
 const dotMap = new DotMap({
