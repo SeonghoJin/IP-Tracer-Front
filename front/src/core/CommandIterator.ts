@@ -1,4 +1,12 @@
-export class CommandIterator {
+export interface ICommandIterator {
+  next(): void;
+  previous(): void;
+  add(command: string): void;
+  moveEnd(): void;
+}
+
+
+export class CommandIterator implements ICommandIterator{
   private index = 0;
   private current = 0;
   private commands: Array<string> = [""];

@@ -8,7 +8,7 @@ import {
 } from "react";
 import { useRawMessages } from "../../hooks/useRawMessages";
 import { useRouteFinderSocket } from "../../hooks/useRouteFinderSocket";
-import { CommandIterator } from "../../core/commandIterator";
+import { CommandIterator } from "../../core/CommandIterator";
 import style from './TerminalView.module.scss';
 
 const RawMessage = styled.div`

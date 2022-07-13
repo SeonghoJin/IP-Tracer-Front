@@ -1,25 +1,66 @@
-import {useEffect, useState} from "react";
-import {isLocation, Location} from "../types/interfaces";
-import {useLocationJobId} from "./useLocationJobId";
+import {useEffect, useRef, useState} from "react";
+import { Hop } from "../types/Hop";
+import {Location} from "../types/Location";
 import {useIpLocationService} from "./useIpLocationService";
+import {useHop} from "./useHop";
 
 export const useLocations = () => {
     const [locations, setLocations] = useState<Location[]>([]);
-    const jobId = useLocationJobId();
-    console.log(jobId);
-    const {getLocationResource} = useIpLocationService();
+    const queue = useRef<Hop[]>([]);
+    const [fetching, setFetching] = useState<boolean>(false);
+    const {hop} = useHop();
+    const ipLocationService = useIpLocationService();
 
     useEffect(() => {
-        if(jobId){
-            getLocationResource(jobId).then((location) => {
-                if(isLocation(location)){
-                    setLocations((locations) => {
-                        return locations.concat(location)
-                    })
-                }
-            })
+        if(!hop){
+            return;
         }
-    }, [jobId]);
 
-    return locations;
+        queue.current.push(hop);
+    }, [hop]);
+
+    useEffect(() => {
+        console.log(fetching, queue.current);
+
+        if(queue.current.length === 0){
+            return;
+        }
+
+        if(fetching){
+            return;
+        }
+
+        setFetching(true);
+
+        const currentHop = queue.current.shift();
+
+        if(!currentHop){
+            setFetching(false);
+            return;
+        }
+
+        const {ip: {address}} = currentHop;
+
+        (async () => {
+            const location = await ipLocationService.findLocation(address);
+
+            if(location) {
+                setLocations((locations) => {
+                    return locations.concat(location)
+                });
+            }
+
+            setFetching(false);
+        })();
+    }, [fetching, queue.current.length]);
+
+    console.log(locations);
+
+
+    return {
+        locations,
+        clearLocations(){
+            setLocations([]);
+        }
+    };
 }

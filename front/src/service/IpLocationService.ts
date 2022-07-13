@@ -1,32 +1,48 @@
-import {requestWhileFulfilled} from "../util/requestWhileFulfilled";
+import { requestWhileFulfilled } from "../util/requestWhileFulfilled";
+import {FindLocationResponse} from "../types/FindLocationResponse";
+import {HttpStatus} from "../constants/HttpStatus";
+import {GetApiHeathResponseDto} from "../types/GetApiHealthResponse";
 import { HttpService } from "./HttpService";
 
 export class IpLocationService {
   constructor(private httpService: HttpService) {}
 
   findLocation = async (ip: string) => {
-    const { data: jobId } = await this.httpService.post<{ip: string}, {data: number}>(
-        "/ip-lookup/location",
-        { ip }
-    );
-    return jobId;
+    const response = await requestWhileFulfilled(async () => {
+      const response = await this.httpService.post<{ip: string}, FindLocationResponse>(
+          "/ip-lookup/location",
+          { ip }
+      );
+      return response;
+    }, {
+      isFulfilled:(response) => {
+        return response.status === HttpStatus.CREATED;
+      },
+    });
+
+    if(response === null) {
+      console.warn('not found location');
+      return null;
+    }
+
+    return response.data;
   };
 
-  getLocationResource = async (jobId: number) => {
+  getApiHealths = async () => {
     const response = await requestWhileFulfilled(async () => {
-      return await this.httpService.get<{
-        returnvalue: {
-          ip: string;
-          latitude: number;
-          longitude: number;
-        };
-      }>(`/ip-lookup/location/${jobId}`);
+      const response = await this.httpService.get<GetApiHeathResponseDto>("/api/health");
+      return response;
     }, {
       isFulfilled: (response) => {
-        console.log('is inner', response);
-        return response.status === 200;
-      }});
+        return response.status === HttpStatus.OK
+      },
+    });
 
-    return response;
-  };
+    if(response === null){
+      console.warn('not found apiHealths');
+      return null;
+    }
+
+    return response.data;
+  }
 }

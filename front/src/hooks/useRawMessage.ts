@@ -1,6 +1,6 @@
 import { useRecoilState } from "recoil";
 import { useCallback } from "react";
-import { isRawMessage } from "../types/dtos/rawMessage.dto";
+import { isRawMessage } from "../types/RawMessage.dto";
 import { rawMessageState } from "../atoms/rawMessageState";
 import { useRawMessages } from "./useRawMessages";
 

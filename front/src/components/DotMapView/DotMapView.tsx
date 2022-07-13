@@ -1,7 +1,7 @@
 import * as React from "react";
 import { useEffect, useRef } from "react";
 import { DotMap } from "@dot-map-renderer/app";
-import {Location} from "../../types/interfaces";
+import {Location} from "../../types/Location";
 import style from './DotMapView.module.scss';
 
 const dotMap = new DotMap({
@@ -17,7 +17,7 @@ type Props = {
 
 function DotMapView({locations}: Props){
     const ref = useRef<HTMLDivElement>(null);
-    console.log(locations)
+    console.log('locations', locations);
 
     useEffect(() => {
         if (ref.current != null) {

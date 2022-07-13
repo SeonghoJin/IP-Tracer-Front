@@ -1,5 +1,5 @@
 import { atom } from "recoil";
-import { RawMessageDto } from "../types/dtos/rawMessage.dto";
+import { RawMessageDto } from "../types/RawMessage.dto";
 
 type RawMessageStateType = RawMessageDto | null;
 

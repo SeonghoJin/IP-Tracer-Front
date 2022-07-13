@@ -1,7 +1,7 @@
 import { atom } from "recoil";
-import { HopDto } from "../types/dtos/hop.dto";
+import { Hop } from "../types/Hop";
 
-type HopStateType = HopDto | null;
+type HopStateType = Hop | null;
 
 export const hopState = atom<HopStateType>({
   key: "hopState",

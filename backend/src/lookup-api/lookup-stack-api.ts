@@ -3,6 +3,7 @@ import {
   Inject,
   Injectable,
   InternalServerErrorException,
+  Logger,
 } from '@nestjs/common';
 import { IpLocationApiConfig } from '../../config/api/ip-location-api.config';
 import { ConfigType } from '@nestjs/config';
@@ -10,16 +11,20 @@ import { HttpService } from '@nestjs/axios';
 import { LookupApi } from './lookup-api';
 import { IpLocationResponseDto } from '../dto/ip-location.response.dto';
 import { firstValueFrom, map } from 'rxjs';
-import { IpApiRespondedDto } from './dto/ipapi.responded.dto';
+import {
+  IpStackRespondedDto,
+  isIpStackResponse,
+} from './dto/ipstack.responded.dto';
 import { LookupApiStatus } from './lookup-api-status';
-import { IpApiError } from './error/ipapi-error';
 import { LookupApiName } from './lookup-api-name';
+import { IpStackError } from './error/ipstack-error';
 import { InjectRepository } from '@nestjs/typeorm';
-import { LookupApiStatusEntity } from './entities/lookup-api-status.entity';
+import { LookupApiStatusEntity } from '../entities/lookup-api-status.entity';
 import { Repository } from 'typeorm';
 
 @Injectable()
-export class LookupIpApi implements LookupApi {
+export class LookupStackApi implements LookupApi {
+  logger: Logger = new Logger('STACK_API');
   apiUriBuilder: (ip: string) => string;
   constructor(
     @Inject(IpLocationApiConfig.KEY)
@@ -28,37 +33,49 @@ export class LookupIpApi implements LookupApi {
     @InjectRepository(LookupApiStatusEntity)
     private readonly lookupApiStatusRepository: Repository<LookupApiStatusEntity>,
   ) {
-    this.apiUriBuilder = this.apiConfig.ip_api;
+    this.apiUriBuilder = this.apiConfig.ip_stack_api;
   }
 
   async canLookup() {
     return (
       (
         await this.lookupApiStatusRepository.findOne({
-          apiName: LookupApiName.ipApi,
+          apiName: LookupApiName.stackApi,
         })
       ).status === LookupApiStatus.OK
     );
   }
 
   async lookup(ip: string): Promise<IpLocationResponseDto> {
+    this.logger.log(`start with ${ip}`);
     return await firstValueFrom(
-      this.httpService.get<IpApiRespondedDto>(this.apiUriBuilder(ip)).pipe(
-        map(async (response) => {
+      this.httpService.get<IpStackRespondedDto>(this.apiUriBuilder(ip)).pipe(
+        map((response) => {
+          if (!isIpStackResponse(response.data)) {
+            throw new InternalServerErrorException();
+          }
+
           const { ip, longitude, latitude } = response.data;
 
           if (response.status === 200) {
-            return IpLocationResponseDto.to(ip, latitude, longitude);
+            return IpLocationResponseDto.to(
+              ip,
+              latitude,
+              longitude,
+                LookupApiName.stackApi
+            );
           }
 
-          if (response.status === IpApiError.USAGE_LIMIT_REACHED_STATUS) {
-            await this.setUsageExceedStatus.call(this);
+          if (response.status === IpStackError.USAGE_LIMIT_REACHED_STATUS) {
+            this.setUsageExceedStatus.call(this);
           }
 
-          const errorMsg = IpApiError[response.status];
+          const errorMsg = IpStackError[response.status];
+
           if (errorMsg) {
             throw new BadRequestException(errorMsg);
           }
+
           throw new InternalServerErrorException(response.status);
         }),
       ),
@@ -68,7 +85,7 @@ export class LookupIpApi implements LookupApi {
   async setErrorStatus() {
     await this.lookupApiStatusRepository.update(
       {
-        apiName: LookupApiName.ipApi,
+        apiName: LookupApiName.stackApi,
       },
       { status: LookupApiStatus.ERROR },
     );
@@ -77,7 +94,7 @@ export class LookupIpApi implements LookupApi {
   async setUsageExceedStatus() {
     await this.lookupApiStatusRepository.update(
       {
-        apiName: LookupApiName.ipApi,
+        apiName: LookupApiName.stackApi,
       },
       { status: LookupApiStatus.USAGE_EXCEED },
     );
@@ -86,7 +103,7 @@ export class LookupIpApi implements LookupApi {
   async setOkStatus() {
     await this.lookupApiStatusRepository.update(
       {
-        apiName: LookupApiName.ipApi,
+        apiName: LookupApiName.stackApi,
       },
       {
         status: LookupApiStatus.OK,

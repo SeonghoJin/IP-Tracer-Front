@@ -3,6 +3,7 @@ import {
   Inject,
   Injectable,
   InternalServerErrorException,
+  Logger,
 } from '@nestjs/common';
 import { IpLocationApiConfig } from '../../config/api/ip-location-api.config';
 import { ConfigType } from '@nestjs/config';
@@ -10,17 +11,18 @@ import { HttpService } from '@nestjs/axios';
 import { LookupApi } from './lookup-api';
 import { IpLocationResponseDto } from '../dto/ip-location.response.dto';
 import { firstValueFrom, map } from 'rxjs';
-import { IpGeolocationRespondedDto } from './dto/ipgeolocation.responded.dto';
+import { IpApiRespondedDto, isIpApiResponse } from './dto/ipapi.responded.dto';
 import { LookupApiStatus } from './lookup-api-status';
+import { IpApiError } from './error/ipapi-error';
 import { LookupApiName } from './lookup-api-name';
-import { IpGeolocationError } from './error/ipgeolocation-error';
 import { InjectRepository } from '@nestjs/typeorm';
-import { LookupApiStatusEntity } from './entities/lookup-api-status.entity';
+import { LookupApiStatusEntity } from '../entities/lookup-api-status.entity';
 import { Repository } from 'typeorm';
 
 @Injectable()
-export class LookupGeolocationApi implements LookupApi {
+export class LookupIpApi implements LookupApi {
   apiUriBuilder: (ip: string) => string;
+  logger: Logger = new Logger('LOOKUP_API');
   constructor(
     @Inject(IpLocationApiConfig.KEY)
     private readonly apiConfig: ConfigType<typeof IpLocationApiConfig>,
@@ -28,54 +30,53 @@ export class LookupGeolocationApi implements LookupApi {
     @InjectRepository(LookupApiStatusEntity)
     private readonly lookupApiStatusRepository: Repository<LookupApiStatusEntity>,
   ) {
-    this.apiUriBuilder = this.apiConfig.ip_geolocation_api;
+    this.apiUriBuilder = this.apiConfig.ip_api;
   }
 
   async canLookup() {
     return (
       (
         await this.lookupApiStatusRepository.findOne({
-          apiName: LookupApiName.geolocationApi,
+          apiName: LookupApiName.ipApi,
         })
       ).status === LookupApiStatus.OK
     );
   }
 
   async lookup(ip: string): Promise<IpLocationResponseDto> {
+    this.logger.log(`start with ${ip}`);
     return await firstValueFrom(
-      this.httpService
-        .get<IpGeolocationRespondedDto>(this.apiUriBuilder(ip))
-        .pipe(
-          map(async (response) => {
-            const { ip, longitude, latitude } = response.data;
+      this.httpService.get<IpApiRespondedDto>(this.apiUriBuilder(ip)).pipe(
+        map(async (response) => {
+          if (!isIpApiResponse(response.data)) {
+            throw new InternalServerErrorException();
+          }
 
-            if (response.status === 200) {
-              return IpLocationResponseDto.to(
-                ip,
-                parseFloat(latitude),
-                parseFloat(longitude),
-              );
-            }
+          const { ip, longitude, latitude } = response.data;
 
-            if (response.status === 429) {
-              await this.setUsageExceedStatus.call(this);
-            }
+          if (response.status === 200) {
+            return IpLocationResponseDto.to(ip, latitude, longitude,                 LookupApiName.ipApi
+            );
+          }
 
-            const errorMsg = IpGeolocationError[response.status];
-            if (errorMsg) {
-              throw new BadRequestException(errorMsg);
-            }
+          if (response.status === IpApiError.USAGE_LIMIT_REACHED_STATUS) {
+            await this.setUsageExceedStatus.call(this);
+          }
 
-            throw new InternalServerErrorException(response.status);
-          }),
-        ),
+          const errorMsg = IpApiError[response.status];
+          if (errorMsg) {
+            throw new BadRequestException(errorMsg);
+          }
+          throw new InternalServerErrorException(response.status);
+        }),
+      ),
     );
   }
 
   async setErrorStatus() {
     await this.lookupApiStatusRepository.update(
       {
-        apiName: LookupApiName.geolocationApi,
+        apiName: LookupApiName.ipApi,
       },
       { status: LookupApiStatus.ERROR },
     );
@@ -84,7 +85,7 @@ export class LookupGeolocationApi implements LookupApi {
   async setUsageExceedStatus() {
     await this.lookupApiStatusRepository.update(
       {
-        apiName: LookupApiName.geolocationApi,
+        apiName: LookupApiName.ipApi,
       },
       { status: LookupApiStatus.USAGE_EXCEED },
     );
@@ -93,7 +94,7 @@ export class LookupGeolocationApi implements LookupApi {
   async setOkStatus() {
     await this.lookupApiStatusRepository.update(
       {
-        apiName: LookupApiName.geolocationApi,
+        apiName: LookupApiName.ipApi,
       },
       {
         status: LookupApiStatus.OK,

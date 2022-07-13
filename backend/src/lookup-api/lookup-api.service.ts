@@ -29,12 +29,18 @@ export class LookupApiService {
   }
 
   async findLocation(ip: string): Promise<IpLocationResponseDto> {
+    console.log('inner');
+    console.log(ip);
     const { value: lookupApi } = this.findLocationIterator.next();
 
     if (!(await lookupApi.canLookup())) {
-      throw new CanNotExecuteAPIException('error');
+      throw new CanNotExecuteAPIException('can not execute external api');
     }
 
-    return await lookupApi.lookup(ip);
+    const response = await lookupApi.lookup(ip);
+
+    console.log(response);
+
+    return response;
   }
 }

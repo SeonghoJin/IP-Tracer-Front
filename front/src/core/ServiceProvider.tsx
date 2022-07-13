@@ -4,18 +4,23 @@ import { IpLocationService } from "../service/IpLocationService";
 import { EmailService } from "../service/EmailService";
 import { HttpService } from "../service/HttpService";
 import { config } from "../config";
+import {CommandIterator} from "./CommandIterator";
 
 const httpService: HttpService = axios.create({
   baseURL: config.API_PREFIX,
 });
 
+const defaultValue = {
+    ipLocationService: new IpLocationService(httpService),
+    emailService: new EmailService(httpService),
+    commandService: new CommandIterator(),
+}
+
 export const ServiceContext = React.createContext<{
   ipLocationService: IpLocationService;
   emailService: EmailService;
-}>({
-    ipLocationService: new IpLocationService(httpService),
-    emailService: new EmailService(httpService)
-});
+  commandService: CommandIterator;
+}>(defaultValue);
 
 type Props = {
   children: React.ReactNode;
@@ -24,10 +29,7 @@ type Props = {
 export function ServiceProvider({ children }: Props) {
   return (
     <ServiceContext.Provider
-      value={{
-        ipLocationService: new IpLocationService(httpService),
-        emailService: new EmailService(httpService),
-      }}
+      value={defaultValue}
     >
       {children}
     </ServiceContext.Provider>

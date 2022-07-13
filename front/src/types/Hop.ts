@@ -1,4 +1,4 @@
-export interface HopDto {
+export interface Hop {
   hop: number;
   ip: {
     address: string;
@@ -6,7 +6,7 @@ export interface HopDto {
   time: string;
 }
 
-export const isHopDto = (hopDto: any): hopDto is HopDto => {
+export const isHopDto = (hopDto: any): hopDto is Hop => {
   if (!("hop" in hopDto)) return false;
   if (!("ip" in hopDto)) return false;
   if (!("time" in hopDto)) return false;

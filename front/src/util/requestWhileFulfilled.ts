@@ -1,41 +1,54 @@
-type Payload<T extends Promise<any>> = T extends Promise<infer Payload> ? Payload : never;
+import { Payload } from "../types/Payload";
+import {Growth} from "./Growth";
+import {ExponentialGrowth} from "./ExponentialGrowth";
+import {LinearGrowth} from "./LinearGrowth";
+import {sleep} from "./sleep";
 
 type PoolingWhileFulfilledFunction = <T extends (...args: any[]) => (Promise<any>)>(
-  callback: T, option: {
-  timeout?: number,
-  isFulfilled: (response: Payload<ReturnType<T>>) => boolean,
-  onError?: (response: Payload<ReturnType<T>>) => void
-}) => (Promise<ReturnType<T> | null>);
+    callback: T, option: {
+        timeout?: number,
+        isFulfilled: (response: Payload<ReturnType<T>>) => boolean,
+        onError?: (err: unknown) => void,
+        maxTry?: number,
+        tryTimeType?: 'linear' | 'exponential'
+    }) => (Promise<ReturnType<T> | null>);
 
-export const requestWhileFulfilled: PoolingWhileFulfilledFunction = (callback, {timeout = 30000, isFulfilled, onError = () => {}}) => {
-  return new Promise((res) => {
-    const timerId = setTimeout(() => {
-      console.warn(`request timeout ${timeout}`);
-      res(null);
-    }, timeout);
+export const requestWhileFulfilled: PoolingWhileFulfilledFunction = (
+    callback,
+    {timeout = 3000,
+        isFulfilled,
+        onError = () => {},
+        maxTry = 3,
+        tryTimeType = 'exponential'
+    }) => {
+    return new Promise((res) => {
+        const growth: Growth = tryTimeType === 'exponential' ? new ExponentialGrowth() : new LinearGrowth();
+        let currentTimeout = false;
 
-    const time = 0;
+        const timerId = setTimeout(() => {
+            console.warn('timeout error');
+            currentTimeout = true;
+            res(null);
+        }, timeout);
 
-    const recursive = async (time: number) => {
-      setTimeout(async () => {
-
-        const next = (response: any) => {
-          if(isFulfilled(response)){
-            clearTimeout(timerId);
-            console.log("RESOLVE!");
-            res(response);
-          } else {
-            onError(response);
-            const nextTime = (1000 + time) * 2;
-            recursive(nextTime);
-          }
-        }
-
-        callback().then(next).catch(next);
-
-      }, time);
-    }
-
-    recursive(time);
-  })
+        (async () => {
+           for(let i = 0; i < maxTry; i++){
+               if(currentTimeout){
+                   return;
+               }
+               try {
+                   const response = await callback();
+                   if(isFulfilled(response)){
+                       res(response);
+                       clearTimeout(timerId);
+                       break;
+                   }
+               } catch (err) {
+                   onError(err);
+                   const nextTime = growth.next();
+                   await sleep(nextTime);
+               }
+           }
+        })();
+    })
 }
