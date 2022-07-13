@@ -1,5 +1,5 @@
 import { useRecoilState } from "recoil";
-import { routeSocketStatusState } from "../states/atoms/routeSocketStatusState";
+import { routeSocketStatusState } from "../atoms/routeSocketStatusState";
 
 export const useSocketStatus = () => {
   const [socketStatus, setSocketStatus] = useRecoilState(

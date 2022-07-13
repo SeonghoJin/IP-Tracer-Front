@@ -1,6 +1,6 @@
 import { useCallback } from "react";
 import { useRecoilState } from "recoil";
-import { routeFinderSocketState } from "../states/atoms/routeFinderSocketState";
+import { routeFinderSocketState } from "../atoms/routeFinderSocketState";
 import { RouteSocketReceiveEvent, RouteSocketSendEvent } from "../constants";
 import { SocketStatus } from "../constants/status";
 import { isMessage, Message } from "../types/interfaces";

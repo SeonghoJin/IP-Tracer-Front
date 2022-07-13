@@ -12,13 +12,16 @@ const httpService: HttpService = axios.create({
 export const ServiceContext = React.createContext<{
   ipLocationService: IpLocationService;
   emailService: EmailService;
-} | null>(null);
+}>({
+    ipLocationService: new IpLocationService(httpService),
+    emailService: new EmailService(httpService)
+});
 
 type Props = {
   children: React.ReactNode;
 };
 
-export function ServiceInjector({ children }: Props) {
+export function ServiceProvider({ children }: Props) {
   return (
     <ServiceContext.Provider
       value={{

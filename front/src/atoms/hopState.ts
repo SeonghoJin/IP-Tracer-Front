@@ -1,5 +1,5 @@
 import { atom } from "recoil";
-import { HopDto } from "../../types/dtos/hop.dto";
+import { HopDto } from "../types/dtos/hop.dto";
 
 type HopStateType = HopDto | null;
 

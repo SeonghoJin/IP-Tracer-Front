@@ -4,7 +4,7 @@ export class IpLocationService {
   constructor(private httpService: HttpService) {}
 
   findLocation = async (ip: string) => {
-    const { data: jobId } = await this.httpService.post<number>(
+    const { data: jobId } = await this.httpService.post<{ip: string}, {data: number}>(
       "/ip-lookup/location",
       { ip }
     );

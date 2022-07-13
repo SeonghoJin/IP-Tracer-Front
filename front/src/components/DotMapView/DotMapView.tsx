@@ -1,6 +1,8 @@
 import * as React from "react";
-import { DotMap } from "@dot-map-renderer/app";
 import { useEffect, useRef } from "react";
+import { DotMap } from "@dot-map-renderer/app";
+import {useLocations} from "../../hooks/useLocations";
+import style from './DotMapView.module.scss';
 
 const dotMap = new DotMap({
     dotType: "circle",
@@ -11,6 +13,8 @@ const dotMap = new DotMap({
 
 function DotMapView(){
     const ref = useRef<HTMLDivElement>(null);
+    const locations = useLocations();
+    console.log(locations);
 
     useEffect(() => {
         if (ref.current != null) {
@@ -21,15 +25,7 @@ function DotMapView(){
     return (
         <div
             ref={ref}
-            style={{
-                overflow: "auto",
-                backgroundColor: "#4A4F5A",
-                width: "100%",
-                height: "100%",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-            }}
+            className={style.DotMapView}
         />
     );
 }

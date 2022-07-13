@@ -1,5 +1,5 @@
 import * as React from "react";
-import { ServiceContext } from "../injector/ServiceInjector";
+import { ServiceContext } from "../core/ServiceProvider";
 
 export const useServices = () => {
   const services = React.useContext(ServiceContext);
