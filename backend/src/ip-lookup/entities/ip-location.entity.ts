@@ -24,6 +24,9 @@ export class IpLocation {
   @Column()
   longitude: number;
 
+  @Column()
+  apiName: string;
+
   @CreateDateColumn()
   createAt: Date;
 

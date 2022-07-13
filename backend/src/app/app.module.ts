@@ -6,7 +6,6 @@ import { ConfigModule, ConfigService, ConfigType } from '@nestjs/config';
 import { EmailModule } from '../modules/email/email.module';
 import { AppConfig } from '../config/appConfig';
 import { EmailConfig } from '../config/emailConfig';
-import { BullModule } from '@nestjs/bull';
 import { RedisConfig } from '../config/redisConfig';
 import { MysqlConfig } from '../config/mysqlConfig';
 import { TypeOrmModule } from '@nestjs/typeorm';
@@ -45,20 +44,6 @@ import { FeedBackConfig } from '../config/feedback.config';
         FeedBackConfig,
       ],
     }),
-    BullModule.forRootAsync({
-      useFactory: (configService: ConfigService) => {
-        const config =
-          configService.get<ConfigType<typeof RedisConfig>>('redis');
-        return {
-          redis: {
-            port: config.port,
-            host: config.host,
-          },
-        };
-      },
-      inject: [ConfigService],
-      imports: [ConfigModule],
-    }),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
@@ -73,7 +58,7 @@ import { FeedBackConfig } from '../config/feedback.config';
           database: config.database,
           password: config.password,
           entities: [__dirname + '/../../**/*.entity.{js,ts}'],
-          synchronize: false,
+          synchronize: true,
           logging: true,
         };
       },

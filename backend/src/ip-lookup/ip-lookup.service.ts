@@ -3,38 +3,79 @@ import {
   Injectable,
   InternalServerErrorException,
 } from '@nestjs/common';
-import { InjectQueue } from '@nestjs/bull';
-import { event, queue } from './constants';
-import { Queue } from 'bull';
 import { IpLocationResponseDto } from './dto/ip-location.response.dto';
+import { Repository } from 'typeorm';
+import { LookupApiStatusEntity } from './entities/lookup-api-status.entity';
+import { InjectRepository } from '@nestjs/typeorm';
+import { LookupApiName } from '../lookup-api/lookup-api-name';
+import { LookupApiService } from '../lookup-api/lookup-api.service';
+import { IpLocation } from './entities/ip-location.entity';
 
 @Injectable()
 export class IpLookupService {
   constructor(
-    @InjectQueue(queue.IP_LOOK_UP)
-    private readonly lookupQueue: Queue<IpLocationResponseDto | string>,
+    @InjectRepository(LookupApiStatusEntity)
+    private readonly lookupApiStatusRepository: Repository<LookupApiStatusEntity>,
+    @InjectRepository(IpLocation)
+    private readonly ipLocationRepository: Repository<IpLocation>,
+    private readonly externalApiService: LookupApiService,
   ) {}
 
-  async getLocationByJobId(jobId: string | number) {
-    const job = await this.lookupQueue.getJob(jobId);
+  async getLocation(ip: string) {
+    const ipLocationEntity = await this.ipLocationRepository.findOne({
+      ip,
+    });
 
-    if (!job) {
-      throw new BadRequestException();
+    if (ipLocationEntity) {
+      return IpLocationResponseDto.of(ipLocationEntity);
     }
 
-    if (await job.isFailed()) {
-      throw new InternalServerErrorException();
+    const ipLocation = await this.findLocationByExternalApi(ip);
+
+    if (!ipLocation) {
+      throw new BadRequestException(
+        'not found iplocationResponse by external api',
+      );
     }
 
-    if (await job.isCompleted()) {
-      return job;
-    }
+    await this.ipLocationRepository.save(
+      IpLocationResponseDto.toEntity(ipLocation),
+    );
 
-    return null;
+    return ipLocation;
   }
 
-  async createFindLocationJob(ip: string) {
-    const { id } = await this.lookupQueue.add(event.FIND_LOCATION, ip);
-    return id;
+  private findLocationByExternalApi = async (
+    ip: string,
+  ): Promise<IpLocationResponseDto> => {
+    const ipLocation = await this.externalApiService.findLocation(ip);
+    return ipLocation;
+  };
+
+  async getApiHealths() {
+    const apiStatusEntities = await this.lookupApiStatusRepository.find();
+    return apiStatusEntities;
+  }
+
+  async getApiHealth(apiName: string) {
+    if (
+      LookupApiName.ipApi === apiName ||
+      LookupApiName.geolocationApi === apiName ||
+      LookupApiName.stackApi === apiName
+    ) {
+      const status = await this.lookupApiStatusRepository.findOne({
+        where: {
+          apiName,
+        },
+      });
+
+      if (!status) {
+        throw new InternalServerErrorException();
+      }
+
+      return status;
+    }
+
+    throw new BadRequestException();
   }
 }

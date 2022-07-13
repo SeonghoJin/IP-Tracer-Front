@@ -5,11 +5,11 @@ import {
   InternalServerErrorException,
   Logger,
 } from '@nestjs/common';
-import { IpLocationApiConfig } from '../../config/api/ip-location-api.config';
+import { IpLocationApiConfig } from '../config/api/ip-location-api.config';
 import { ConfigType } from '@nestjs/config';
 import { HttpService } from '@nestjs/axios';
 import { LookupApi } from './lookup-api';
-import { IpLocationResponseDto } from '../dto/ip-location.response.dto';
+import { IpLocationResponseDto } from '../ip-lookup/dto/ip-location.response.dto';
 import { firstValueFrom, map } from 'rxjs';
 import {
   IpGeolocationRespondedDto,
@@ -19,7 +19,7 @@ import { LookupApiStatus } from './lookup-api-status';
 import { LookupApiName } from './lookup-api-name';
 import { IpGeolocationError } from './error/ipgeolocation-error';
 import { InjectRepository } from '@nestjs/typeorm';
-import { LookupApiStatusEntity } from '../entities/lookup-api-status.entity';
+import { LookupApiStatusEntity } from '../ip-lookup/entities/lookup-api-status.entity';
 import { Repository } from 'typeorm';
 
 @Injectable()
@@ -53,9 +53,7 @@ export class LookupGeolocationApi implements LookupApi {
         .get<IpGeolocationRespondedDto>(this.apiUriBuilder(ip))
         .pipe(
           map(async (response) => {
-              console.log(response.data);
             if (!isGeolocationResponse(response.data)) {
-              console.log('error');
               throw new InternalServerErrorException();
             }
             const { ip, longitude, latitude } = response.data;

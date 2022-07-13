@@ -1,11 +1,11 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { IpLocationApiConfig } from '../../config/api/ip-location-api.config';
+import { IpLocationApiConfig } from '../config/api/ip-location-api.config';
 import { LookupGeolocationApi } from './lookup-geolocation-api';
 import { LookupIpApi } from './lookup-ip-api';
 import { LookupStackApi } from './lookup-stack-api';
 import { LookupApi } from './lookup-api';
 import { CanNotExecuteAPIException } from './error/CanNotExecuteAPIException';
-import { IpLocationResponseDto } from '../dto/ip-location.response.dto';
+import { IpLocationResponseDto } from '../ip-lookup/dto/ip-location.response.dto';
 
 @Injectable()
 export class LookupApiService {
@@ -29,8 +29,6 @@ export class LookupApiService {
   }
 
   async findLocation(ip: string): Promise<IpLocationResponseDto> {
-    console.log('inner');
-    console.log(ip);
     const { value: lookupApi } = this.findLocationIterator.next();
 
     if (!(await lookupApi.canLookup())) {
@@ -38,8 +36,6 @@ export class LookupApiService {
     }
 
     const response = await lookupApi.lookup(ip);
-
-    console.log(response);
 
     return response;
   }

@@ -8,8 +8,8 @@ import {
   Unique,
   UpdateDateColumn,
 } from 'typeorm';
-import { LookupApiStatus } from '../lookup-api-status';
-import { LookupApiName } from '../lookup-api-name';
+import { LookupApiStatus } from '../../lookup-api/lookup-api-status';
+import { LookupApiName } from '../../lookup-api/lookup-api-name';
 
 @Entity()
 @Unique(['apiName'])

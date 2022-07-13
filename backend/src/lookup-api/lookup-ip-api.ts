@@ -5,18 +5,18 @@ import {
   InternalServerErrorException,
   Logger,
 } from '@nestjs/common';
-import { IpLocationApiConfig } from '../../config/api/ip-location-api.config';
+import { IpLocationApiConfig } from '../config/api/ip-location-api.config';
 import { ConfigType } from '@nestjs/config';
 import { HttpService } from '@nestjs/axios';
 import { LookupApi } from './lookup-api';
-import { IpLocationResponseDto } from '../dto/ip-location.response.dto';
+import { IpLocationResponseDto } from '../ip-lookup/dto/ip-location.response.dto';
 import { firstValueFrom, map } from 'rxjs';
 import { IpApiRespondedDto, isIpApiResponse } from './dto/ipapi.responded.dto';
 import { LookupApiStatus } from './lookup-api-status';
 import { IpApiError } from './error/ipapi-error';
 import { LookupApiName } from './lookup-api-name';
 import { InjectRepository } from '@nestjs/typeorm';
-import { LookupApiStatusEntity } from '../entities/lookup-api-status.entity';
+import { LookupApiStatusEntity } from '../ip-lookup/entities/lookup-api-status.entity';
 import { Repository } from 'typeorm';
 
 @Injectable()

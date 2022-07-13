@@ -1,4 +1,4 @@
-import { IpLocationResponseDto } from '../dto/ip-location.response.dto';
+import { IpLocationResponseDto } from '../ip-lookup/dto/ip-location.response.dto';
 
 export interface LookupApi {
   canLookup(): Promise<boolean>;
