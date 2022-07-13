@@ -13,7 +13,7 @@ const handlerFactory = <T extends object>(prefix: string) => {
 const apiFactory =
   <T extends object>(prefix: string) =>
   (apis: T) => {
-    return new Proxy(apis, handlerFactory<typeof apis>(prefix));
+    return new Proxy(apis, handlerFactory<T>(prefix));
   };
 
 export const api = {
