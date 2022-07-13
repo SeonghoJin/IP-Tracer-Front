@@ -8,21 +8,13 @@ import {
   useState,
 } from "react";
 import styled from "styled-components";
-import GithubIcon from "../static/images/GitHub-Mark-Light-32px.png";
-import { useEmailService } from "../hooks/useEmailService";
-import { MainBackgroundColor } from "./css";
-import { Group } from "./styled";
-import { Modal } from "./modal";
+import GithubIcon from "../../static/images/GitHub-Mark-Light-32px.png";
+import { useEmailService } from "../../hooks/useEmailService";
+import { Group } from "../styled";
+import { Modal } from "../modal";
+import style from './Footer.module.scss';
 
-const FooterWrapper = styled.div`
-  width: 100%;
-  height: 100%;
-  ${MainBackgroundColor};
-  display: flex;
-  justify-content: space-between;
-`;
-
-export const Footer: FC = () => {
+function Footer(){
   const [opinionModalFlag, setOpinionModalFlag] = useState<boolean>(false);
   const { sendEmail } = useEmailService();
 
@@ -44,7 +36,9 @@ export const Footer: FC = () => {
       onSuccess={onSuccess}
     />
   );
-};
+}
+
+export default Footer;
 
 type FooterViewProps = {
   onToggleOpinionModal: EventHandler<any>;
@@ -79,7 +73,7 @@ export const FooterView: FC<FooterViewProps> = ({
   }, []);
 
   return (
-    <FooterWrapper>
+    <div className={style.FooterWrapper}>
       <Group>
         <Button onClick={onToggleOpinionModal}>의견 보내기</Button>
       </Group>
@@ -98,6 +92,6 @@ export const FooterView: FC<FooterViewProps> = ({
           <img src={GithubIcon} />
         </a>
       </Group>
-    </FooterWrapper>
+    </div>
   );
 };

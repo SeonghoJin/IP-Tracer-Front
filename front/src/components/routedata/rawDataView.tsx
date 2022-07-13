@@ -9,7 +9,7 @@ import {
 } from "react";
 import { useRawMessages } from "../../hooks/useRawMessages";
 import { useRouteFinderSocket } from "../../hooks/useRouteFinderSocket";
-import { CommandIterator } from "./commandIterator";
+import { CommandIterator } from "../../core/commandIterator";
 
 const RawMessage = styled.div`
   color: #d3d3d3;

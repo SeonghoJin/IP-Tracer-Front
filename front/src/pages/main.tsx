@@ -1,7 +1,7 @@
 import { FC } from "react";
 import styled from "styled-components";
-import { Footer } from "../components/footer";
-import { Content } from "../components/content/content";
+import Footer  from "../components/Footer";
+import Content from "../components/Content";
 
 const MainWrapper = styled.div`
   width: 100%;
