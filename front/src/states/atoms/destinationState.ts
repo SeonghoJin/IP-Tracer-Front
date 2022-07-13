@@ -1,4 +1,4 @@
-import { DestinationDto } from "../../dtos/destination.dto";
+import { DestinationDto } from "../../types/dtos/destination.dto";
 import { atom } from "recoil";
 
 type DestinationStateType = {

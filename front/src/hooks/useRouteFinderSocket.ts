@@ -3,7 +3,7 @@ import { useRecoilState } from "recoil";
 import { routeFinderSocketState } from "../states/atoms/routeFinderSocketState";
 import { RouteSocketReceiveEvent, RouteSocketSendEvent } from "../constants";
 import { SocketStatus } from "../constants/status";
-import { isMessage, Message } from "../constants/interfaces";
+import { isMessage, Message } from "../types/interfaces";
 import { config } from "../config";
 import { useSocketStatus } from "./useRouteSocketStatus";
 import { useHop } from "./useHop";

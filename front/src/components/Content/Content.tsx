@@ -1,7 +1,7 @@
 import { useState } from "react";
 import cx from 'classnames';
-import { TextLogo } from "../textlogo/textlogo";
-import { RouteData } from "../routedata/routeData";
+import TextLogo from "../TextLogo";
+import RouteView from "../RouteView";
 import Description from "../Description";
 import Search from "../Search";
 import style from "./Content.module.scss";
@@ -24,7 +24,7 @@ function Content(){
             />
           </div>
         </div>
-        <RouteData
+        <RouteView
             searchingFlag={searchingFlag}
             setSearchingFlag={setSearchingFlag}
         />

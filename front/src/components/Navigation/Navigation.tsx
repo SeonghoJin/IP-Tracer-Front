@@ -1,6 +1,6 @@
 import { FC } from "react";
 import styled from "styled-components";
-import { Span, SpanGroup } from "./styled";
+import { Span, SpanGroup } from "../Styled";
 
 const NavigationWrapper = styled.div`
   width: 100%;

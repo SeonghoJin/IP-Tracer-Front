@@ -1,6 +1,6 @@
 import { useRecoilState } from "recoil";
 import { useCallback } from "react";
-import { isHopDto } from "../dtos/hop.dto";
+import { isHopDto } from "../types/dtos/hop.dto";
 import { hopState } from "../states/atoms/hopState";
 
 export const useHop = () => {

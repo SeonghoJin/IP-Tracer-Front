@@ -10,8 +10,8 @@ import {
 import styled from "styled-components";
 import GithubIcon from "../../static/images/GitHub-Mark-Light-32px.png";
 import { useEmailService } from "../../hooks/useEmailService";
-import { Group } from "../styled";
-import { Modal } from "../modal";
+import { Group } from "../Styled";
+import { Modal } from "../Modal/Modal";
 import style from './Footer.module.scss';
 
 function Footer(){

@@ -1,0 +1,24 @@
+.TextLogo {
+  transition: transform 1s;
+  width: 180px;
+  height: 88px;
+  font-size: 50px;
+  color: #4a4f5a;
+  font-family: "Noto Sans Old Italic";
+  font-style: italic;
+
+  &--active {
+    transform: translateX(-180px) scale(0.7, 0.7);
+  }
+
+  &__IpWrapper {
+    display: inline-block;
+    transform: translate(16px, -30px);
+    transition: transform 1s;
+
+    &--active{
+      transform: translate(0px, 0px);
+    }
+  }
+
+}
