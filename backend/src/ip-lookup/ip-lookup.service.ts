@@ -30,7 +30,7 @@ export class IpLookupService {
       return IpLocationResponseDto.of(ipLocationEntity);
     }
 
-    const ipLocation = await this.findLocationByExternalApi(ip);
+    const ipLocation = await this.externalApiService.findLocation(ip);
 
     if (!ipLocation) {
       throw new BadRequestException(
@@ -45,15 +45,13 @@ export class IpLookupService {
     return ipLocation;
   }
 
-  private findLocationByExternalApi = async (
-    ip: string,
-  ): Promise<IpLocationResponseDto> => {
-    const ipLocation = await this.externalApiService.findLocation(ip);
-    return ipLocation;
-  };
-
   async getApiHealths() {
     const apiStatusEntities = await this.lookupApiStatusRepository.find();
+
+    if (!apiStatusEntities) {
+      throw new InternalServerErrorException();
+    }
+
     return apiStatusEntities;
   }
 

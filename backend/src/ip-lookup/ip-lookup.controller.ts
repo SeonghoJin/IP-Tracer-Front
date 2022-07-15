@@ -2,11 +2,7 @@ import {
   Body,
   Controller,
   Get,
-  HttpStatus,
   Param,
-  ParseIntPipe,
-  Post,
-  Res,
 } from '@nestjs/common';
 import { IpLookupService } from './ip-lookup.service';
 import { IpLocationResponseDto } from './dto/ip-location.response.dto';
@@ -15,7 +11,7 @@ import { IpLocationResponseDto } from './dto/ip-location.response.dto';
 export class IpLookupController {
   constructor(private readonly ipLookupService: IpLookupService) {}
 
-  @Post('/location')
+  @Get('/location')
   async findLocation(@Body('ip') ip): Promise<IpLocationResponseDto> {
     return await this.ipLookupService.getLocation(ip);
   }
