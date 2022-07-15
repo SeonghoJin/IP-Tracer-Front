@@ -47,7 +47,7 @@ export const useLocations = () => {
             if(location) {
                 setLocations((locations) => {
                     return locations.concat(location)
-                });
+                })
             }
 
             setFetching(false);

@@ -58,7 +58,7 @@ function RouteView(){
     const [viewType, setViewType] = useState<ViewTypes>(ViewTypes.Map);
     const [searchState, setSearchState] = useDomainSearch();
     const { socketStatus } = useSocketStatus();
-    const locations = useLocations();
+    const {locations}= useLocations();
 
     const changeViewType = useCallback((type: ViewTypes) => {
         setViewType(type);
