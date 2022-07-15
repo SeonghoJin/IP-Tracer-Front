@@ -40,7 +40,7 @@ export class LookupGeolocationApi implements LookupApi {
     return (
       (
         await this.lookupApiStatusRepository.findOne({
-          apiName: LookupApiName.geolocationApi,
+          where: { apiName: LookupApiName.geolocationApi },
         })
       ).status === LookupApiStatus.OK
     );
@@ -63,7 +63,7 @@ export class LookupGeolocationApi implements LookupApi {
                 ip,
                 parseFloat(latitude),
                 parseFloat(longitude),
-                  LookupApiName.geolocationApi
+                LookupApiName.geolocationApi,
               );
             }
 

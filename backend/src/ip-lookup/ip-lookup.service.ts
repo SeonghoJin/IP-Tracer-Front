@@ -23,7 +23,9 @@ export class IpLookupService {
 
   async getLocation(ip: string) {
     const ipLocationEntity = await this.ipLocationRepository.findOne({
-      ip,
+      where: {
+        ip,
+      },
     });
 
     if (ipLocationEntity) {

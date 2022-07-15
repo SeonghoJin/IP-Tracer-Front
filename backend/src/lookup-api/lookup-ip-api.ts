@@ -37,7 +37,7 @@ export class LookupIpApi implements LookupApi {
     return (
       (
         await this.lookupApiStatusRepository.findOne({
-          apiName: LookupApiName.ipApi,
+          where: {apiName: LookupApiName.ipApi},
         })
       ).status === LookupApiStatus.OK
     );
