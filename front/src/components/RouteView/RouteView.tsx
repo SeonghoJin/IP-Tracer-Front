@@ -14,7 +14,7 @@ const Splitter = styled.div`
 `;
 
 const Button = styled.button`
-  width: 70px;
+  width: 90px;
   padding-left: 10px;
   padding-right: 10px;
   font-size: 16px;
@@ -50,7 +50,7 @@ const Status = styled.div<{ status: SocketStatus }>`
 `;
 
 const enum ViewTypes {
-    Raw = "Raw",
+    Terminal = "Terminal",
     Map = "Map",
 }
 
@@ -78,12 +78,12 @@ function RouteView(){
                     </Button>
                     <Splitter />
                     <Button
-                        className={`${ViewTypes.Raw === viewType && "active"}`}
+                        className={`${ViewTypes.Terminal === viewType && "active"}`}
                         onClick={() => {
-                            changeViewType(ViewTypes.Raw);
+                            changeViewType(ViewTypes.Terminal);
                         }}
                     >
-                        {ViewTypes.Raw}
+                        {ViewTypes.Terminal}
                     </Button>
                     <Splitter />
                 </div>
@@ -105,7 +105,7 @@ function RouteView(){
             </header>
             <div id={"main"}>
                 {ViewTypes.Map === viewType && <DotMapView locations={locations}/>}
-                {ViewTypes.Raw === viewType && <TerminalView />}
+                {ViewTypes.Terminal === viewType && <TerminalView />}
             </div>
         </div>
     );

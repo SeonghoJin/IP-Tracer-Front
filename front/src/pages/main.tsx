@@ -8,6 +8,7 @@ const MainWrapper = styled.div`
   height: 100%;
   display: flex;
   flex-direction: column;
+  background: #F6F8FA;
 `;
 
 const FooterLayout = styled.div`

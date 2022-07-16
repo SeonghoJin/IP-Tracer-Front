@@ -1,52 +1,52 @@
 import * as React from "react";
-import { useEffect, useRef } from "react";
-import { DotMap } from "@dot-map-renderer/app";
+import { useMemo} from "react";
+import { ReactDotMap } from "@dot-map-renderer/react";
+import {DotMapOptionArg} from "@dot-map-renderer/app/src/dotMapOptionArg";
+import {LineData} from "@dot-map-renderer/component/src/line/LineData";
+import {Point} from "@dot-map-renderer/component/src/Point";
 import {Location} from "../../types/Location";
 import style from './DotMapView.module.scss';
 
-const dotMap = new DotMap({
+const options : DotMapOptionArg = {
     dotType: "circle",
     backgroundColor: "#4A4F5A",
     pixelSize: 2,
     gapSize: 2,
-});
-
+}
 
 type Props = {
     locations: Location[]
 }
 
 function DotMapView({locations}: Props){
-    const ref = useRef<HTMLDivElement>(null);
-    const controller = useRef<any>(null);
 
-    useEffect(() => {
-        dotMap.attach(ref.current!);
-        controller.current = dotMap.getController();
-        controller.current.addAnchor([35, 127]);
+    const anchors = useMemo(() => {
+        return locations.map(({latitude, longitude}) => ([latitude, longitude]) as Point) ;
+    },[locations])
 
-        return () => {
-            dotMap.detach();
-        }
-    }, []);
+    const lines = useMemo(() => {
 
-    useEffect(() => {
+        const lines = [];
+
         for(let i = 0; i < locations.length - 1; i++){
-            const {latitude, longitude}= locations[i];
-            const {latitude: latitude2, longitude: longitude2}= locations[i + 1];
-            controller.current.addLine([
+            const { latitude, longitude } = locations[i];
+            const { latitude: latitude2, longitude: longitude2 } = locations[i + 1];
+
+            lines.push([
                 [latitude, longitude],
                 [latitude2, longitude2]
-            ]);
+            ] as LineData);
         }
-    }, [locations, controller.current]);
 
-    return (
-        <div
-            ref={ref}
-            className={style.DotMapView}
-        />
-    );
+        return lines;
+    }, [locations]);
+
+    return (<ReactDotMap
+        anchors={anchors}
+        lines={lines}
+        options={options}
+        className={style.DotMapView}
+    />);
 }
 
 export default DotMapView;

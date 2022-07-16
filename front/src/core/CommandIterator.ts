@@ -5,7 +5,6 @@ export interface ICommandIterator {
   moveEnd(): void;
 }
 
-
 export class CommandIterator implements ICommandIterator{
   private index = 0;
   private current = 0;
