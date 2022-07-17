@@ -1,6 +1,6 @@
 import { atom } from "recoil";
 
-export const appNavigationState = atom<boolean>({
-    key: "appNavigationState ",
+export const optionTerminal = atom<boolean>({
+    key: "optionTerminalState",
     default: false
 });

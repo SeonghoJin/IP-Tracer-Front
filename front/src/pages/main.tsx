@@ -2,7 +2,7 @@ import React, { FC } from "react";
 import styled from "styled-components";
 import Footer  from "../components/Footer";
 import Content from "../components/Content";
-import AppSideBar from "../components/AppSideBar";
+import OptionTerminal from "../components/OptionTerminal";
 
 const MainWrapper = styled.div`
   width: 100%;
@@ -27,8 +27,8 @@ export const Main: FC = () => {
 
   return (
     <MainWrapper>
+        <OptionTerminal/>
         <ContentLayout>
-            <AppSideBar/>
             <Content/>
         </ContentLayout>
       <FooterLayout>

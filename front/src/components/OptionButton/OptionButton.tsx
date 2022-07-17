@@ -1,10 +1,10 @@
 import SettingsIcon from '@mui/icons-material/Settings'
-import {useAppSideNavigation} from "../../hooks/useAppSideNavigation";
+import {useOptionTerminal} from "../../hooks/useOptionTerminal";
 import style from './OptionButton.module.scss';
 
 function OptionButton(){
 
-    const {toggle} = useAppSideNavigation();
+    const {toggle} = useOptionTerminal();
 
     return <button onClick={toggle} className={style.OptionButton}>
         <SettingsIcon/>

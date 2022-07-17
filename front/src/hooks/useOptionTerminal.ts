@@ -1,18 +1,18 @@
 import {useRecoilState} from "recoil";
 import {useAnimationState} from "react-use-animation-state";
 import {useCallback, useEffect} from "react";
-import {appNavigationState} from "../atoms/appNavigationState";
+import {optionTerminal} from "../atoms/appNavigationState";
 
-export const useAppSideNavigation = () => {
-    const [isOpen, setIsOpen] = useRecoilState(appNavigationState);
+export const useOptionTerminal = () => {
+    const [isOpen, setIsOpen] = useRecoilState(optionTerminal);
 
     const {
         state,
         onAnimation,
         offAnimation
     } = useAnimationState('close', {
-        onAnimationTime: 300,
-        offAnimationTime: 300,
+        onAnimationTime: 1000,
+        offAnimationTime: 1000,
         onPreemption: true,
         offPreemption: true
     });
