@@ -1,14 +1,13 @@
 .SideNavigation {
 
-  transition: 1s;
+  transition: 300ms;
+  background-color: white;
 
   &--open {
     width: 240px;
-    height: 100vh;
   }
 
   &--close {
     width: 0px;
-    height: 100vh;
   }
 }

@@ -7,6 +7,7 @@ import DotMapView from "../DotMapView";
 import {useLocations} from "../../hooks/useLocations";
 import {useDomainSearch} from "../../hooks/useDomainSearch";
 import './RouteView.css';
+import OptionButton from "../OptionButton";
 
 const Splitter = styled.div`
   height: 100%;
@@ -88,6 +89,9 @@ function RouteView(){
                     <Splitter />
                 </div>
                 <div className={"group"}>
+                    <ContentLayout>
+                        <OptionButton/>
+                    </ContentLayout>
                     <ContentLayout>
                         <Status status={socketStatus}></Status>
                     </ContentLayout>

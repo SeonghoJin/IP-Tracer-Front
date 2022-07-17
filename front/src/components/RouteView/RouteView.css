@@ -29,7 +29,7 @@
   display: flex;
 }
 
-.RouteDataViewWrapper header .group button:hover {
+.RouteDataViewWrapper header .group > button:hover {
   background-color: #d3d3d3;
 }
 

@@ -20,7 +20,6 @@ export const useLocations = () => {
     }, [hop]);
 
     useEffect(() => {
-        console.log(fetching, queue.current);
 
         if(queue.current.length === 0){
             return;
@@ -53,9 +52,6 @@ export const useLocations = () => {
             setFetching(false);
         })();
     }, [fetching, queue.current.length]);
-
-    console.log(locations);
-
 
     return {
         locations,
