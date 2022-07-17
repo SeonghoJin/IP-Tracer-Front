@@ -1,17 +1,19 @@
 import cx from 'classnames';
-import React, {MouseEventHandler, useCallback, useEffect, useRef, useState} from "react";
+import React, {MouseEventHandler, useCallback, useEffect, useMemo, useRef, useState} from "react";
 import {useOptionTerminal} from "../../hooks/useOptionTerminal";
 import {useMapPixelSize} from "../../hooks/useMapPixelSize";
 import {useMapDotType} from "../../hooks/useMapDotType";
 import {useMapBackgroundColor} from "../../hooks/useMapBackgroundColor";
 import {useMapGapSize} from "../../hooks/useMapGapSize";
 import {useMapPixelColor} from "../../hooks/useMapPixelColor";
+import OptionTerminalHeader from "../OptionTerminalHeader";
+import OptionTerminalBody from "../OptionTerminalBody";
 import style from './OptionTerminal.module.scss';
 
 function OptionTerminal(){
 
     const terminal = useRef<HTMLDivElement>(null)
-    const {isOpen} = useOptionTerminal();
+    const { state} = useOptionTerminal();
     const {setMapPixelSize} = useMapPixelSize();
     const {setPixelColor} = useMapPixelColor();
     const {setMapDotType} = useMapDotType();
@@ -52,16 +54,17 @@ function OptionTerminal(){
     }, []);
 
     const onMouseDown = useCallback(() => {
+        terminal.current!.style.cursor = 'auto';
         terminal.current!.addEventListener('mousemove', onMouseMove as any);
     }, [])
 
     const onMouseUp = useCallback(() => {
         terminal.current!.removeEventListener('mousemove', onMouseMove as any);
         mousePosition.current = null;
-    }, [])
+    }, []);
 
     useEffect(() => {
-        if(isOpen === true){
+        if(state === 'open'){
             terminal.current!.addEventListener('mousedown',onMouseDown);
             terminal.current!.addEventListener('mouseup', onMouseUp);
         }
@@ -69,21 +72,42 @@ function OptionTerminal(){
             terminal.current!.removeEventListener('mousedown', onMouseDown);
             terminal.current!.removeEventListener('mouseup', onMouseDown);
         }
-    }, [isOpen]);
+    }, [state]);
+
+    const position = useMemo(() => {
+        if(state === 'closing'){
+            return {
+                x: 0,
+                y: 0,
+            }
+        }
+
+        if(state === 'close'){
+            return  {
+                x: 0,
+                y: 0,
+            }
+        }
+        return currentPosition
+    }, [state, currentPosition])
 
     return <>
         <div
             ref={terminal}
-            className={cx(style.SideNavigation, {
-            [style['SideNavigation--open']]: isOpen,
-            [style['SideNavigation--close']]: !isOpen
+            className={cx(style.OptionTerminal, {
+            [style['OptionTerminal--open']]: state === 'open',
+            [style['OptionTerminal--opening']]: state === 'opening',
+            [style['OptionTerminal--close']]: state === 'close',
+            [style['OptionTerminal--closing']]: state === 'closing'
         },
                 )}
             style={{
-                left: currentPosition.x,
-                top: currentPosition.y,
+                left: position.x,
+                top: position.y,
             }}
         >
+            <OptionTerminalHeader/>
+            <OptionTerminalBody/>
             background
             <input onChange={(e) => {
                 setBackgroundColor(e.target.value);

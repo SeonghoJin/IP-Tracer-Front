@@ -8,19 +8,7 @@ import {useLocations} from "../../hooks/useLocations";
 import {useDomainSearch} from "../../hooks/useDomainSearch";
 import './RouteView.css';
 import OptionButton from "../OptionButton";
-
-const Splitter = styled.div`
-  height: 100%;
-  border-right: 1px solid #d3d3d3;
-`;
-
-const Button = styled.button`
-  width: 90px;
-  padding-left: 10px;
-  padding-right: 10px;
-  font-size: 16px;
-  color: #4a4f5a;
-`;
+import { Splitter, Button, RemoveButton } from "../Styled";
 
 const ContentLayout = styled.div`
   box-sizing: border-box;
@@ -29,13 +17,6 @@ const ContentLayout = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-`;
-
-const RemoveButton = styled.button`
-  width: 20px;
-  height: 20px;
-  background-color: red;
-  border-radius: 50%;
 `;
 
 const Status = styled.div<{ status: SocketStatus }>`

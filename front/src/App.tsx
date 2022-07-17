@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { ServiceProvider } from "./core/ServiceProvider";
 import { Main } from "./pages/main";
 import style from './App.module.scss';
+import {OptionTerminalProvider} from "./core/OptionTerminalProvider";
 
 const MainPageLayout = styled.div`
   width: 100vw;
@@ -14,9 +15,11 @@ function App() {
   return (
     <div className={style.App}>
       <ServiceProvider>
-        <MainPageLayout>
-          <Main />
-        </MainPageLayout>
+        <OptionTerminalProvider>
+            <MainPageLayout>
+                <Main />
+            </MainPageLayout>
+        </OptionTerminalProvider>
       </ServiceProvider>
     </div>
   );

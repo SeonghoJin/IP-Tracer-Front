@@ -1,0 +1,15 @@
+.OptionTerminalHeader {
+  width: 100%;
+  height: 10%;
+  display: flex;
+  border-bottom: 1px solid #d3d3d3;
+  background-color: #e2e2e2;
+  align-items: center;
+  justify-content: space-between;
+  overflow-x: scroll;
+
+  &__wrapper {
+
+  }
+}
+

@@ -1,0 +1,9 @@
+$padding-size: 20px;
+
+
+.OptionTerminalBody {
+  width: calc(100% - 2 * $padding-size);
+  height: 85%;
+  padding: $padding-size;
+  background-color: #4a4f5a;
+}

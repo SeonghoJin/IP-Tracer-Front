@@ -1,34 +1,26 @@
 import {useRecoilState} from "recoil";
 import {useAnimationState} from "react-use-animation-state";
-import {useCallback, useEffect} from "react";
+import {useCallback, useContext, useEffect} from "react";
 import {optionTerminal} from "../atoms/appNavigationState";
+import {OptionTerminalContext} from "../core/OptionTerminalProvider";
 
 export const useOptionTerminal = () => {
-    const [isOpen, setIsOpen] = useRecoilState(optionTerminal);
+    const context = useContext(OptionTerminalContext);
 
-    const {
-        state,
-        onAnimation,
-        offAnimation
-    } = useAnimationState('close', {
-        onAnimationTime: 1000,
-        offAnimationTime: 1000,
-        onPreemption: true,
-        offPreemption: true
-    });
+    if(context === null){
+        throw new Error("not defined optionTerminal Context");
+    }
 
-    useEffect(() => {
-        setIsOpen(state === 'opening' || state === 'open');
-    }, [state]);
+    const { state, offAnimation, onAnimation } = context;
 
     const toggle = useCallback(() => {
-        if(isOpen){
+        if(state === 'open' || state === 'opening'){
             offAnimation();
             return;
         }
 
         onAnimation();
-    }, [isOpen, onAnimation, offAnimation])
+    }, [onAnimation, offAnimation])
 
     const off = useCallback(() => {
         offAnimation();
@@ -38,10 +30,11 @@ export const useOptionTerminal = () => {
         onAnimation();
     }, [onAnimation])
 
+
     return {
         toggle,
         on,
         off,
-        isOpen
+        state
     };
 }
