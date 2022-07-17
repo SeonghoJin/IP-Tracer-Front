@@ -1,24 +1,27 @@
 import * as React from "react";
 import { useMemo} from "react";
 import { ReactDotMap } from "@dot-map-renderer/react";
-import {DotMapOptionArg} from "@dot-map-renderer/app/src/dotMapOptionArg";
 import {LineData} from "@dot-map-renderer/component/src/line/LineData";
 import {Point} from "@dot-map-renderer/component/src/Point";
 import {Location} from "../../types/Location";
+import {useMapBackgroundColor} from "../../hooks/useMapBackgroundColor";
+import {useMapGapSize} from "../../hooks/useMapGapSize";
+import {useMapDotType} from "../../hooks/useMapDotType";
+import {useMapPixelSize} from "../../hooks/useMapPixelSize";
+import {useMapPixelColor} from "../../hooks/useMapPixelColor";
 import style from './DotMapView.module.scss';
-
-const options : DotMapOptionArg = {
-    dotType: "circle",
-    backgroundColor: "#4A4F5A",
-    pixelSize: 2,
-    gapSize: 2,
-}
 
 type Props = {
     locations: Location[]
 }
 
 function DotMapView({locations}: Props){
+
+    const {backgroundColor} = useMapBackgroundColor();
+    const {mapGapSize} = useMapGapSize();
+    const {mapDotType} = useMapDotType();
+    const {mapPixelSize} = useMapPixelSize();
+    const {pixelColor} = useMapPixelColor()
 
     const anchors = useMemo(() => {
         return locations.map(({latitude, longitude}) => ([latitude, longitude]) as Point) ;
@@ -44,7 +47,13 @@ function DotMapView({locations}: Props){
     return (<ReactDotMap
         anchors={anchors}
         lines={lines}
-        options={options}
+        options={{
+            pixelColor,
+            backgroundColor,
+            pixelSize: mapPixelSize,
+            gapSize: mapGapSize,
+            dotType: mapDotType,
+        }}
         className={style.DotMapView}
     />);
 }
