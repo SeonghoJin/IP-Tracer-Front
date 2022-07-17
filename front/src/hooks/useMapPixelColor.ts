@@ -18,7 +18,7 @@ export const useMapPixelColor = () => {
 
     return {
         pixelColor,
-        setBackgroundColor: _setPixelColor,
+        setPixelColor: _setPixelColor,
         isError
     }
 }

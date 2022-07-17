@@ -8,16 +8,22 @@ export const useMapPixelSize = () => {
     const [isError, setIsError] = useState(false);
 
     const _setMapPixelSize = (pixelSize: number) => {
-        if(mapPixelSize < PIXEL_MIN_SIZE){
+
+        if(Number.isNaN(pixelSize)){
             setIsError(true);
             return;
         }
 
-        if(mapPixelSize > PIXEL_MAX_SIZE){
+        if(pixelSize < PIXEL_MIN_SIZE){
             setIsError(true);
             return;
         }
 
+        if(pixelSize > PIXEL_MAX_SIZE){
+            setIsError(true);
+            return;
+        }
+        console.log(pixelSize);
         setMapPixelSize(pixelSize);
         setIsError(false);
     }

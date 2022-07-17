@@ -8,6 +8,12 @@ export const useMapGapSize = () => {
     const [isError, setIsError] = useState(false);
 
     const _setMapGapSize = (gapSize: number) => {
+
+        if(Number.isNaN(gapSize)){
+            setIsError(true);
+            return;
+        }
+
         if(gapSize < PIXEL_MIN_GAP_SIZE){
             setIsError(true);
             return;
