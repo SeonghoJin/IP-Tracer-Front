@@ -9,6 +9,7 @@ import {useDomainSearch} from "../../hooks/useDomainSearch";
 import './RouteView.css';
 import OptionButton from "../OptionButton";
 import { Splitter, Button, RemoveButton, ContentLayout } from "../Styled";
+import {useOptionTerminal} from "../../hooks/useOptionTerminal";
 
 const Status = styled.div<{ status: SocketStatus }>`
   width: 20px;
@@ -30,6 +31,7 @@ const enum ViewTypes {
 function RouteView(){
     const [viewType, setViewType] = useState<ViewTypes>(ViewTypes.Map);
     const [searchState, setSearchState] = useDomainSearch();
+    const {off} = useOptionTerminal();
     const { socketStatus } = useSocketStatus();
     const {locations}= useLocations();
 
@@ -74,6 +76,7 @@ function RouteView(){
                                     ...searchState,
                                     searching: false
                                 }));
+                                off();
                             }}
                         />
                     </ContentLayout>
