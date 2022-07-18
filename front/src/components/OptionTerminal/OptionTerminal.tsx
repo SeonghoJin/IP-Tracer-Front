@@ -49,19 +49,20 @@ function OptionTerminal(){
     }, []);
 
     const onMouseDown = useCallback(() => {
-        terminal.current!.style.cursor = 'auto';
-        terminal.current!.addEventListener('mousemove', onMouseMove as any);
+        terminal.current!.style.cursor = 'grab';
+        window.addEventListener('mousemove', onMouseMove as any);
     }, [])
 
     const onMouseUp = useCallback(() => {
-        terminal.current!.removeEventListener('mousemove', onMouseMove as any);
+        window.removeEventListener('mousemove', onMouseMove as any);
+        terminal.current!.style.cursor = 'default'
         mousePosition.current = null;
     }, []);
 
     useEffect(() => {
         if(state === 'open'){
-            terminal.current!.addEventListener('mousedown',onMouseDown);
-            terminal.current!.addEventListener('mouseup', onMouseUp);
+            window.addEventListener('mousedown',onMouseDown);
+            window.addEventListener('mouseup', onMouseUp);
         }
         return () => {
             terminal.current!.removeEventListener('mousedown', onMouseDown);
