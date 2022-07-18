@@ -3,7 +3,6 @@ import { AppModule } from './app/app.module';
 import { WsAdapter } from '@nestjs/platform-ws';
 import { ConfigService, ConfigType } from '@nestjs/config';
 import { AppConfig } from './config/appConfig';
-
 import { INestApplication } from '@nestjs/common';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 

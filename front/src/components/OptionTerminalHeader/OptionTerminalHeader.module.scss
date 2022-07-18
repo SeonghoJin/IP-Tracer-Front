@@ -1,15 +1,39 @@
 .OptionTerminalHeader {
   width: 100%;
-  height: 10%;
+  height: 15%;
   display: flex;
   border-bottom: 1px solid #d3d3d3;
   background-color: #e2e2e2;
   align-items: center;
   justify-content: space-between;
-  overflow-x: scroll;
 
-  &__wrapper {
+  &__left {
+    display: flex;
+    height: 100%;
+    width: 90%;
+    overflow-x: scroll;
+    overflow: scroll;
+  }
 
+  &__button {
+    width: 80px;
+    padding-left: 10px;
+    padding-right: 10px;
+    font-size: 16px;
+    color: #4a4f5a;
+
+    &--active, &:hover {
+      background-color: #d3d3d3;
+    }
+  }
+
+  &__left::-webkit-scrollbar {
+    display: none;
+  }
+
+  &__right {
+    display: flex;
+    height: 100%;
   }
 }
 

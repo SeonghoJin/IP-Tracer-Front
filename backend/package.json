@@ -22,6 +22,7 @@
     "seed": "ts-node seed/index.ts"
   },
   "dependencies": {
+    "@dot-map-renderer/canvas": "^0.0.11",
     "@nestjs/axios": "^0.1.0",
     "@nestjs/common": "^9.0.3",
     "@nestjs/config": "^2.2.0",

@@ -1,5 +1,4 @@
 import {
-  Body,
   Controller,
   Get,
   Param,
@@ -11,8 +10,9 @@ import { IpLocationResponseDto } from './dto/ip-location.response.dto';
 export class IpLookupController {
   constructor(private readonly ipLookupService: IpLookupService) {}
 
-  @Get('/location')
-  async findLocation(@Body('ip') ip): Promise<IpLocationResponseDto> {
+  @Get('/location/:ip')
+  async findLocation(@Param('ip') ip): Promise<IpLocationResponseDto> {
+    console.log(ip);
     return await this.ipLookupService.getLocation(ip);
   }
 

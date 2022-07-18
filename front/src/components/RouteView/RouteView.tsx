@@ -8,16 +8,7 @@ import {useLocations} from "../../hooks/useLocations";
 import {useDomainSearch} from "../../hooks/useDomainSearch";
 import './RouteView.css';
 import OptionButton from "../OptionButton";
-import { Splitter, Button, RemoveButton } from "../Styled";
-
-const ContentLayout = styled.div`
-  box-sizing: border-box;
-  height: 100%;
-  padding: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
+import { Splitter, Button, RemoveButton, ContentLayout } from "../Styled";
 
 const Status = styled.div<{ status: SocketStatus }>`
   width: 20px;
