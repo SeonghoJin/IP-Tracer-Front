@@ -1,4 +1,7 @@
 import {OptionTerminalViewTypes} from "../../constants";
+import DotOption from "../DotOption";
+import BackgroundOption from "../BackgroundOption";
+import DotColorOption from "../DotColorOption";
 import style from './OptionTerminalBody.module.scss';
 
 type Props = {
@@ -6,7 +9,11 @@ type Props = {
 }
 
 function OptionTerminalBody({selectedView}: Props){
-    return <div className={style.OptionTerminalBody}>option-terminal-body</div>
+    return <div className={style.OptionTerminalBody}>
+        {selectedView === OptionTerminalViewTypes.Dot && <DotOption/>}
+        {selectedView === OptionTerminalViewTypes.Background && <BackgroundOption/>}
+        {selectedView === OptionTerminalViewTypes.DotColor && <DotColorOption/>}
+    </div>
 }
 
 export default OptionTerminalBody;

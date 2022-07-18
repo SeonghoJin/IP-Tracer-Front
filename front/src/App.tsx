@@ -4,6 +4,7 @@ import { ServiceProvider } from "./core/ServiceProvider";
 import { Main } from "./pages/main";
 import style from './App.module.scss';
 import {OptionTerminalProvider} from "./core/OptionTerminalProvider";
+import {ColorSettingsProvider} from "./core/ColorSettingProvider";
 
 const MainPageLayout = styled.div`
   width: 100vw;
@@ -16,9 +17,11 @@ function App() {
     <div className={style.App}>
       <ServiceProvider>
         <OptionTerminalProvider>
-            <MainPageLayout>
-                <Main />
-            </MainPageLayout>
+            <ColorSettingsProvider>
+                <MainPageLayout>
+                    <Main />
+                </MainPageLayout>
+            </ColorSettingsProvider>
         </OptionTerminalProvider>
       </ServiceProvider>
     </div>

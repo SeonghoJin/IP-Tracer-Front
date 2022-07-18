@@ -1,0 +1,10 @@
+.ColorPicker {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &__photoshop_color_picker {
+    width: 450px;
+  }
+}

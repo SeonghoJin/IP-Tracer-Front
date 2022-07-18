@@ -31,6 +31,14 @@ function OptionTerminalHeader({ selectedView, changeViewType }: Props){
                 {OptionTerminalViewTypes.Dot}
             </button>
             <Splitter />
+            <button className={cx(style.OptionTerminalHeader__button, {
+                [style['OptionTerminalHeader__button--active']]: selectedView === OptionTerminalViewTypes.DotColor
+            })}
+                    onClick={() => {changeViewType(OptionTerminalViewTypes.DotColor)}}
+            >
+                {OptionTerminalViewTypes.DotColor}
+            </button>
+            <Splitter />
         </div>
         <div className={style.OptionTerminalHeader__right}>
             <ContentLayout>

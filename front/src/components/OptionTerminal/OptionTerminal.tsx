@@ -6,6 +6,7 @@ import OptionTerminalBody from "../OptionTerminalBody";
 import {OptionTerminalViewTypes} from "../../constants";
 import style from './OptionTerminal.module.scss';
 
+
 function OptionTerminal(){
     const [viewType, setViewType] = useState<OptionTerminalViewTypes>(OptionTerminalViewTypes.Background);
     const terminal = useRef<HTMLDivElement>(null)
@@ -48,13 +49,18 @@ function OptionTerminal(){
 
     }, []);
 
-    const onMouseDown = useCallback(() => {
+    const onMouseDown = useCallback((e) => {
+        const $color_picker = document.querySelector('.sketch-picker');
+
+        if($color_picker && $color_picker.contains(e.target)){
+            return;
+        }
         terminal.current!.style.cursor = 'grab';
-        window.addEventListener('mousemove', onMouseMove as any);
+        terminal.current!.addEventListener('mousemove', onMouseMove as any);
     }, [])
 
     const onMouseUp = useCallback(() => {
-        window.removeEventListener('mousemove', onMouseMove as any);
+        terminal.current!.removeEventListener('mousemove', onMouseMove as any);
         terminal.current!.style.cursor = 'default'
         mousePosition.current = null;
     }, []);
@@ -105,7 +111,9 @@ function OptionTerminal(){
                 selectedView={viewType}
                 changeViewType={changeViewType}
             />
-            <OptionTerminalBody selectedView={viewType}/>
+            <OptionTerminalBody
+                selectedView={viewType}
+            />
         </div>
 }
 
