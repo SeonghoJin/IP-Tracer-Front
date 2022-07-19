@@ -1,8 +1,9 @@
-import React, { FC } from "react";
+import React, {FC, useState} from "react";
 import styled from "styled-components";
 import Footer from "../components/Footer";
 import Content from "../components/Content";
 import OptionTerminal from "../components/OptionTerminal";
+import ToastContainer from "../components/ToastContainer";
 
 const MainWrapper = styled.div`
   width: 100%;
@@ -24,8 +25,10 @@ const ContentLayout = styled.div`
 `;
 
 export const Main: FC = () => {
+
   return (
     <MainWrapper>
+        <ToastContainer waitTime={1000}/>
       <OptionTerminal />
       <ContentLayout>
         <Content />
