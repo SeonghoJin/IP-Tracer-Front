@@ -4,8 +4,8 @@ import {IIpLocationService, IpLocationService} from "../service/IpLocationServic
 import {EmailService, IEmailService} from "../service/EmailService";
 import { HttpService } from "../service/HttpService";
 import { config } from "../config";
-import {CommandIterator} from "./CommandIterator";
 import {IStorageService, LocalStorageService} from "../service/LocalStorageService";
+import {CommandIterator} from "./CommandIterator";
 
 const httpService: HttpService = axios.create({
   baseURL: config.API_PREFIX,
