@@ -56,19 +56,19 @@ function OptionTerminal(){
             return;
         }
         terminal.current!.style.cursor = 'grab';
-        terminal.current!.addEventListener('mousemove', onMouseMove as any);
+        window.addEventListener('mousemove', onMouseMove as any);
     }, [])
 
     const onMouseUp = useCallback(() => {
-        terminal.current!.removeEventListener('mousemove', onMouseMove as any);
+        window.removeEventListener('mousemove', onMouseMove as any);
         terminal.current!.style.cursor = 'default'
         mousePosition.current = null;
     }, []);
 
     useEffect(() => {
         if(state === 'open'){
-            window.addEventListener('mousedown',onMouseDown);
-            window.addEventListener('mouseup', onMouseUp);
+            terminal.current!.addEventListener('mousedown',onMouseDown);
+            terminal.current!.addEventListener('mouseup', onMouseUp);
         }
         return () => {
             terminal.current!.removeEventListener('mousedown', onMouseDown);
@@ -77,19 +77,13 @@ function OptionTerminal(){
     }, [state]);
 
     const position = useMemo(() => {
-        if(state === 'closing'){
+        if(state === 'closing' || state === 'close'){
             return {
                 x: 0,
-                y: 0,
+                y: '50%',
             }
         }
 
-        if(state === 'close'){
-            return  {
-                x: 0,
-                y: 0,
-            }
-        }
         return currentPosition
     }, [state, currentPosition])
 
