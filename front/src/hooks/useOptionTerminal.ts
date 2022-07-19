@@ -1,7 +1,4 @@
-import {useRecoilState} from "recoil";
-import {useAnimationState} from "react-use-animation-state";
-import {useCallback, useContext, useEffect} from "react";
-import {optionTerminal} from "../atoms/optionTerminal";
+import {useCallback, useContext} from "react";
 import {OptionTerminalContext} from "../core/OptionTerminalProvider";
 
 export const useOptionTerminal = () => {
@@ -29,7 +26,6 @@ export const useOptionTerminal = () => {
     const on = useCallback(() => {
         onAnimation();
     }, [onAnimation])
-
 
     return {
         toggle,
