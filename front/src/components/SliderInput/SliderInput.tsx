@@ -23,7 +23,6 @@ function SliderInput<T extends number | string>({
       value={value}
       min={min}
       max={max}
-      defaultValue={defaultValue}
       step={step}
       onChange={(e) => {
         onChange(e);
