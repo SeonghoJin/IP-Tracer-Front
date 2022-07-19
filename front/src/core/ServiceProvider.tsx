@@ -1,10 +1,11 @@
 import React from "react";
 import axios from "axios";
-import { IpLocationService } from "../service/IpLocationService";
-import { EmailService } from "../service/EmailService";
+import {IIpLocationService, IpLocationService} from "../service/IpLocationService";
+import {EmailService, IEmailService} from "../service/EmailService";
 import { HttpService } from "../service/HttpService";
 import { config } from "../config";
 import {CommandIterator} from "./CommandIterator";
+import {IStorageService, LocalStorageService} from "../service/LocalStorageService";
 
 const httpService: HttpService = axios.create({
   baseURL: config.API_PREFIX,
@@ -14,12 +15,14 @@ const defaultValue = {
     ipLocationService: new IpLocationService(httpService),
     emailService: new EmailService(httpService),
     commandService: new CommandIterator(),
+    storageService: new LocalStorageService()
 }
 
 export const ServiceContext = React.createContext<{
-  ipLocationService: IpLocationService;
-  emailService: EmailService;
+  ipLocationService: IIpLocationService;
+  emailService: IEmailService;
   commandService: CommandIterator;
+  storageService: IStorageService;
 }>(defaultValue);
 
 type Props = {
