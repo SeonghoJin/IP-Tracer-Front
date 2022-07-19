@@ -4,7 +4,12 @@ import {Location} from "../types/Location";
 import {ApiHealth} from "../types/ApiHealth";
 import { HttpService } from "./HttpService";
 
-export class IpLocationService {
+interface IIpLocationService {
+  findLocation: (ip: string) => Promise<null | Location>;
+  getApiHealths: () => Promise<null | ApiHealth>;
+}
+
+export class IpLocationService implements IIpLocationService{
   constructor(private httpService: HttpService) {}
 
   findLocation = async (ip: string) => {

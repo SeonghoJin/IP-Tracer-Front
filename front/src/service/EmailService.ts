@@ -1,6 +1,10 @@
 import { HttpService } from "./HttpService";
 
-export class EmailService {
+export interface IEmailService {
+  sendEmail: (feedback: string) => Promise<void>;
+}
+
+export class EmailService implements IEmailService{
   constructor(private httpService: HttpService) {}
 
   sendEmail = async (feedback: string) => {
