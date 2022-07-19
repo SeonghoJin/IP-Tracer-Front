@@ -6,11 +6,16 @@ import {isDotType} from "../types/isDotType";
 import {verifyPixelGapSize} from "../util/verifyPixelGapSize";
 
 export interface IStorageService {
-    getBackgroundColor(): string;
-    getDotColor(): string;
+    getBackgroundColor(): HexColor;
+    setBackgroundColor(backgroundColor: HexColor): void;
+    getDotColor(): HexColor;
+    setDotColor(color: HexColor): void;
     getDotType(): DotType;
+    setDotType(dotType: DotType): void;
     getGapSize(): number;
+    setGapSize(gapSize: number): void;
     getDotSize(): number;
+    setDotSize(dotSize: number): void;
 }
 
 export class LocalStorageService implements IStorageService {
@@ -31,7 +36,7 @@ export class LocalStorageService implements IStorageService {
             return backgroundColor;
         }
 
-        const saveBackgroundColor = '#000000';
+        const saveBackgroundColor = '#4a4f5a';
         window.localStorage.setItem(this.backgroundKey, saveBackgroundColor);
 
         console.warn(`not defined background color, so return and save initial value(${saveBackgroundColor})`);
@@ -46,7 +51,7 @@ export class LocalStorageService implements IStorageService {
         window.localStorage.setItem(this.backgroundKey, backgroundColor);
     }
 
-    public getDotColor(): string {
+    public getDotColor(){
         const dotColor = window.localStorage.getItem(this.dotColorKey);
 
         if(isHexColor(dotColor)){
@@ -129,11 +134,11 @@ export class LocalStorageService implements IStorageService {
     }
 
     public setGapSize(gapSize: number) {
-        if(!verifyPixelSize(gapSize)){
+        if(!verifyPixelGapSize(gapSize)){
             throw new Error(`this is not gap size range${gapSize}`);
         }
 
-        window.localStorage.setItem(this.dotSizeKey, gapSize.toString());
+        window.localStorage.setItem(this.dotGapSizeKey, gapSize.toString());
     }
 
 }
