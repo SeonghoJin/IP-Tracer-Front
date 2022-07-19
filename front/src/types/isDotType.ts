@@ -1,10 +1,6 @@
 import {DotType} from "@dot-map-renderer/component/src/dot/DotType";
 
 export const isDotType = (obj: any): obj is DotType => {
-    if(obj === undefined){
-        return false;
-    }
-
     if(typeof obj !== 'string'){
         return false;
     }
