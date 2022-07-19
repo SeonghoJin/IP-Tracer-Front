@@ -1,4 +1,4 @@
-import { requestWhileFulfilled } from "../util/requestWhileFulfilled";
+import { poolingWhileFulfilled } from "../util/poolingWhileFulfilled";
 import {HttpStatus} from "../constants/HttpStatus";
 import {Location} from "../types/Location";
 import {ApiHealth} from "../types/ApiHealth";
@@ -8,7 +8,7 @@ export class IpLocationService {
   constructor(private httpService: HttpService) {}
 
   findLocation = async (ip: string) => {
-    const response = await requestWhileFulfilled(async () => {
+    const response = await poolingWhileFulfilled(async () => {
       const response = await this.httpService.get<Location>(
           `/ip-lookup/location/${ip}`,
       );
@@ -28,7 +28,7 @@ export class IpLocationService {
   };
 
   getApiHealths = async () => {
-    const response = await requestWhileFulfilled(async () => {
+    const response = await poolingWhileFulfilled(async () => {
       const response = await this.httpService.get<ApiHealth>("/api/health");
       return response;
     }, {

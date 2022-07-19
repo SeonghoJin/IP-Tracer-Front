@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import OptionButton from "../OptionButton";
 
 export const Group = styled.div`
   height: 100%;

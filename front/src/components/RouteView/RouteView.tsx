@@ -6,10 +6,10 @@ import TerminalView from "../TerminalView";
 import DotMapView from "../DotMapView";
 import {useLocations} from "../../hooks/useLocations";
 import {useDomainSearch} from "../../hooks/useDomainSearch";
-import './RouteView.css';
 import OptionButton from "../OptionButton";
 import { Splitter, Button, RemoveButton, ContentLayout } from "../Styled";
 import {useOptionTerminal} from "../../hooks/useOptionTerminal";
+import './RouteView.css';
 
 const Status = styled.div<{ status: SocketStatus }>`
   width: 20px;

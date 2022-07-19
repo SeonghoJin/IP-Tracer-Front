@@ -13,7 +13,7 @@ function OptionTerminalHeader({ selectedView, changeViewType }: Props){
 
     const {off} = useOptionTerminal();
 
-    return <div className={style.OptionTerminalHeader}>
+    return <div className={style.OptionTerminalHeader} id={'option-terminal-header'}>
         <div className={style.OptionTerminalHeader__left}>
             <button className={cx(style.OptionTerminalHeader__button, {
                 [style['OptionTerminalHeader__button--active']]: selectedView === OptionTerminalViewTypes.Background

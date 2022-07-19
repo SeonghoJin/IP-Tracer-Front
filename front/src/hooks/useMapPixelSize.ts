@@ -23,7 +23,7 @@ export const useMapPixelSize = () => {
             setIsError(true);
             return;
         }
-        console.log(pixelSize);
+
         setMapPixelSize(pixelSize);
         setIsError(false);
     }

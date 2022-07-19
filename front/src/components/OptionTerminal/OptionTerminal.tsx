@@ -50,13 +50,14 @@ function OptionTerminal(){
     }, []);
 
     const onMouseDown = useCallback((e) => {
-        const $color_picker = document.querySelector('.sketch-picker');
 
-        if($color_picker && $color_picker.contains(e.target)){
-            return;
+        const $option_terminal_header = document.getElementById('option-terminal-header');
+
+        if($option_terminal_header && $option_terminal_header.contains(e.target)){
+            terminal.current!.style.cursor = 'grab';
+            window.addEventListener('mousemove', onMouseMove as any);
         }
-        terminal.current!.style.cursor = 'grab';
-        window.addEventListener('mousemove', onMouseMove as any);
+
     }, [])
 
     const onMouseUp = useCallback(() => {

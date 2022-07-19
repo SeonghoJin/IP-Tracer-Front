@@ -5,7 +5,8 @@ import {LinearGrowth} from "./LinearGrowth";
 import {sleep} from "./sleep";
 
 type PoolingWhileFulfilledFunction = <T extends (...args: any[]) => (Promise<any>)>(
-    callback: T, option: {
+    callback: T,
+    option: {
         timeout?: number,
         isFulfilled: (response: Payload<ReturnType<T>>) => boolean,
         onError?: (err: unknown) => void,
@@ -13,7 +14,7 @@ type PoolingWhileFulfilledFunction = <T extends (...args: any[]) => (Promise<any
         tryTimeType?: 'linear' | 'exponential'
     }) => (Promise<ReturnType<T> | null>);
 
-export const requestWhileFulfilled: PoolingWhileFulfilledFunction = (
+export const poolingWhileFulfilled: PoolingWhileFulfilledFunction = (
     callback,
     {timeout = 3000,
         isFulfilled,
