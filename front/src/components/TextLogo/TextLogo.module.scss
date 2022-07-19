@@ -16,9 +16,8 @@
     transform: translate(16px, -30px);
     transition: transform 1s;
 
-    &--active{
+    &--active {
       transform: translate(0px, 0px);
     }
   }
-
 }

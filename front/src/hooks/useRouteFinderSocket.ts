@@ -4,7 +4,7 @@ import { routeFinderSocketState } from "../atoms/routeFinderSocketState";
 import { RouteSocketReceiveEvent, RouteSocketSendEvent } from "../constants";
 import { SocketStatus } from "../constants/status";
 import { config } from "../config";
-import {isMessage, Message} from "../types/Message";
+import { isMessage, Message } from "../types/Message";
 import { useSocketStatus } from "./useRouteSocketStatus";
 import { useHop } from "./useHop";
 import { useRawMessage } from "./useRawMessage";

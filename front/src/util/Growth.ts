@@ -1,4 +1,4 @@
 export interface Growth {
-    initialTime: number;
-    next(): number;
+  initialTime: number;
+  next(): number;
 }

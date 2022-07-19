@@ -9,11 +9,11 @@
     height: 100%;
     flex: 1;
 
-    &__top, &__bottom {
+    &__top,
+    &__bottom {
       display: flex;
       flex: 1;
     }
-
   }
 
   &__right {

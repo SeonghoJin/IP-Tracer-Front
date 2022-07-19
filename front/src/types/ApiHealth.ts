@@ -1,4 +1,4 @@
 export type ApiHealth = {
-    apiName: string;
-    status: number
-}
+  apiName: string;
+  status: number;
+};

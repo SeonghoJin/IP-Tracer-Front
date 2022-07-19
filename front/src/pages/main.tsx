@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 import styled from "styled-components";
-import Footer  from "../components/Footer";
+import Footer from "../components/Footer";
 import Content from "../components/Content";
 import OptionTerminal from "../components/OptionTerminal";
 
@@ -24,13 +24,12 @@ const ContentLayout = styled.div`
 `;
 
 export const Main: FC = () => {
-
   return (
     <MainWrapper>
-        <OptionTerminal/>
-        <ContentLayout>
-            <Content/>
-        </ContentLayout>
+      <OptionTerminal />
+      <ContentLayout>
+        <Content />
+      </ContentLayout>
       <FooterLayout>
         <Footer />
       </FooterLayout>

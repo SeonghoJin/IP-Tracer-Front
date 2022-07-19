@@ -1,62 +1,63 @@
-import {useEffect, useRef, useState} from "react";
+import { useEffect, useRef, useState } from "react";
 import { Hop } from "../types/Hop";
-import {Location} from "../types/Location";
-import {useIpLocationService} from "./useIpLocationService";
-import {useHop} from "./useHop";
+import { Location } from "../types/Location";
+import { useIpLocationService } from "./useIpLocationService";
+import { useHop } from "./useHop";
 
 export const useLocations = () => {
-    const [locations, setLocations] = useState<Location[]>([]);
-    const queue = useRef<Hop[]>([]);
-    const [fetching, setFetching] = useState<boolean>(false);
-    const {hop} = useHop();
-    const ipLocationService = useIpLocationService();
+  const [locations, setLocations] = useState<Location[]>([]);
+  const queue = useRef<Hop[]>([]);
+  const [fetching, setFetching] = useState<boolean>(false);
+  const { hop } = useHop();
+  const ipLocationService = useIpLocationService();
 
-    useEffect(() => {
-        if(!hop){
-            return;
-        }
+  useEffect(() => {
+    if (!hop) {
+      return;
+    }
 
-        queue.current.push(hop);
-    }, [hop]);
+    queue.current.push(hop);
+  }, [hop]);
 
-    useEffect(() => {
+  useEffect(() => {
+    if (queue.current.length === 0) {
+      return;
+    }
 
-        if(queue.current.length === 0){
-            return;
-        }
+    if (fetching) {
+      return;
+    }
 
-        if(fetching){
-            return;
-        }
+    setFetching(true);
 
-        setFetching(true);
+    const currentHop = queue.current.shift();
 
-        const currentHop = queue.current.shift();
+    if (!currentHop) {
+      setFetching(false);
+      return;
+    }
 
-        if(!currentHop){
-            setFetching(false);
-            return;
-        }
+    const {
+      ip: { address },
+    } = currentHop;
 
-        const {ip: {address}} = currentHop;
+    (async () => {
+      const location = await ipLocationService.findLocation(address);
 
-        (async () => {
-            const location = await ipLocationService.findLocation(address);
+      if (location) {
+        setLocations((locations) => {
+          return locations.concat(location);
+        });
+      }
 
-            if(location) {
-                setLocations((locations) => {
-                    return locations.concat(location)
-                })
-            }
+      setFetching(false);
+    })();
+  }, [fetching, queue.current.length]);
 
-            setFetching(false);
-        })();
-    }, [fetching, queue.current.length]);
-
-    return {
-        locations,
-        clearLocations(){
-            setLocations([]);
-        }
-    };
-}
+  return {
+    locations,
+    clearLocations() {
+      setLocations([]);
+    },
+  };
+};

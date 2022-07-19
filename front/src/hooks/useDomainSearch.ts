@@ -1,6 +1,6 @@
-import {useRecoilState} from "recoil";
-import {domainSearchState} from "../atoms/domainSearchState";
+import { useRecoilState } from "recoil";
+import { domainSearchState } from "../atoms/domainSearchState";
 
 export const useDomainSearch = () => {
-    return useRecoilState(domainSearchState);
-}
+  return useRecoilState(domainSearchState);
+};

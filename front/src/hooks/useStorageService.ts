@@ -1,7 +1,7 @@
-import {useServices} from "./useServices";
+import { useServices } from "./useServices";
 
 export const useStorageService = () => {
-    const { storageService } = useServices();
+  const { storageService } = useServices();
 
-    return storageService;
-}
+  return storageService;
+};

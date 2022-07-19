@@ -1,36 +1,36 @@
-import {useCallback, useContext} from "react";
-import {OptionTerminalContext} from "../core/OptionTerminalProvider";
+import { useCallback, useContext } from "react";
+import { OptionTerminalContext } from "../core/OptionTerminalProvider";
 
 export const useOptionTerminal = () => {
-    const context = useContext(OptionTerminalContext);
+  const context = useContext(OptionTerminalContext);
 
-    if(context === null){
-        throw new Error("not defined optionTerminal Context");
+  if (context === null) {
+    throw new Error("not defined optionTerminal Context");
+  }
+
+  const { state, offAnimation, onAnimation } = context;
+
+  const toggle = useCallback(() => {
+    if (state === "open" || state === "opening") {
+      offAnimation();
+      return;
     }
 
-    const { state, offAnimation, onAnimation } = context;
+    onAnimation();
+  }, [onAnimation, offAnimation]);
 
-    const toggle = useCallback(() => {
-        if(state === 'open' || state === 'opening'){
-            offAnimation();
-            return;
-        }
+  const off = useCallback(() => {
+    offAnimation();
+  }, [offAnimation]);
 
-        onAnimation();
-    }, [onAnimation, offAnimation])
+  const on = useCallback(() => {
+    onAnimation();
+  }, [onAnimation]);
 
-    const off = useCallback(() => {
-        offAnimation();
-    }, [offAnimation]);
-
-    const on = useCallback(() => {
-        onAnimation();
-    }, [onAnimation])
-
-    return {
-        toggle,
-        on,
-        off,
-        state
-    };
-}
+  return {
+    toggle,
+    on,
+    off,
+    state,
+  };
+};

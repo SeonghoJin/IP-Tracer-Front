@@ -6,12 +6,12 @@ import {
   useRef,
   useState,
 } from "react";
-import cx from 'classnames';
+import cx from "classnames";
 import { useRouteFinderSocket } from "../../hooks/useRouteFinderSocket";
-import {useDomainSearch} from "../../hooks/useDomainSearch";
+import { useDomainSearch } from "../../hooks/useDomainSearch";
 import style from "./Search.module.scss";
 
-function Search(){
+function Search() {
   const [search, setSearch] = useState<string>("");
   const [searchState, setSearchState] = useDomainSearch();
   const ref = useRef<null | HTMLInputElement>(null);
@@ -26,8 +26,8 @@ function Search(){
       onConnectSocket(search);
       setSearch("");
       setSearchState({
-          search,
-          searching: true
+        search,
+        searching: true,
       });
     },
     [onConnectSocket, search, setSearchState]
@@ -43,19 +43,21 @@ function Search(){
   }, []);
 
   return (
-      <div className={cx(style.SearchWrapper, {
-        [style['SearchWrapper--active']]: searchState.searching
-      })}>
-        <input
-            className={style.Input}
-            type="text"
-            placeholder={"궁금한 도메인을 입력하세요. ex. naver.com"}
-            onChange={onChangeSearch}
-            onKeyPress={onKeyPress}
-            value={search}
-            ref={ref}
-        />
-      </div>
+    <div
+      className={cx(style.SearchWrapper, {
+        [style["SearchWrapper--active"]]: searchState.searching,
+      })}
+    >
+      <input
+        className={style.Input}
+        type="text"
+        placeholder={"궁금한 도메인을 입력하세요. ex. naver.com"}
+        onChange={onChangeSearch}
+        onKeyPress={onKeyPress}
+        value={search}
+        ref={ref}
+      />
+    </div>
   );
 }
 

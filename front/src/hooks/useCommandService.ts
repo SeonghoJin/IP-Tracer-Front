@@ -1,6 +1,6 @@
-import {useServices} from "./useServices";
+import { useServices } from "./useServices";
 
 export const useCommandService = () => {
-    const { commandService } = useServices();
-    return commandService;
-}
+  const { commandService } = useServices();
+  return commandService;
+};

@@ -1,22 +1,28 @@
 import React from "react";
 import axios from "axios";
-import {IIpLocationService, IpLocationService} from "../service/IpLocationService";
-import {EmailService, IEmailService} from "../service/EmailService";
+import {
+  IIpLocationService,
+  IpLocationService,
+} from "../service/IpLocationService";
+import { EmailService, IEmailService } from "../service/EmailService";
 import { HttpService } from "../service/HttpService";
 import { config } from "../config";
-import {IStorageService, LocalStorageService} from "../service/LocalStorageService";
-import {CommandIterator} from "./CommandIterator";
+import {
+  IStorageService,
+  LocalStorageService,
+} from "../service/LocalStorageService";
+import { CommandIterator } from "./CommandIterator";
 
 const httpService: HttpService = axios.create({
   baseURL: config.API_PREFIX,
 });
 
 const defaultValue = {
-    ipLocationService: new IpLocationService(httpService),
-    emailService: new EmailService(httpService),
-    commandService: new CommandIterator(),
-    storageService: new LocalStorageService()
-}
+  ipLocationService: new IpLocationService(httpService),
+  emailService: new EmailService(httpService),
+  commandService: new CommandIterator(),
+  storageService: new LocalStorageService(),
+};
 
 export const ServiceContext = React.createContext<{
   ipLocationService: IIpLocationService;
@@ -31,9 +37,7 @@ type Props = {
 
 export function ServiceProvider({ children }: Props) {
   return (
-    <ServiceContext.Provider
-      value={defaultValue}
-    >
+    <ServiceContext.Provider value={defaultValue}>
       {children}
     </ServiceContext.Provider>
   );

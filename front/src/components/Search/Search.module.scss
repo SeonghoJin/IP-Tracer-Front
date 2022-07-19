@@ -3,11 +3,10 @@
   height: 45px;
   transition: 1s;
 
-  &--active{
+  &--active {
     width: 350px;
     transform: translate(70px, -127px);
   }
-
 }
 
 .Input {
