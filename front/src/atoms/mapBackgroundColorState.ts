@@ -1,6 +1,6 @@
 import { atom } from "recoil";
 import { HexColor } from "../types/HexColor";
-import { useStorageService } from "../hooks/useStorageService";
+import { useMapOptionStorageService } from "../hooks/useMapOptionStorageService";
 
 type MapBackgroundColorState = HexColor;
 
@@ -9,7 +9,7 @@ export const mapBackgroundColorState = atom<MapBackgroundColorState>({
   default: "#4a4f5a",
   effects: [
     ({ setSelf, onSet, trigger }) => {
-      const storageService = useStorageService();
+      const storageService = useMapOptionStorageService();
 
       if (trigger === "get") {
         setSelf(storageService.getBackgroundColor());

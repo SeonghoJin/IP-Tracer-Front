@@ -5,7 +5,7 @@ import { verifyPixelSize } from "../util/verifyPixelSize";
 import { isDotType } from "../types/isDotType";
 import { verifyPixelGapSize } from "../util/verifyPixelGapSize";
 
-export interface IStorageService {
+export interface IMapOptionStorageService {
   getBackgroundColor(): HexColor;
   setBackgroundColor(backgroundColor: HexColor): void;
   getDotColor(): HexColor;
@@ -18,7 +18,7 @@ export interface IStorageService {
   setDotSize(dotSize: number): void;
 }
 
-export class LocalStorageService implements IStorageService {
+export class MapOptionStorageService implements IMapOptionStorageService {
   private readonly backgroundKey = "__dot_map_background__";
   private readonly dotColorKey = "__dot_color__";
   private readonly dotSizeKey = "__dot_size__";

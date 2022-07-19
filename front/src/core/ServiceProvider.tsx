@@ -8,9 +8,13 @@ import { EmailService, IEmailService } from "../service/EmailService";
 import { HttpService } from "../service/HttpService";
 import { config } from "../config";
 import {
-  IStorageService,
-  LocalStorageService,
-} from "../service/LocalStorageService";
+  IMapOptionStorageService,
+  MapOptionStorageService,
+} from "../service/MapOptionStorageService";
+import {
+  ITerminalStorageService,
+  TerminalStorageService,
+} from "../service/TerminalStorageService";
 import { CommandIterator } from "./CommandIterator";
 
 const httpService: HttpService = axios.create({
@@ -21,14 +25,16 @@ const defaultValue = {
   ipLocationService: new IpLocationService(httpService),
   emailService: new EmailService(httpService),
   commandService: new CommandIterator(),
-  storageService: new LocalStorageService(),
+  mapOptionStorageService: new MapOptionStorageService(),
+  terminalStorageService: new TerminalStorageService(),
 };
 
 export const ServiceContext = React.createContext<{
   ipLocationService: IIpLocationService;
   emailService: IEmailService;
   commandService: CommandIterator;
-  storageService: IStorageService;
+  mapOptionStorageService: IMapOptionStorageService;
+  terminalStorageService: ITerminalStorageService;
 }>(defaultValue);
 
 type Props = {

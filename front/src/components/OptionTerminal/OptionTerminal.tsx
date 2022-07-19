@@ -11,6 +11,7 @@ import { useOptionTerminal } from "../../hooks/useOptionTerminal";
 import OptionTerminalHeader from "../OptionTerminalHeader";
 import OptionTerminalBody from "../OptionTerminalBody";
 import { OptionTerminalViewTypes } from "../../constants";
+import {useOptionTerminalPosition} from "../../hooks/useOptionTerminalPosition";
 import style from "./OptionTerminal.module.scss";
 
 function OptionTerminal() {
@@ -21,10 +22,7 @@ function OptionTerminal() {
   const { state } = useOptionTerminal();
 
   const mousePosition = useRef<null | { x: number; y: number }>(null);
-  const [currentPosition, setCurrentPosition] = useState({
-    x: 0,
-    y: 0,
-  });
+  const [currentPosition, setCurrentPosition] = useOptionTerminalPosition();
 
   const changeViewType = (type: OptionTerminalViewTypes) => {
     setViewType(type);

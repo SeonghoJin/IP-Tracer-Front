@@ -1,5 +1,5 @@
 import { atom } from "recoil";
-import { useStorageService } from "../hooks/useStorageService";
+import { useMapOptionStorageService } from "../hooks/useMapOptionStorageService";
 
 type MapPixelSizeState = number;
 
@@ -8,7 +8,7 @@ export const mapPixelSizeState = atom<MapPixelSizeState>({
   default: 4,
   effects: [
     ({ setSelf, onSet, trigger }) => {
-      const storageService = useStorageService();
+      const storageService = useMapOptionStorageService();
 
       if (trigger === "get") {
         setSelf(storageService.getDotSize());

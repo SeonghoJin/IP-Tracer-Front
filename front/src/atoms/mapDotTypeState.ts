@@ -1,6 +1,6 @@
 import { atom } from "recoil";
 import { DotType } from "@dot-map-renderer/component/src/dot/DotType";
-import { useStorageService } from "../hooks/useStorageService";
+import { useMapOptionStorageService } from "../hooks/useMapOptionStorageService";
 
 type MapDotTypeState = DotType;
 
@@ -9,7 +9,7 @@ export const mapDotTypeState = atom<MapDotTypeState>({
   default: "circle",
   effects: [
     ({ setSelf, onSet, trigger }) => {
-      const storageService = useStorageService();
+      const storageService = useMapOptionStorageService();
 
       if (trigger === "get") {
         setSelf(storageService.getDotType());
