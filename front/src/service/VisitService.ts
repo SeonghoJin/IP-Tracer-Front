@@ -4,6 +4,7 @@ export interface IVisitService {
   isVisitSendOpinion(): boolean;
   isVisitOptionTerminal(): boolean;
   isVisitIpTracerApp(): boolean;
+  isVisitOptionTerminalMouseGuide(): boolean;
 }
 
 export class VisitService implements IVisitService {
@@ -11,6 +12,8 @@ export class VisitService implements IVisitService {
 
   private readonly sendOpinionVisitKey = "__send_opinion_visit_key__";
   private readonly optionTerminalVisit = "__option_terminal_visit_key__";
+  private readonly optionTerminalMouseVisit =
+    "__option_terminal_mouse_visit_key__";
   private readonly ipTracerAppVisit = "__ip_tracer_app_visit_key__";
 
   isVisitIpTracerApp(): boolean {
@@ -34,6 +37,23 @@ export class VisitService implements IVisitService {
     }
 
     window.localStorage.setItem(this.optionTerminalVisit, JSON.stringify(true));
+    return false;
+  }
+
+  isVisitOptionTerminalMouseGuide(): boolean {
+    const visitFlag = window.localStorage.getItem(
+      this.optionTerminalMouseVisit
+    );
+    const pipedVisitFlag = toBoolean(visitFlag);
+
+    if (pipedVisitFlag) {
+      return true;
+    }
+
+    window.localStorage.setItem(
+      this.optionTerminalMouseVisit,
+      JSON.stringify(true)
+    );
     return false;
   }
 

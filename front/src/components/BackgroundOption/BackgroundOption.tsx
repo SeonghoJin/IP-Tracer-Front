@@ -1,6 +1,6 @@
-import style from "../DotColorOption/DotColorOption.module.scss";
 import ColorPicker from "../ColorPicker";
 import { useMapBackgroundColor } from "../../hooks/useMapBackgroundColor";
+import style from "./BackgroundOption.module.scss";
 
 function BackgroundOption() {
   const { backgroundColor, setBackgroundColor } = useMapBackgroundColor();

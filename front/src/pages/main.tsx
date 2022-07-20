@@ -5,6 +5,8 @@ import Content from "../components/Content";
 import OptionTerminal from "../components/OptionTerminal";
 import UnsafeToastContainer from "../components/UnsafeToastContainer";
 import { useToast } from "../hooks/useToast";
+import MousePointer from "../components/MousePointer";
+import MouseGrab from "../components/MouseGrab";
 
 const MainWrapper = styled.div`
   width: 100%;

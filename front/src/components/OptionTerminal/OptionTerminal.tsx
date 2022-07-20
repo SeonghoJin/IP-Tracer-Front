@@ -13,6 +13,7 @@ import OptionTerminalBody from "../OptionTerminalBody";
 import { OptionTerminalViewTypes } from "../../constants";
 import { useOptionTerminalPosition } from "../../hooks/useOptionTerminalPosition";
 import OptionTerminalGuide from "../OptionTerminalGuide";
+import OptionTerminalMouseGuide from "../OptionTerminalMouseGuide";
 import style from "./OptionTerminal.module.scss";
 
 function OptionTerminal() {
@@ -113,6 +114,9 @@ function OptionTerminal() {
       />
       <OptionTerminalBody selectedView={viewType} />
       <OptionTerminalGuide />
+      {terminal.current && (
+        <OptionTerminalMouseGuide terminal={terminal.current} />
+      )}
     </div>
   );
 }
