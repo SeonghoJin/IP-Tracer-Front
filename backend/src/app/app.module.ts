@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { RouteGateway } from '../gateway/route.gateway';
@@ -12,6 +12,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { IpLocationApiConfig } from '../config/api/ip-location-api.config';
 import { IpLookupModule } from '../ip-lookup/ip-lookup.module';
 import { FeedBackConfig } from '../config/feedback.config';
+import { AppLoggerMiddleware } from 'src/middleware/AppLogger.middleware';
 
 @Module({
   imports: [
@@ -68,4 +69,8 @@ import { FeedBackConfig } from '../config/feedback.config';
   controllers: [AppController],
   providers: [AppService, RouteGateway],
 })
-export class AppModule {}
+export class AppModule implements NestModule {
+  configure(consumer: MiddlewareConsumer): void {
+    consumer.apply(AppLoggerMiddleware).forRoutes('*');
+  }
+}
