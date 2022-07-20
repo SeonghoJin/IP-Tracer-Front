@@ -11,7 +11,7 @@ import { Group } from "../Styled";
 import { Modal } from "../Modal/Modal";
 import {useToast} from "../../hooks/useToast";
 import {useOpinionModal} from "../../hooks/useOpinionModal";
-import SendEmailGuideContainer from "../SendEmailGuideContainer";
+import SendEmailGuide from "../SendEmailGuide";
 import style from "./Footer.module.scss";
 
 const Button = styled.button`
@@ -71,7 +71,7 @@ function Footer() {
         >
           <OpinionTextArea ref={ref} />
         </Modal>
-          <SendEmailGuideContainer/>
+          <SendEmailGuide/>
         <Group>
           <a href={"https://github.com/SeonghoJin"} target={"_blank"}>
             <img src={GithubIcon} />

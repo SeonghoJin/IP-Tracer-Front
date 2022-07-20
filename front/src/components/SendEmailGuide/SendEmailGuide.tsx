@@ -3,7 +3,7 @@ import {useVisitService} from "../../hooks/useVisitService";
 import {useOpinionModal} from "../../hooks/useOpinionModal";
 import {useToast} from "../../hooks/useToast";
 
-function SendEmailGuideContainer(){
+function SendEmailGuide(){
     const visitService = useVisitService();
     const [opinionModalFlag] = useOpinionModal();
     const toast = useToast();
@@ -16,4 +16,4 @@ function SendEmailGuideContainer(){
     return null;
 }
 
-export default SendEmailGuideContainer;
+export default SendEmailGuide;
