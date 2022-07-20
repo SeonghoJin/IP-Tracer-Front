@@ -6,7 +6,7 @@ import { HttpService } from "./HttpService";
 
 export interface IIpLocationService {
   findLocation: (ip: string) => Promise<null | Location>;
-  getApiHealths: () => Promise<null | ApiHealth>;
+  getApiHealths: () => Promise<null | ApiHealth[]>;
 }
 
 export class IpLocationService implements IIpLocationService {
@@ -38,7 +38,7 @@ export class IpLocationService implements IIpLocationService {
   getApiHealths = async () => {
     const response = await poolingWhileFulfilled(
       async () => {
-        const response = await this.httpService.get<ApiHealth>("/api/health");
+        const response = await this.httpService.get<ApiHealth[]>("/ip-lookup/api/health");
         return response;
       },
       {
