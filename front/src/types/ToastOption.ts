@@ -1,1 +1,4 @@
-export type ToastOption = string;
+export type ToastOption = {
+    text: string;
+    time: number;
+};

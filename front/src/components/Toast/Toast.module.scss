@@ -1,0 +1,31 @@
+.Toast {
+  padding: 10px;
+  position: fixed;
+  margin: auto auto;
+  width: 300px;
+  height: 30px;
+  top: 75vh;
+  left: calc(50vw - 150px);
+  z-index: 999;
+  border-radius: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  color: white;
+  backdrop-filter: blur(50px);
+
+  &__background {
+    position: absolute;
+    background-color: gray;
+    opacity: 0.3;
+    width: 100%;
+    height: 100%;
+    backdrop-filter: blur(50px);
+  }
+
+  &__text {
+    font-size: 24px;
+    z-index: 1;
+  }
+}

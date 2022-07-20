@@ -19,3 +19,6 @@ export enum OptionTerminalViewTypes {
   Dot = "점",
   DotColor = "점 색상",
 }
+
+export const TOAST_TIME_INTERVAL_SHORT = 2000;
+export const TOAST_TIME_INTERVAL_LONG = 2000;

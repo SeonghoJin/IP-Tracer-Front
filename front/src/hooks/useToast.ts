@@ -1,11 +1,15 @@
 import {ToastOption} from "../types/ToastOption";
-import {useToastWaitState} from "./useToastWaitState";
+import {useUnsafeWaitingToasts} from "./useUnsafeWaitingToasts";
+
+let beforeToastOptions: any[] = []
 
 export const useToast = () => {
-    const [, setWaitToasts] = useToastWaitState();
+    const {toastOptions, notify} = useUnsafeWaitingToasts();
+    beforeToastOptions = toastOptions;
 
-    const toast = (toastOptions: ToastOption) => {
-        setWaitToasts((waitToasts) => waitToasts.concat(toastOptions));
+    const toast = (toastOption: ToastOption) => {
+        toastOptions.push(toastOption);
+        notify();
     }
 
     return toast;
