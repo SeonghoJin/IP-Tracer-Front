@@ -7,6 +7,7 @@ import React, {
   useRef,
   useState,
 } from "react";
+import {useAnimationState} from "react-use-animation-state";
 import { useOptionTerminal } from "../../hooks/useOptionTerminal";
 import OptionTerminalHeader from "../OptionTerminalHeader";
 import OptionTerminalBody from "../OptionTerminalBody";
@@ -24,6 +25,11 @@ function OptionTerminal() {
   const { state } = useOptionTerminal();
   const mousePosition = useRef<null | { x: number; y: number }>(null);
   const [currentPosition, setCurrentPosition] = useOptionTerminalPosition();
+  const {
+    offAnimation: closeAnimation,
+    onAnimation: startAnimation,
+    state: mouseState
+  } = useAnimationState('close');
 
   const changeViewType = (type: OptionTerminalViewTypes) => {
     setViewType(type);
@@ -73,7 +79,7 @@ function OptionTerminal() {
   }, []);
 
   useEffect(() => {
-    if (state === "open") {
+    if (state === "open" && mouseState === 'close') {
       terminal.current!.addEventListener("mousedown", onMouseDown);
       terminal.current!.addEventListener("mouseup", onMouseUp);
     }
@@ -81,7 +87,7 @@ function OptionTerminal() {
       terminal.current!.removeEventListener("mousedown", onMouseDown);
       terminal.current!.removeEventListener("mouseup", onMouseDown);
     };
-  }, [state]);
+  }, [state, mouseState]);
 
   const position = useMemo(() => {
     if (state === "closing" || state === "close") {
@@ -115,7 +121,12 @@ function OptionTerminal() {
       <OptionTerminalBody selectedView={viewType} />
       <OptionTerminalGuide />
       {terminal.current && (
-        <OptionTerminalMouseGuide terminal={terminal.current} />
+        <OptionTerminalMouseGuide
+            terminal={terminal.current}
+            closeAnimation={closeAnimation}
+            startAnimation={startAnimation}
+            mouseState={mouseState}
+        />
       )}
     </div>
   );

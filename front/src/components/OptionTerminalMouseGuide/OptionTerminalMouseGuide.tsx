@@ -1,5 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
-import { useAnimationState } from "react-use-animation-state";
+import { useEffect, useState } from "react";
 import MousePointer from "../MousePointer";
 import { sleep } from "../../util/sleep";
 import { useVisitService } from "../../hooks/useVisitService";
@@ -8,9 +7,12 @@ import style from "./OptionTerminalMouseGuide.module.scss";
 
 type Props = {
   terminal: HTMLDivElement;
+  mouseState: "open" | "opening" | "closing" | "close",
+  closeAnimation: () => void;
+  startAnimation: () => void;
 };
 
-function OptionTerminalMouseGuide({ terminal }: Props) {
+function OptionTerminalMouseGuide({ terminal, mouseState, closeAnimation, startAnimation }: Props) {
   const [currentPosition, setCurrentPosition] = useState<{
     x: number | string;
     y: number | string;
@@ -19,11 +21,6 @@ function OptionTerminalMouseGuide({ terminal }: Props) {
     y: "50vh",
   });
   const visitService = useVisitService();
-  const {
-    state: mouseState,
-    onAnimation: startMouseAnimation,
-    offAnimation: closeMouseAnimation,
-  } = useAnimationState("close");
   const { state: optionState } = useOptionTerminal();
 
   useEffect(() => {
@@ -35,7 +32,7 @@ function OptionTerminalMouseGuide({ terminal }: Props) {
       return;
     }
 
-    startMouseAnimation();
+    startAnimation();
   }, [optionState]);
 
   useEffect(() => {
@@ -69,7 +66,7 @@ function OptionTerminalMouseGuide({ terminal }: Props) {
           y: firstY,
         });
         await sleep(2000);
-        closeMouseAnimation();
+        closeAnimation();
       })();
     }
   }, [mouseState]);
