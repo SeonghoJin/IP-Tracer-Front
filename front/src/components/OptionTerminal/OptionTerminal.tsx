@@ -20,7 +20,6 @@ function OptionTerminal() {
   );
   const terminal = useRef<HTMLDivElement>(null);
   const { state } = useOptionTerminal();
-
   const mousePosition = useRef<null | { x: number; y: number }>(null);
   const [currentPosition, setCurrentPosition] = useOptionTerminalPosition();
 
@@ -85,7 +84,7 @@ function OptionTerminal() {
   const position = useMemo(() => {
     if (state === "closing" || state === "close") {
       return {
-        x: 0,
+        x: '-10%',
         y: "50%",
       };
     }
