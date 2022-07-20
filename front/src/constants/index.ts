@@ -21,4 +21,4 @@ export enum OptionTerminalViewTypes {
 }
 
 export const TOAST_TIME_INTERVAL_SHORT = 2000;
-export const TOAST_TIME_INTERVAL_LONG = 2000;
+export const TOAST_TIME_INTERVAL_LONG = 4000;
