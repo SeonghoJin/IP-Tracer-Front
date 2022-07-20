@@ -18,10 +18,10 @@ export const useUnsafeWaitingToasts = () => {
 
   const insert = (toastOption: ToastOption) => {
     toastOptions.push(toastOption);
+    notify();
   };
 
   return {
-    notify,
     insert,
     subscribe,
     toastOptions,
