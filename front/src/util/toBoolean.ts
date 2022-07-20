@@ -18,6 +18,6 @@ export function toBoolean(str: unknown) {
   } else if (typeof str === "number") {
     return str !== 0;
   } else {
-    return true;
+    return false;
   }
 }
