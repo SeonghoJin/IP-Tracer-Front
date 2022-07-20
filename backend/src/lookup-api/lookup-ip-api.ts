@@ -37,7 +37,7 @@ export class LookupIpApi implements LookupApi {
     return (
       (
         await this.lookupApiStatusRepository.findOne({
-          where: {apiName: LookupApiName.ipApi},
+          where: { apiName: LookupApiName.ipApi },
         })
       ).status === LookupApiStatus.OK
     );
@@ -55,7 +55,11 @@ export class LookupIpApi implements LookupApi {
           const { ip, longitude, latitude } = response.data;
 
           if (response.status === 200) {
-            return IpLocationResponseDto.to(ip, latitude, longitude,                 LookupApiName.ipApi
+            return IpLocationResponseDto.to(
+              ip,
+              latitude,
+              longitude,
+              LookupApiName.ipApi,
             );
           }
 

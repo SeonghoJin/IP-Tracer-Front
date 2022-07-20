@@ -25,5 +25,6 @@ export class IpLookupController {
   @Get('/api/health/:apiName')
   async getApiHealth(@Param('apiName') apiName: string) {
     const apiStatus = await this.ipLookupService.getApiHealth(apiName);
+    return apiStatus;
   }
 }
