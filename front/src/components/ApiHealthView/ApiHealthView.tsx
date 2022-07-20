@@ -1,5 +1,6 @@
 import cx from 'classnames'
 import {ApiHealth} from "../../types/ApiHealth";
+import {API_NAME_MAP} from "../../constants";
 import style from './ApiHealthView.module.scss';
 
 type Props = {
@@ -9,7 +10,7 @@ type Props = {
 function ApiHealthView({apiHealth}: Props){
     return <div className={style.ApiHealthView}>
         <div className={style.ApiHealthView__name}>
-            {apiHealth.apiName}
+            {API_NAME_MAP[apiHealth.apiName] ?? ''}
         </div>
         <div className={cx(
             style.ApiHealthView__status,
