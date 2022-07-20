@@ -4,9 +4,8 @@ import Footer from "../components/Footer";
 import Content from "../components/Content";
 import OptionTerminal from "../components/OptionTerminal";
 import UnsafeToastContainer from "../components/UnsafeToastContainer";
-import { useToast } from "../hooks/useToast";
-import MousePointer from "../components/MousePointer";
-import MouseGrab from "../components/MouseGrab";
+import {useApiHealths} from "../hooks/useApiHealths";
+import ApiHealthViewList from "../components/ApiHealthViewList";
 
 const MainWrapper = styled.div`
   width: 100%;
@@ -28,8 +27,10 @@ const ContentLayout = styled.div`
 `;
 
 export const Main: FC = () => {
+    useApiHealths();
   return (
     <MainWrapper>
+        <ApiHealthViewList/>
       <UnsafeToastContainer />
       <OptionTerminal />
       <ContentLayout>

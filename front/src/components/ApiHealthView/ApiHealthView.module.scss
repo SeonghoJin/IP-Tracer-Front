@@ -1,0 +1,20 @@
+.ApiHealthView {
+  width: 105px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  &__status {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+
+    &--red {
+      background-color: red;
+    }
+
+    &--green {
+      background-color: #90ee90;
+    }
+  }
+}
