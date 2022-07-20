@@ -11,7 +11,7 @@ import { useOptionTerminal } from "../../hooks/useOptionTerminal";
 import OptionTerminalHeader from "../OptionTerminalHeader";
 import OptionTerminalBody from "../OptionTerminalBody";
 import { OptionTerminalViewTypes } from "../../constants";
-import {useOptionTerminalPosition} from "../../hooks/useOptionTerminalPosition";
+import { useOptionTerminalPosition } from "../../hooks/useOptionTerminalPosition";
 import style from "./OptionTerminal.module.scss";
 
 function OptionTerminal() {

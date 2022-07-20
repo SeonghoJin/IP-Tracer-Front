@@ -1,3 +1,3 @@
 import UnsafeToastContainer from "./UnsafeToastContainer";
 
-export default UnsafeToastContainer
+export default UnsafeToastContainer;

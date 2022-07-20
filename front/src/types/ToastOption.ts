@@ -1,4 +1,4 @@
 export type ToastOption = {
-    text: string;
-    time: number;
+  text: string;
+  time: number;
 };
