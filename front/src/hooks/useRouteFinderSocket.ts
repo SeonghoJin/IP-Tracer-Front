@@ -8,7 +8,7 @@ import { isMessage, Message } from "../types/Message";
 import { useSocketStatus } from "./useRouteSocketStatus";
 import { useHop } from "./useHop";
 import { useRawMessage } from "./useRawMessage";
-import {useToast} from "./useToast";
+import { useToast } from "./useToast";
 
 export const useRouteFinderSocket = () => {
   const [socket, setSocket] = useRecoilState(routeFinderSocketState);
@@ -33,16 +33,16 @@ export const useRouteFinderSocket = () => {
           })
         );
         setSocketStatus(SocketStatus.Start);
-          toast({
-              text: `${value} 라우팅 경로를 탐색합니다.`
-          });
+        toast({
+          text: `${value} 라우팅 경로를 탐색합니다.`,
+        });
       };
 
       currentSocket.onclose = () => {
         setSocketStatus(SocketStatus.BeforeStart);
-          toast({
-              text: `라우팅 경로 탐색을 종료합니다.`
-          });
+        toast({
+          text: `라우팅 경로 탐색을 종료합니다.`,
+        });
       };
 
       currentSocket.onmessage = (msg: MessageEvent) => {

@@ -12,6 +12,7 @@ import OptionTerminalHeader from "../OptionTerminalHeader";
 import OptionTerminalBody from "../OptionTerminalBody";
 import { OptionTerminalViewTypes } from "../../constants";
 import { useOptionTerminalPosition } from "../../hooks/useOptionTerminalPosition";
+import OptionTerminalGuide from "../OptionTerminalGuide";
 import style from "./OptionTerminal.module.scss";
 
 function OptionTerminal() {
@@ -84,7 +85,7 @@ function OptionTerminal() {
   const position = useMemo(() => {
     if (state === "closing" || state === "close") {
       return {
-        x: '-10%',
+        x: "-10%",
         y: "50%",
       };
     }
@@ -111,6 +112,7 @@ function OptionTerminal() {
         changeViewType={changeViewType}
       />
       <OptionTerminalBody selectedView={viewType} />
+      <OptionTerminalGuide />
     </div>
   );
 }

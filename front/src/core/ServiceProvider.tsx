@@ -15,7 +15,7 @@ import {
   ITerminalStorageService,
   TerminalStorageService,
 } from "../service/TerminalStorageService";
-import {IVisitService, VisitService} from "../service/VisitService";
+import { IVisitService, VisitService } from "../service/VisitService";
 import { CommandIterator } from "./CommandIterator";
 
 const httpService: HttpService = axios.create({

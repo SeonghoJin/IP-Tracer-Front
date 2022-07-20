@@ -21,10 +21,15 @@ export const useUnsafeWaitingToasts = () => {
     notify();
   };
 
+  const removeAllToast = () => {
+    toastOptions.splice(0, toastOptions.length);
+  };
+
   return {
     insert,
     subscribe,
     toastOptions,
+    removeAllToast,
     clear,
   };
 };

@@ -7,9 +7,12 @@ type Props = {
 
 function Toast({ toastOption }: Props) {
   return (
-    <div className={style.Toast} style={{
-        width: toastOption.width ?? 'initial'
-    }}>
+    <div
+      className={style.Toast}
+      style={{
+        width: toastOption.width ?? "initial",
+      }}
+    >
       <div className={style.Toast__background}></div>
       <div className={style.Toast__text}>{toastOption.text}</div>
     </div>

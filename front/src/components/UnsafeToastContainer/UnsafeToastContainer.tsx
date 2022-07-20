@@ -3,7 +3,7 @@ import { ToastOption } from "../../types/ToastOption";
 import { sleep } from "../../util/sleep";
 import Toast from "../Toast";
 import { useUnsafeWaitingToasts } from "../../hooks/useUnsafeWaitingToasts";
-import {TOAST_TIME_INTERVAL_LONG} from "../../constants";
+import { TOAST_TIME_INTERVAL_LONG } from "../../constants";
 
 function UnsafeToastContainer() {
   const [waiting, setWaiting] = useState(false);
@@ -37,7 +37,15 @@ function UnsafeToastContainer() {
 
     setWaiting(true);
 
-    const firstToast = toastOptions.shift()!;
+    const firstToast = toastOptions.shift();
+
+    if (!firstToast) {
+      setCurrentToast(null);
+      setWaiting(false);
+      setStart(false);
+      return;
+    }
+
     setCurrentToast(firstToast);
     (async () => {
       await sleep(firstToast.time ?? TOAST_TIME_INTERVAL_LONG);

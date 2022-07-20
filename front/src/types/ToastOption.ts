@@ -1,5 +1,6 @@
 export type ToastOption = {
   text: string;
   time?: number;
-  width?: number
+  width?: number;
+  force?: boolean;
 };
