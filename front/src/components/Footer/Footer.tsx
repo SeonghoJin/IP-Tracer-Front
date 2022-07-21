@@ -46,7 +46,7 @@ function Footer() {
         toast({ text: "의견을 보내주어 감사합니다." });
         toast({ text: "더 나은 서비스를 제공하는 IPTracer가 되겠습니다." });
       } catch (e) {
-        toast({ text: "의견을 보내기가 어렵습니다." });
+        toast({ text: "서버 에러로 인해 의견을 보내기가 어렵습니다." });
       }
     }
   }, []);
@@ -67,6 +67,7 @@ function Footer() {
         <OpinionTextArea
           ref={ref}
           placeholder={"개선할 필요성이 있는 부분을 의견으로 전달해주세요!"}
+          maxLength={100}
         />
       </Modal>
       <SendEmailGuide />
