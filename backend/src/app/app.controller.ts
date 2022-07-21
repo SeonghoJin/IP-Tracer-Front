@@ -1,5 +1,6 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, Post, Res } from '@nestjs/common';
 import { AppService } from './app.service';
+import { Response } from 'express';
 
 @Controller()
 export class AppController {
@@ -9,5 +10,10 @@ export class AppController {
   async postUserFeedback(@Body('feedback') feedback) {
     const response = await this.appService.processUserFeedback(feedback);
     return response;
+  }
+
+  @Get('/ping')
+  ping(@Res() response: Response) {
+    return response.sendStatus(200);
   }
 }
