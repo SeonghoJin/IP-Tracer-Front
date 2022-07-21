@@ -1,7 +1,7 @@
 module.exports = [
   {
     script: 'dist/main.js',
-    name: 'nest-app',
+    name: 'ip-tracer',
     exec_mode: 'cluster',
     instances: 2,
   },
