@@ -1,12 +1,13 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import { useAnimationState } from "react-use-animation-state";
 
-export const OptionTerminalContext = React.createContext<{
-    setBlock: (value: boolean) => void;
-    block: boolean;
-} & ReturnType<
-  typeof useAnimationState
-> | null>(null);
+export const OptionTerminalContext = React.createContext<
+  | ({
+      setBlock: (value: boolean) => void;
+      block: boolean;
+    } & ReturnType<typeof useAnimationState>)
+  | null
+>(null);
 
 type Props = {
   children: React.ReactNode;
@@ -23,19 +24,18 @@ export function OptionTerminalProvider({ children }: Props) {
   const [block, setBlock] = useState(false);
 
   const on = () => {
-      if(block){
-          return;
-      }
-      onAnimation();
-  }
+    if (block) {
+      return;
+    }
+    onAnimation();
+  };
 
   const off = () => {
-      if(block){
-          return;
-      }
-      offAnimation();
-  }
-
+    if (block) {
+      return;
+    }
+    offAnimation();
+  };
 
   return (
     <OptionTerminalContext.Provider
@@ -43,8 +43,8 @@ export function OptionTerminalProvider({ children }: Props) {
         offAnimation: off,
         onAnimation: on,
         state,
-          setBlock,
-          block
+        setBlock,
+        block,
       }}
     >
       {children}

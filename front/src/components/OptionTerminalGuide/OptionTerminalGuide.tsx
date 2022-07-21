@@ -13,7 +13,7 @@ function OptionTerminalGuide() {
       toast({
         text: "옵션 터미널은 움직일 수 있습니다. 탭을 드래그해보세요!",
         force: true,
-        time: 10000
+        time: 10000,
       });
     }
   }, [state]);

@@ -1,7 +1,7 @@
-import {useServices} from "./useServices";
+import { useServices } from "./useServices";
 
 export const useMobileSupportService = () => {
-    const {mobileSupportService} = useServices();
+  const { mobileSupportService } = useServices();
 
-    return mobileSupportService;
-}
+  return mobileSupportService;
+};

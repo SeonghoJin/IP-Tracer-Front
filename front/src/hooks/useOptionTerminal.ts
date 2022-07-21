@@ -33,6 +33,6 @@ export const useOptionTerminal = () => {
     off,
     state,
     block,
-    setBlock
+    setBlock,
   };
 };

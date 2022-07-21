@@ -7,12 +7,17 @@ import style from "./OptionTerminalMouseGuide.module.scss";
 
 type Props = {
   terminal: HTMLDivElement;
-  mouseState: "open" | "opening" | "closing" | "close",
+  mouseState: "open" | "opening" | "closing" | "close";
   closeAnimation: () => void;
   startAnimation: () => void;
 };
 
-function OptionTerminalMouseGuide({ terminal, mouseState, closeAnimation, startAnimation }: Props) {
+function OptionTerminalMouseGuide({
+  terminal,
+  mouseState,
+  closeAnimation,
+  startAnimation,
+}: Props) {
   const [currentPosition, setCurrentPosition] = useState<{
     x: number | string;
     y: number | string;
@@ -21,7 +26,7 @@ function OptionTerminalMouseGuide({ terminal, mouseState, closeAnimation, startA
     y: "50vh",
   });
   const visitService = useVisitService();
-  const { state: optionState, setBlock} = useOptionTerminal();
+  const { state: optionState, setBlock } = useOptionTerminal();
 
   useEffect(() => {
     if (optionState !== "open") {

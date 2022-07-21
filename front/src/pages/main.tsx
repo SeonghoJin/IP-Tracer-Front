@@ -1,12 +1,12 @@
-import React, {FC, useMemo} from "react";
+import React, { FC, useMemo } from "react";
 import styled from "styled-components";
 import Footer from "../components/Footer";
 import Content from "../components/Content";
 import OptionTerminal from "../components/OptionTerminal";
 import UnsafeToastContainer from "../components/UnsafeToastContainer";
-import {useApiHealths} from "../hooks/useApiHealths";
+import { useApiHealths } from "../hooks/useApiHealths";
 import ApiHealthViewList from "../components/ApiHealthViewList";
-import {useScreenSize} from "../hooks/useScreenSize";
+import { useScreenSize } from "../hooks/useScreenSize";
 import MobileAlarm from "../components/MobileAlarm";
 
 const MainWrapper = styled.div`
@@ -29,29 +29,28 @@ const ContentLayout = styled.div`
 `;
 
 export const Main: FC = () => {
-
   const size = useScreenSize();
 
   const isMobile = useMemo(() => {
-      if(size == null){
-          return false;
-      }
-
-      if(size.width <= 800){
-          return true;
-      }
-
-      if(size.height <= 800){
-          return true;
-      }
-
+    if (size == null) {
       return false;
-  }, [size])
+    }
+
+    if (size.width <= 800) {
+      return true;
+    }
+
+    if (size.height <= 800) {
+      return true;
+    }
+
+    return false;
+  }, [size]);
 
   return (
     <MainWrapper>
-        {isMobile && <MobileAlarm/>}
-        <ApiHealthViewList/>
+      {isMobile && <MobileAlarm />}
+      <ApiHealthViewList />
       <UnsafeToastContainer />
       <OptionTerminal />
       <ContentLayout>

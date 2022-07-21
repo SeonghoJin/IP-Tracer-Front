@@ -16,7 +16,10 @@ import {
   TerminalStorageService,
 } from "../service/TerminalStorageService";
 import { IVisitService, VisitService } from "../service/VisitService";
-import {IMobileSupportService, MobileSupportService} from "../service/MobileSupportService";
+import {
+  IMobileSupportService,
+  MobileSupportService,
+} from "../service/MobileSupportService";
 import { CommandIterator } from "./CommandIterator";
 
 const httpService: HttpService = axios.create({

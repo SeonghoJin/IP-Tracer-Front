@@ -23,7 +23,7 @@ export enum OptionTerminalViewTypes {
 export const TOAST_TIME_INTERVAL_SHORT = 2000;
 export const TOAST_TIME_INTERVAL_LONG = 4000;
 export const API_NAME_MAP: Record<string, string> = {
-  'stack-api': 'STACK API',
-    'ip-api': 'IP API',
-  'geolocation-api': 'GEOLOCATION API',
+  "stack-api": "STACK API",
+  "ip-api": "IP API",
+  "geolocation-api": "GEOLOCATION API",
 };

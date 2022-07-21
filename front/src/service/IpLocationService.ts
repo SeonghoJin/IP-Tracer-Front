@@ -38,7 +38,9 @@ export class IpLocationService implements IIpLocationService {
   getApiHealths = async () => {
     const response = await poolingWhileFulfilled(
       async () => {
-        const response = await this.httpService.get<ApiHealth[]>("/ip-lookup/api/health");
+        const response = await this.httpService.get<ApiHealth[]>(
+          "/ip-lookup/api/health"
+        );
         return response;
       },
       {
