@@ -16,6 +16,7 @@ import {
   TerminalStorageService,
 } from "../service/TerminalStorageService";
 import { IVisitService, VisitService } from "../service/VisitService";
+import {IMobileSupportService, MobileSupportService} from "../service/MobileSupportService";
 import { CommandIterator } from "./CommandIterator";
 
 const httpService: HttpService = axios.create({
@@ -29,6 +30,7 @@ const defaultValue = {
   mapOptionStorageService: new MapOptionStorageService(),
   terminalStorageService: new TerminalStorageService(),
   visitService: new VisitService(),
+  mobileSupportService: new MobileSupportService(),
 };
 
 export const ServiceContext = React.createContext<{
@@ -38,6 +40,7 @@ export const ServiceContext = React.createContext<{
   mapOptionStorageService: IMapOptionStorageService;
   terminalStorageService: ITerminalStorageService;
   visitService: IVisitService;
+  mobileSupportService: IMobileSupportService;
 }>(defaultValue);
 
 type Props = {

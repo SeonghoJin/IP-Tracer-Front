@@ -13,6 +13,7 @@ const MainPageLayout = styled.div`
 `;
 
 function App() {
+
   return (
     <div className={style.App}>
       <ServiceProvider>

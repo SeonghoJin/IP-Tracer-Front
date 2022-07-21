@@ -1,0 +1,67 @@
+.MobileAlarmContent {
+  width: 500px;
+  height: 250px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+
+  &__map {
+    width: 400px;
+    height: 250px;
+    overflow: hidden;
+  }
+
+  &__input_group {
+    width: 100px;
+    height: 200px;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__input {
+    width: 200px;
+    height: 25px;
+    display: flex;
+    font-size: 16px;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
+
+.InputDotType {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  &__shape {
+    width: 20px;
+    height: 20px;
+    border: 1px solid white;
+    transition: border-radius 400ms;
+    background-color: white;
+    cursor: pointer;
+
+    &--rectangular {
+      border-radius: 0;
+    }
+
+    &--circle {
+      border-radius: 50%;
+    }
+  }
+
+  &__wrapper {
+    width: 130px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
