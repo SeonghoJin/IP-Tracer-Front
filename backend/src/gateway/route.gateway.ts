@@ -8,11 +8,11 @@ import {
 } from '@nestjs/websockets';
 import { iptrace } from 'ip-trace';
 import { WebSocket } from 'ws';
-import { Logger, UseInterceptors } from '@nestjs/common';
+import { UseInterceptors } from '@nestjs/common';
 import { LogInterceptor } from '../interceptor/log.interceptor';
 
 @UseInterceptors(LogInterceptor)
-@WebSocketGateway()
+@WebSocketGateway(8090)
 export class RouteGateway implements OnGatewayConnection, OnGatewayDisconnect {
   handleDisconnect(client: any) {
     console.debug('someone disconnect');
