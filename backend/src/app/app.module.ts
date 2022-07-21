@@ -13,6 +13,8 @@ import { IpLocationApiConfig } from '../config/api/ip-location-api.config';
 import { IpLookupModule } from '../ip-lookup/ip-lookup.module';
 import { FeedBackConfig } from '../config/feedback.config';
 import { AppLoggerMiddleware } from 'src/middleware/AppLogger.middleware';
+import {LookupApiStatusEntity} from "../lookup-api/entities/lookup-api-status.entity";
+import {IpLocation} from "../ip-lookup/entities/ip-location.entity";
 
 @Module({
   imports: [
@@ -58,7 +60,7 @@ import { AppLoggerMiddleware } from 'src/middleware/AppLogger.middleware';
           username: config.username,
           database: config.database,
           password: config.password,
-          entities: [__dirname + '/../../**/*.entity.{js,ts}'],
+          entities: [LookupApiStatusEntity, IpLocation],
           synchronize: true,
           logging: true,
         };
