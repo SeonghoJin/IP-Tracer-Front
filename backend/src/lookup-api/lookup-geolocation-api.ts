@@ -19,7 +19,7 @@ import { LookupApiStatus } from './lookup-api-status';
 import { LookupApiName } from './lookup-api-name';
 import { IpGeolocationError } from './error/ipgeolocation-error';
 import { InjectRepository } from '@nestjs/typeorm';
-import { LookupApiStatusEntity } from '../ip-lookup/entities/lookup-api-status.entity';
+import { LookupApiStatusEntity } from './entities/lookup-api-status.entity';
 import { Repository } from 'typeorm';
 
 @Injectable()

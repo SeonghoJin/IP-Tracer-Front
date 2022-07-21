@@ -16,7 +16,7 @@ import { LookupApiStatus } from './lookup-api-status';
 import { IpApiError } from './error/ipapi-error';
 import { LookupApiName } from './lookup-api-name';
 import { InjectRepository } from '@nestjs/typeorm';
-import { LookupApiStatusEntity } from '../ip-lookup/entities/lookup-api-status.entity';
+import { LookupApiStatusEntity } from './entities/lookup-api-status.entity';
 import { Repository } from 'typeorm';
 
 @Injectable()

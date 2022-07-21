@@ -19,7 +19,7 @@ import { LookupApiStatus } from './lookup-api-status';
 import { LookupApiName } from './lookup-api-name';
 import { IpStackError } from './error/ipstack-error';
 import { InjectRepository } from '@nestjs/typeorm';
-import { LookupApiStatusEntity } from '../ip-lookup/entities/lookup-api-status.entity';
+import { LookupApiStatusEntity } from './entities/lookup-api-status.entity';
 import { Repository } from 'typeorm';
 
 @Injectable()

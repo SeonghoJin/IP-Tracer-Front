@@ -5,7 +5,7 @@ import {
 } from '@nestjs/common';
 import { IpLocationResponseDto } from './dto/ip-location.response.dto';
 import { Repository } from 'typeorm';
-import { LookupApiStatusEntity } from './entities/lookup-api-status.entity';
+import { LookupApiStatusEntity } from '../lookup-api/entities/lookup-api-status.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { LookupApiName } from '../lookup-api/lookup-api-name';
 import { LookupApiService } from '../lookup-api/lookup-api.service';

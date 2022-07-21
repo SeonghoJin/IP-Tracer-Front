@@ -6,7 +6,7 @@ import { IpLocationApiConfig } from '../config/api/ip-location-api.config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { LookupApiModule } from '../lookup-api/lookup-api.module';
 import { IpLocation } from './entities/ip-location.entity';
-import { LookupApiStatusEntity } from './entities/lookup-api-status.entity';
+import { LookupApiStatusEntity } from '../lookup-api/entities/lookup-api-status.entity';
 
 @Module({
   imports: [
