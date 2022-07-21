@@ -2,7 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { INestApplication } from '@nestjs/common';
 import { AppModule } from '../src/app/app.module';
 import { getConnectionOptions, Repository } from 'typeorm';
-import { LookupApiStatusEntity } from '../src/ip-lookup/entities/lookup-api-status.entity';
+import { LookupApiStatusEntity } from '../src/lookup-api/entities/lookup-api-status.entity';
 import { IpLocation } from '../src/ip-lookup/entities/ip-location.entity';
 import { getRepositoryToken } from '@nestjs/typeorm';
 
