@@ -8,7 +8,7 @@ export const useOptionTerminal = () => {
     throw new Error("not defined optionTerminal Context");
   }
 
-  const { state, offAnimation, onAnimation } = context;
+  const { state, offAnimation, onAnimation, block, setBlock } = context;
 
   const toggle = useCallback(() => {
     if (state === "open" || state === "opening") {
@@ -17,20 +17,22 @@ export const useOptionTerminal = () => {
     }
 
     onAnimation();
-  }, [onAnimation, offAnimation]);
+  }, [onAnimation, offAnimation, block]);
 
   const off = useCallback(() => {
     offAnimation();
-  }, [offAnimation]);
+  }, [offAnimation, block]);
 
   const on = useCallback(() => {
     onAnimation();
-  }, [onAnimation]);
+  }, [onAnimation, block]);
 
   return {
     toggle,
     on,
     off,
     state,
+    block,
+    setBlock
   };
 };

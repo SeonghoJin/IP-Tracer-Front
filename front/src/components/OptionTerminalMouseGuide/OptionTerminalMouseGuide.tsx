@@ -21,7 +21,7 @@ function OptionTerminalMouseGuide({ terminal, mouseState, closeAnimation, startA
     y: "50vh",
   });
   const visitService = useVisitService();
-  const { state: optionState } = useOptionTerminal();
+  const { state: optionState, setBlock} = useOptionTerminal();
 
   useEffect(() => {
     if (optionState !== "open") {
@@ -33,6 +33,7 @@ function OptionTerminalMouseGuide({ terminal, mouseState, closeAnimation, startA
     }
 
     startAnimation();
+    setBlock(true);
   }, [optionState]);
 
   useEffect(() => {
@@ -67,6 +68,7 @@ function OptionTerminalMouseGuide({ terminal, mouseState, closeAnimation, startA
         });
         await sleep(2000);
         closeAnimation();
+        setBlock(false);
       })();
     }
   }, [mouseState]);
