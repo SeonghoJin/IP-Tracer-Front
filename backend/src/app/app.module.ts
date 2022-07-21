@@ -35,7 +35,7 @@ import { AppLoggerMiddleware } from 'src/middleware/AppLogger.middleware';
     }),
     ConfigModule.forRoot({
       envFilePath:
-        process.env.NODE_ENV === 'development' ? '.env.dev' : '.env.test',
+        process.env.NODE_ENV === 'development' ? '.env.dev' : '.env.production',
       load: [
         AppConfig,
         EmailConfig,
