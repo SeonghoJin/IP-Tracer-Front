@@ -8,7 +8,7 @@ export class EmailService implements IEmailService {
   constructor(private httpService: HttpService) {}
 
   sendEmail = async (feedback: string) => {
-    await this.httpService.post("/user-feedback", {
+    await this.httpService.post("api/user-feedback", {
       feedback,
     });
   };

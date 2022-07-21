@@ -16,7 +16,7 @@ export class IpLocationService implements IIpLocationService {
     const response = await poolingWhileFulfilled(
       async () => {
         const response = await this.httpService.get<Location>(
-          `/ip-lookup/location/${ip}`
+          `api/ip-lookup/location/${ip}`
         );
         return response;
       },
@@ -39,7 +39,7 @@ export class IpLocationService implements IIpLocationService {
     const response = await poolingWhileFulfilled(
       async () => {
         const response = await this.httpService.get<ApiHealth[]>(
-          "/ip-lookup/api/health"
+          "api/ip-lookup/health"
         );
         return response;
       },
