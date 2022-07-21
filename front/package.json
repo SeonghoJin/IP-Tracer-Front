@@ -37,7 +37,6 @@
     "typescript": "^4.4.4",
     "web-vitals": "^1.1.2"
   },
-  "homepage": "https://seonghojin.github.io/IP-Tracer-Front/",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
