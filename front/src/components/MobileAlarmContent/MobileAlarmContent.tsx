@@ -33,13 +33,11 @@ function MobileAlarmContent() {
     <div className={style.MobileAlarmContent}>
       <ReactDotMap
         className={style.MobileAlarmContent__map}
-        anchors={[]}
-        lines={[]}
-        options={{
-          dotType: mapDotType,
-          pixelSize: mapPixelSize,
-          gapSize: mapGapSize,
-        }}
+        backgroundColor={'black'}
+        pixelColor={'white'}
+        dotType={mapDotType}
+        pixelSize={mapPixelSize}
+        gapSize={mapGapSize}
       />
       <div className={style.MobileAlarmContent__input_group}>
         <div className={style.MobileAlarmContent__input}>

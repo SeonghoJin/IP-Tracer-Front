@@ -39,7 +39,7 @@ export const Main: FC = () => {
       return true;
     }
 
-    if (size.height <= 800) {
+    if (size.height <= 500) {
       return true;
     }
 
