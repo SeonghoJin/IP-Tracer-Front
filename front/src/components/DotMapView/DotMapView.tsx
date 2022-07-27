@@ -48,13 +48,11 @@ function DotMapView({ locations }: Props) {
     <ReactDotMap
       anchors={anchors}
       lines={lines}
-      options={{
-        pixelColor,
-        backgroundColor,
-        pixelSize: mapPixelSize,
-        gapSize: mapGapSize,
-        dotType: mapDotType,
-      }}
+      pixelColor={pixelColor}
+      backgroundColor={backgroundColor}
+      gapSize={mapGapSize}
+      dotType={mapDotType}
+      pixelSize={mapPixelSize}
       className={style.DotMapView}
     />
   );
