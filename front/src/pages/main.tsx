@@ -4,7 +4,6 @@ import Footer from "../components/Footer";
 import Content from "../components/Content";
 import OptionTerminal from "../components/OptionTerminal";
 import UnsafeToastContainer from "../components/UnsafeToastContainer";
-import { useApiHealths } from "../hooks/useApiHealths";
 import ApiHealthViewList from "../components/ApiHealthViewList";
 import { useScreenSize } from "../hooks/useScreenSize";
 import MobileAlarm from "../components/MobileAlarm";
@@ -40,7 +39,7 @@ export const Main: FC = () => {
       return true;
     }
 
-    if (size.height <= 800) {
+    if (size.height <= 500) {
       return true;
     }
 

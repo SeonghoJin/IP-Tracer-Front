@@ -66,7 +66,7 @@ function OptionTerminal() {
       "option-terminal-header"
     );
 
-    if ($option_terminal_header && $option_terminal_header.contains(e.target)) {
+    if ($option_terminal_header?.contains(e.target)) {
       terminal.current!.style.cursor = "grab";
       window.addEventListener("mousemove", onMouseMove as any);
     }
