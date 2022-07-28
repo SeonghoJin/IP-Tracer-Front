@@ -3,9 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@dot-map-renderer/app": "^0.0.14",
-    "@dot-map-renderer/component": "^0.0.14",
-    "@dot-map-renderer/react": "^0.0.14",
+    "@dot-map-renderer/app": "^0.0.15",
+    "@dot-map-renderer/component": "^0.0.15",
+    "@dot-map-renderer/react": "^0.0.15",
     "@emotion/react": "^11.9.3",
     "@emotion/styled": "^11.9.3",
     "@mui/icons-material": "^5.8.4",
