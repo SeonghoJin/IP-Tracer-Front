@@ -1,16 +1,11 @@
-import { RendererContext } from "@dot-map-renderer/canvas/src/RendererContext";
-import { IComponent } from "@dot-map-renderer/component/src/IComponent";
+import { Anchor } from '@dot-map-renderer/component';
 
-class CustomAnchor extends IComponent {
+class CustomAnchor extends Anchor {
 
-    path: Path2D | null;
+    path: Path2D | null = null;
 
     draw(context: CanvasRenderingContext2D): void {
-
     }
-
-    resize(renderer: RendererContext): void {
-
-    }
-
 }
+
+export default CustomAnchor;
